@@ -14,4 +14,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::view('/admin/users', 'admin.users.index')->name('admin.users');
+    Route::view('/admin/users/create', 'admin.users.create')->name('admin.users.create');
+    Route::view('/admin/users/edit/{user_id}', 'admin.users.edit')->name('admin.users.edit');
 });

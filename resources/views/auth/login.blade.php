@@ -1,7 +1,10 @@
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
-            <x-authentication-card-logo />
+            <div class="lg:w-[28rem] mx-auto my-auto flex flex-row justify-center items-center space-x-4 pt-8 md:justify-start md:px-6 md:pt-0">
+                <x-application-logo class="block h-12 w-auto" />
+                <p class="text-left text-3xl font-bold">{{ config('app.name') }}</p>
+            </div>
         </x-slot>
 
         <x-validation-errors class="mb-4" />
@@ -14,7 +17,9 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
-
+            <div class="my-4 text-center">
+                <p class="uppercase font-bold font-sans text-3xl">login</p>
+            </div>
             <div>
                 <x-label for="email" value="{{ __('Email') }}" />
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
@@ -25,23 +30,27 @@
                 <x-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
             </div>
 
-            <div class="block mt-4">
+            <div class="flex flex-row justify-between mt-4">
                 <label for="remember_me" class="flex items-center">
                     <x-checkbox id="remember_me" name="remember" />
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
-            </div>
 
-            <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
                     {{ __('Forgot your password?') }}
                 </a>
                 @endif
+            </div>
 
-                <x-button class="ms-4">
+            <div class="flex items-center justify-end mt-4">
+                <x-button class="w-full text-center">
                     {{ __('Log in') }}
                 </x-button>
+            </div>
+
+            <div class="mt-4 text-center">
+                <p class="text-sm text-gray-600">Don't have an account? <a href="{{ route('register') }}" class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Register</a></p>
             </div>
         </form>
     </x-authentication-card>

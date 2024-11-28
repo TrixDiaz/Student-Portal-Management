@@ -23,8 +23,6 @@
     <x-banner />
 
     <div class="min-h-screen bg-gray-100">
-        @livewire('navigation-menu')
-
         <!-- Page Heading -->
         @if (isset($header))
         <header class="bg-white shadow">
@@ -35,13 +33,15 @@
         @endif
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <div class="min-h-screen bg-gray-100">
+            <main class="flex flex-row ">
+                <livewire:layout.sidebar />
+                <div class="mx-auto w-full">{{ $slot }}</div>
+            </main>
+        </div>
     </div>
 
     @stack('modals')
-
     @livewireScripts
 </body>
 

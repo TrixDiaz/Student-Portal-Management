@@ -1,15 +1,60 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
+<x-admin-layout>
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
-                <x-welcome />
+        <div class="max-w-7xl mx-auto space-y-4 sm:px-6 lg:px-8">
+            <!-- Welcome Content -->
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. goldenian</h1>
+            </div>
+
+            <!-- Users Count Content -->
+            <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Accounts</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
+                        <x-application-logo class="w-20 h-20" />
+                        <h1 class="font-bold text-gray-700 text-start">Total Students <span class="text-gray-700 text-sm my-2">231</span> </h1>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
+                        <x-application-logo class="w-20 h-20" />
+                        <h1 class="font-bold text-gray-700 text-start">Total Professors <span class="text-gray-700 text-sm my-2">50</span></h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Count Content -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
+                        <x-application-logo class="w-20 h-20" />
+                        <h1 class="font-bold text-gray-700 text-start">Total staff <span class="text-gray-700 text-sm my-2">231</span> </h1>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
+                        <x-application-logo class="w-20 h-20" />
+                        <h1 class="font-bold text-gray-700 text-start">Total Department <span class="text-gray-700 text-sm my-2">50</span></h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mission and Vision -->
+            <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Mission and Vision</h1>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-lime-900 overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-start rounded-lg p-4">
+                        <p class="text-white text-start text-xl font-bold">Mission</p>
+                        <h1 class="font-bold text-white text-center">Golden Gate Colleges, as a private non-sectarian institution.</h1>
+                    </div>
+                </div>
+                <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+                    <div class="flex flex-col justify-center items-start rounded-lg p-4">
+                        <p class="text-gray-700 text-start text-xl font-bold">Vision</p>
+                        <h1 class="font-bold text-gray-700 text-center">A center of educational excellence, whose graduates are global.</h1>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>
