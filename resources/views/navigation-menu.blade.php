@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false, notificationOpen: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-full mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -10,15 +10,72 @@
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <!-- Global Search -->
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <form class="max-w-md mx-auto">
+                        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <x-icons.magnifying-glass-icon class="text-gray-500" />
+                            </div>
+                            <x-input type="text" id="search" class="block w-full ps-10 text-sm" placeholder="Search..." required />
+                        </div>
+                    </form>
+                </div>
+
+                <div class="hidden sm:flex items-center justify-center ml-4"
+                    x-data="{ time: new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Manila', hour12: false }) }"
+                    x-init="setInterval(() => time = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Manila', hour12: false }), 1000)">
+                    <p class="text-center text-gray-500">
+                        {{ now()->format('l, F j, Y') }} <span x-text="time"></span>
+                    </p>
                 </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <!-- Notification Bell for Large Screens -->
+                <div class="relative">
+                    <button @click="notificationOpen = ! notificationOpen" class="relative p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                        <span class="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
+                        <x-icons.bell-alert-icon class="size-6" />
+                    </button>
+
+                    <!-- Notification Drawer for Large Screens -->
+                    <div x-show="notificationOpen"
+                        x-transition:enter="transform transition ease-in-out duration-500"
+                        x-transition:enter-start="translate-x-full"
+                        x-transition:enter-end="translate-x-0"
+                        x-transition:leave="transform transition ease-in-out duration-500"
+                        x-transition:leave-start="translate-x-0"
+                        x-transition:leave-end="translate-x-full"
+                        @click.away="notificationOpen = false"
+                        class="fixed inset-y-0 right-0 w-96 bg-white shadow-lg p-6 overflow-y-auto z-50">
+
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-lg font-semibold">Notifications</h2>
+                            <button @click="notificationOpen = false" class="text-gray-500 hover:text-gray-700">
+                                <x-icons.mark-icon class="size-6" />
+                            </button>
+                        </div>
+
+                        <!-- Notification Items -->
+                        <div class="space-y-4">
+                            <!-- Example notification items -->
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <div class="font-semibold">New Message</div>
+                                <p class="text-sm text-gray-600">You have a new message from John Doe</p>
+                                <span class="text-xs text-gray-400">2 minutes ago</span>
+                            </div>
+
+                            <div class="p-4 bg-gray-50 rounded-lg">
+                                <div class="font-semibold">System Update</div>
+                                <p class="text-sm text-gray-600">System maintenance scheduled for tonight</p>
+                                <span class="text-xs text-gray-400">1 hour ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                 <div class="ms-3 relative">
@@ -124,7 +181,7 @@
                 </div>
             </div>
 
-            <!-- Hamburger -->
+            <!-- Hamburger and Notification Bell -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="size-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -132,6 +189,47 @@
                         <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
+
+                <!-- Notification Bell Icon -->
+                <button @click="notificationOpen = ! notificationOpen" class="relative p-2 text-gray-500 hover:text-gray-700 focus:outline-none">
+                    <span class="absolute top-2 right-2 h-2 w-2 bg-red-500 rounded-full"></span>
+                    <x-icons.bell-alert-icon class="size-6" />
+                </button>
+
+                <!-- Notification Drawer -->
+                <div x-show="notificationOpen"
+                    x-transition:enter="transform transition ease-in-out duration-500"
+                    x-transition:enter-start="translate-x-full"
+                    x-transition:enter-end="translate-x-0"
+                    x-transition:leave="transform transition ease-in-out duration-500"
+                    x-transition:leave-start="translate-x-0"
+                    x-transition:leave-end="translate-x-full"
+                    @click.away="notificationOpen = false"
+                    class="fixed inset-y-0 right-0 w-full sm:w-96 bg-white shadow-lg p-6 overflow-y-auto z-50">
+
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-lg font-semibold">Notifications</h2>
+                        <button @click="notificationOpen = false" class="text-gray-500 hover:text-gray-700">
+                            <x-icons.mark-icon class="size-6" />
+                        </button>
+                    </div>
+
+                    <!-- Notification Items -->
+                    <div class="space-y-4">
+                        <!-- Example notification items - Replace with your actual notification data -->
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <div class="font-semibold">New Message</div>
+                            <p class="text-sm text-gray-600">You have a new message from John Doe</p>
+                            <span class="text-xs text-gray-400">2 minutes ago</span>
+                        </div>
+
+                        <div class="p-4 bg-gray-50 rounded-lg">
+                            <div class="font-semibold">System Update</div>
+                            <p class="text-sm text-gray-600">System maintenance scheduled for tonight</p>
+                            <span class="text-xs text-gray-400">1 hour ago</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -139,9 +237,9 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <!-- <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </x-responsive-nav-link> -->
         </div>
 
         <!-- Responsive Settings Options -->

@@ -8,11 +8,9 @@
                     <x-icons.chevron-double-left-icon />
                 </button>
             </li>
-            <li class="flex justify-center items-center mb-4">
-                <x-application-logo class="w-12 h-12" />
-            </li>
             <li class="active">
-                <a wire:navigate href="{{ route('dashboard') }}" class="rounded-lg p-3 flex items-center gap-4 text-blue-600 hover:bg-gray-100  no-underline">
+                <a wire:navigate href="{{ route('dashboard') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('dashboard') ? 'bg-gray-200' : '' }}">
                     <x-icons.rectangle-group-icon />
                     <span class="text-gray-900">Home</span>
                 </a>
@@ -20,7 +18,8 @@
 
             <!-- Assets -->
             <li class="active">
-                <a wire:navigate href="#" class="rounded-lg p-3 flex items-center gap-4 text-blue-600 hover:bg-gray-100  no-underline">
+                <a wire:navigate href="#"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('assets.*') ? 'bg-gray-200' : '' }}">
                     <x-icons.archive-box-icon />
                     <span class="text-gray-900">Assets</span>
                     <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">5</p>
@@ -28,7 +27,8 @@
             </li>
             <!-- Category -->
             <li class="active">
-                <a wire:navigate href="#" class="rounded-lg p-3 flex items-center gap-4 text-blue-600 hover:bg-gray-100  no-underline">
+                <a wire:navigate href="#"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('categories.*') ? 'bg-gray-200' : '' }}">
                     <x-icons.tag-icon />
                     <span class="text-gray-900">Category</span>
                     <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">8</p>
@@ -36,7 +36,7 @@
             </li>
             <!-- Settings -->
             <li>
-                <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-3 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
+                <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
                     <x-icons.cog-8-tooth-icon />
                     <span class="text-gray-700 text-xs">Settings</span>
                     <x-icons.arrow-down-icon />
@@ -44,21 +44,22 @@
                 <ul class="sub-menu bg-gray-50 rounded-md  transition-[grid-template-rows] duration-300 ease-in-out group-[.show]:grid-rows-[1fr] grid-rows-[0fr]">
                     <div class="overflow-hidden">
                         <li>
-                            <a wire:navigate href="{{ route('admin.users') }}" class="rounded-lg p-3 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline">
+                            <a wire:navigate href="{{ route('admin.users') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.users') ? 'bg-gray-200' : '' }}">
                                 <x-icons.fingerprint-icon />
                                 <span class="text-gray-900">Users</span>
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">5</p>
                             </a>
                         </li>
                         <li>
-                            <a wire:navigate href="#" class="rounded-lg p-3 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
+                            <a wire:navigate href="#" class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
                                 <x-icons.key-icon />
                                 <span class="text-gray-900">Roles</span>
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">10</p>
                             </a>
                         </li>
                         <li>
-                            <a wire:navigate href="{{ route('profile.show') }}" class="rounded-lg p-3 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
+                            <a wire:navigate href="{{ route('profile.show') }}" class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
                                 <span class="text-gray-900">Profile</span>
                             </a>
                         </li>
