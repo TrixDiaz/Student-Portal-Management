@@ -68,8 +68,7 @@
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <div x-data="{ open: false, archiveStatus: 'Active', role: 'All' }" class="relative">
-                                <x-secondary-button @click="open = !open"
-                                    class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                <x-secondary-button @click="open = !open">
                                     <x-icons.funnel-icon class="w-5 h-5 mr-2 text-gray-400" />
                                     Filter
                                     <x-icons.chevron-right-icon
@@ -85,12 +84,13 @@
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="opacity-100 scale-100"
                                     x-transition:leave-end="opacity-0 scale-95"
-                                    class="absolute right-0 mt-2 w-48 p-3 bg-white rounded-lg shadow-lg">
+                                    class="absolute right-0 mt-2 w-48 p-3 z-10 bg-white rounded-lg shadow-lg">
 
                                     <!-- Archive Status Filter -->
                                     <div class="mb-4">
                                         <h6 class="mb-2 text-sm font-medium text-gray-900">Archive Status</h6>
                                         <select wire:model.live="archiveStatus"
+                                            @change="open = false"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2">
                                             <option value="Active">Active</option>
                                             <option value="Archived">Archived</option>
@@ -101,6 +101,7 @@
                                     <div>
                                         <h6 class="mb-2 text-sm font-medium text-gray-900">Role</h6>
                                         <select wire:model.live="role"
+                                            @change="open = false"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2">
                                             <option value="All">All Roles</option>
                                             <option value="Admin">Admin</option>
@@ -139,7 +140,9 @@
                                                 <path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
                                             </svg>
                                         </button>
-                                        <div x-show="open" @click.away="open = false" class="absolute z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow">
+                                        <div x-show="open" @click.away="open = false" class="absolute z-10 w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow">
+                                            @if($user->deleted_at === null)
+
                                             <ul class="py-1 text-sm text-gray-700">
                                                 <li>
                                                     <a wire:navigate href="{{ route('admin.users.edit', $user->id) }}" class="block py-2 px-4 hover:bg-gray-100">Edit</a>
@@ -148,6 +151,15 @@
                                             <div class="py-1">
                                                 <button @click="$dispatch('open-modal', { id: {{ $user->id }} })" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-gray-100">Delete</button>
                                             </div>
+                                            @endif
+                                            @if($user->deleted_at !== null)
+                                            <div class="py-1">
+                                                <button @click="$dispatch('restore-user', { id: {{ $user->id }} })" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Restore</button>
+                                            </div>
+                                            <div class="py-1">
+                                                <button @click="$dispatch('force-delete-user', { id: {{ $user->id }} })" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-gray-100">Permanently Delete</button>
+                                            </div>
+                                            @endif
                                         </div>
                                     </div>
                                 </td>
@@ -189,6 +201,60 @@
                         </button>
                         <button @click="$wire.deleteUser(userId); showModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Restore -->
+    <div x-data="{ showRestoreModal: false, userId: null }"
+        @restore-user.window="showRestoreModal = true; userId = $event.detail.id"
+        x-show="showRestoreModal"
+        class="fixed inset-0 z-50 overflow-y-auto"
+        style="display: none;">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showRestoreModal = false"></div>
+
+            <div class="relative bg-white rounded-lg shadow-xl max-w-lg w-full">
+                <div class="p-6">
+                    <h3 class="text-lg font-medium text-gray-900">Confirm Restoration</h3>
+                    <p class="mt-2 text-sm text-gray-500">Are you sure you want to restore this user?</p>
+
+                    <div class="mt-4 flex space-x-3">
+                        <button @click="showRestoreModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            Cancel
+                        </button>
+                        <button @click="$wire.restoreUser(userId); showRestoreModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Restore
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Force Delete -->
+    <div x-data="{ showForceDeleteModal: false, userId: null }"
+        @force-delete-user.window="showForceDeleteModal = true; userId = $event.detail.id"
+        x-show="showForceDeleteModal"
+        class="fixed inset-0 z-50 overflow-y-auto"
+        style="display: none;">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showForceDeleteModal = false"></div>
+
+            <div class="relative bg-white rounded-lg shadow-xl max-w-lg w-full">
+                <div class="p-6">
+                    <h3 class="text-lg font-medium text-gray-900">Confirm Permanent Deletion</h3>
+                    <p class="mt-2 text-sm text-gray-500">Are you sure you want to permanently delete this user? This action cannot be undone.</p>
+
+                    <div class="mt-4 flex space-x-3">
+                        <button @click="showForceDeleteModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                            Cancel
+                        </button>
+                        <button @click="$wire.forceDeleteUser(userId); showForceDeleteModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Delete Permanently
                         </button>
                     </div>
                 </div>

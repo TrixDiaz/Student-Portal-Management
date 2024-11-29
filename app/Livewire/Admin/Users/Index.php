@@ -21,6 +21,22 @@ class Index extends Component
         toastr()->info('User ' . $user->name . ' has been deleted successfully!');
     }
 
+    public function restoreUser($id)
+    {
+        $user = User::withTrashed()->find($id);
+        $user->restore();
+        toastr()->info('User ' . $user->name . ' has been restored successfully!');
+        return redirect()->back();
+    }
+
+    public function forceDeleteUser($id)
+    {
+        $user = User::withTrashed()->find($id);
+        $user->forceDelete();
+        toastr()->error('User ' . $user->name . ' has been permanently deleted!');
+        return redirect()->back();
+    }
+
     public function render()
     {
         $query = User::query()
