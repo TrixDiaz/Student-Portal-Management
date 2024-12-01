@@ -5,6 +5,7 @@ namespace App\Livewire\Layout;
 use App\Models\Building;
 use App\Models\Department;
 use App\Models\Room;
+use App\Models\Section;
 use App\Models\User;
 use Livewire\Component;
 
@@ -14,6 +15,7 @@ class Sidebar extends Component
     public $departmentsCount;
     public $buildingsCount;
     public $roomsCount;
+    public $sectionsCount;
 
     public function mount()
     {
@@ -21,6 +23,7 @@ class Sidebar extends Component
         $this->departmentsCount = Department::count();
         $this->buildingsCount = Building::count();
         $this->roomsCount = Room::count();
+        $this->sectionsCount = Section::count();
     }
 
     public function render()

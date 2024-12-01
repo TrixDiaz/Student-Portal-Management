@@ -46,6 +46,16 @@
                 </a>
             </li>
 
+            <!-- Sections -->
+            <li class="active">
+                <a wire:navigate href="{{ route('admin.sections') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.sections') ? 'bg-gray-200' : '' }}">
+                    <x-icons.tag-icon />
+                    <span class="text-gray-900">Sections</span>
+                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $sectionsCount }}</p>
+                </a>
+            </li>
+
             <!-- Settings -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">

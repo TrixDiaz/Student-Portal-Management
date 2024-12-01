@@ -39,4 +39,9 @@ Route::middleware([
     Route::view('/admin/rooms', 'admin.rooms.index')->name('admin.rooms');
     Route::view('/admin/rooms/create', 'admin.rooms.create')->name('admin.rooms.create');
     Route::view('/admin/rooms/edit/{room_id}', 'admin.rooms.edit')->name('admin.rooms.edit');
+
+    // Sections
+    Route::view('/admin/sections', 'admin.section.index')->name('admin.sections');
+    Route::view('/admin/sections/create', 'admin.section.create')->name('admin.sections.create');
+    Route::view('/admin/sections/edit/{section_id}', 'admin.section.edit')->name('admin.sections.edit');
 });
