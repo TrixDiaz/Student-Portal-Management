@@ -25,15 +25,27 @@
                     <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $departmentsCount }}</p>
                 </a>
             </li>
+
             <!-- Buildings -->
             <li class="active">
                 <a wire:navigate href="{{ route('admin.buildings') }}"
                     class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.buildings') ? 'bg-gray-200' : '' }}">
-                    <x-icons.tag-icon />
+                    <x-icons.building-office-icon />
                     <span class="text-gray-900">Buildings</span>
                     <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $buildingsCount }}</p>
                 </a>
             </li>
+
+            <!-- Rooms -->
+            <li class="active">
+                <a wire:navigate href="{{ route('admin.rooms') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.rooms') ? 'bg-gray-200' : '' }}">
+                    <x-icons.building-library-icon />
+                    <span class="text-gray-900">Rooms</span>
+                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $roomsCount }}</p>
+                </a>
+            </li>
+
             <!-- Settings -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
