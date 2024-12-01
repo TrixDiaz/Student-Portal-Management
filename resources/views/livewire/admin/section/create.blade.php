@@ -38,7 +38,7 @@
 
                         <!-- Room -->
                         <div>
-                            <x-label class="text-sm/6 text-gray-900 " for="room_id">Room</x-label>
+                            <x-label class="text-sm/6 text-gray-900" for="room_id">Room</x-label>
                             <div class="mt-2.5">
                                 <select wire:model="room_id" name="room_id" id="room_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
                                     <option value="">Select Room</option>
@@ -49,11 +49,31 @@
                             </div>
                         </div>
 
+                        <!-- Existing Section Times -->
+                        @if(count($existingSections) > 0)
+                        <div class="sm:col-span-2">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <h3 class="text-sm font-semibold text-gray-900 mb-2">Existing Section Times in This Room:</h3>
+                                <div class="space-y-2">
+                                    @foreach($existingSections as $section)
+                                    <div class="flex items-center text-sm text-gray-600 bg-white p-2 rounded">
+                                        <span class="font-medium">{{ $section['name'] }}:</span>
+                                        <span class="ml-2">{{ $section['start_date'] }} to {{ $section['end_date'] }}</span>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+
                         <!-- Start Date -->
                         <div>
                             <x-label class="text-sm/6 text-gray-900 " for="start_date">Start Date</x-label>
                             <div class="mt-2.5">
                                 <x-input type="datetime-local" wire:model="start_date" name="start_date" id="start_date" autocomplete="start_date" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                                @error('start_date')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
@@ -62,6 +82,9 @@
                             <x-label class="text-sm/6 text-gray-900 " for="end_date">End Date</x-label>
                             <div class="mt-2.5">
                                 <x-input type="datetime-local" wire:model="end_date" name="end_date" id="end_date" autocomplete="end_date" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                                @error('end_date')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 
