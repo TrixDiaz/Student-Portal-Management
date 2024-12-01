@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li>
-                            <a wire:navigate href="{{ route('admin.roles') }}" class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
+                            <a wire:navigate href="{{ route('admin.roles') }}" class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline {{ request()->routeIs('admin.roles') ? 'bg-gray-200' : '' }}">
                                 <x-icons.key-icon />
                                 <span class="text-gray-900">Roles</span>
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">10</p>

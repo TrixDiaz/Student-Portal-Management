@@ -5,7 +5,7 @@
             <nav class="flex" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
                     <li class="inline-flex items-center">
-                        <a href="#" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
+                        <a href="{{ route('admin.users') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
                             Users
                         </a>
                     </li>
@@ -21,9 +21,9 @@
             <div class="flex flex-row justify-between items-center">
                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Users</h1>
                 <a wire:navigate href="{{ route('admin.users.create') }}">
-                    <x-secondary-button class="bg-lime-900 text-white">
-                        <x-icons.plus-icon class="w-5 h-5 me-2.5" />
-                        Add User
+                    <x-secondary-button class="bg-lime-900 text-white flex flex-row items-center justify-between mx-1">
+                        <x-icons.plus-icon class="w-5 h-5 mr-1" />
+                        <span>Add User</span>
                     </x-secondary-button>
                 </a>
             </div>
@@ -36,7 +36,7 @@
                     <span class="text-sm text-gray-600 font-semibold">Active filters:</span>
                     @if($archiveStatus !== 'Active')
                     <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
-                        Status: {{ $archiveStatus }}
+                        <span>Status: {{ $archiveStatus }}</span>
                         <button wire:click="$set('archiveStatus', 'Active')" class="ml-1 text-gray-500 hover:text-gray-700">
                             <x-icons.mark-icon class="w-3 h-3" />
                         </button>
@@ -44,7 +44,7 @@
                     @endif
                     @if($role !== 'All')
                     <span class="inline-flex items-center px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
-                        Role: {{ $role }}
+                        <span>Role: {{ $role }}</span>
                         <button wire:click="$set('role', 'All')" class="ml-1 text-gray-500 hover:text-gray-700">
                             <x-icons.mark-icon class="w-3 h-3" />
                         </button>
@@ -68,9 +68,9 @@
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <div class="flex items-center space-x-3 w-full md:w-auto">
                             <div x-data="{ open: false, archiveStatus: 'Active', role: 'All' }" class="relative">
-                                <x-secondary-button @click="open = !open">
+                                <x-secondary-button @click="open = !open" class="flex flex-row space-x-0.5">
                                     <x-icons.funnel-icon class="w-5 h-5 mr-2 text-gray-400" />
-                                    Filter
+                                    <span>Filter</span>
                                     <x-icons.chevron-right-icon
                                         class="w-5 h-5 ml-2 text-gray-400 transition-transform duration-200"
                                         ::class="open ? 'rotate-90' : ''" />
@@ -84,11 +84,17 @@
                                     x-transition:leave="transition ease-in duration-75"
                                     x-transition:leave-start="opacity-100 scale-100"
                                     x-transition:leave-end="opacity-0 scale-95"
-                                    class="absolute right-0 mt-2 w-48 p-3 z-10 bg-white rounded-lg shadow-lg">
+                                    class="absolute mt-2 w-64 p-3 z-[100] bg-white rounded-lg shadow-lg mr-4"
+                                    :class="[
+                                        window.innerWidth >= 768 
+                                            ? 'right-0' 
+                                            : 'left-0 right-0 mx-auto'
+                                    ]"
+                                    style="min-width: max-content; position: fixed; transform: translateY(5%);">
 
                                     <!-- Archive Status Filter -->
                                     <div class="mb-4">
-                                        <h6 class="mb-2 text-sm font-medium text-gray-900">Archive Status</h6>
+                                        <h6 class="mb-2 text-sm font-medium text-gray-900 whitespace-normal">Archive Status</h6>
                                         <select wire:model.live="archiveStatus"
                                             @change="open = false"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2">
@@ -99,14 +105,14 @@
 
                                     <!-- Role Filter -->
                                     <div>
-                                        <h6 class="mb-2 text-sm font-medium text-gray-900">Role</h6>
+                                        <h6 class="mb-2 text-sm font-medium text-gray-900 whitespace-normal">Role</h6>
                                         <select wire:model.live="role"
                                             @change="open = false"
                                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2">
                                             <option value="All">All Roles</option>
-                                            <option value="Admin">Admin</option>
-                                            <option value="User">User</option>
-                                            <option value="Editor">Editor</option>
+                                            @foreach($roles as $roleOption)
+                                            <option class="capitalize" value="{{ $roleOption->name }}">{{ $roleOption->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -131,7 +137,17 @@
                             <tr wire:key="{{ $user->id }}" class="border-b">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $user->name }}</th>
                                 <td class="px-4 py-3">{{ $user->email }}</td>
-                                <td class="px-4 py-3">{{ $user->role }}</td>
+                                <td class="px-4 py-3 capitalize">
+                                    @if($user->roles->pluck('name')->isEmpty())
+                                    Not assigned
+                                    @else
+                                    <ul class="list-disc pl-5">
+                                        @foreach ($user->roles->pluck('name') as $role)
+                                        <li class="capitalize">{{ $role }}</li>
+                                        @endforeach
+                                    </ul>
+                                    @endif
+                                </td>
                                 <td class="px-4 py-3">{{ $user->status }}</td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <div x-data="{ open: false }">

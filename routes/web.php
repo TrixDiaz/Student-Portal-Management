@@ -22,4 +22,6 @@ Route::middleware([
 
     // Roles
     Route::view('/admin/roles', 'admin.roles.index')->name('admin.roles');
+    Route::view('/admin/roles/create', 'admin.roles.create')->name('admin.roles.create');
+    Route::view('/admin/roles/edit/{role_id}', 'admin.roles.edit')->name('admin.roles.edit');
 });

@@ -9,7 +9,7 @@
         </div>
         <!-- Livewire component -->
         <div x-show="!loading">
-            <livewire:admin.roles.index />
+            <livewire:admin.roles.create />
         </div>
     </div>
 </x-admin-layout>

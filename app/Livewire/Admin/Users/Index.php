@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users;
 use Livewire\Component;
 use App\Models\User;
 use Livewire\WithPagination;
+use App\Models\Role;
 
 class Index extends Component
 {
@@ -13,6 +14,12 @@ class Index extends Component
     public $search = '';
     public $archiveStatus = 'Active';
     public $role = 'All';
+    public $roles;
+
+    public function mount()
+    {
+        $this->roles = Role::all();
+    }
 
     public function deleteUser($id)
     {
@@ -51,7 +58,9 @@ class Index extends Component
 
         // Filter by role
         if ($this->role !== 'All') {
-            $query->where('role', $this->role);
+            $query->whereHas('roles', function ($query) {
+                $query->where('name', $this->role);
+            });
         }
 
         return view('livewire.admin.users.index', [
