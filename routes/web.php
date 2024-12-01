@@ -26,7 +26,12 @@ Route::middleware([
     Route::view('/admin/roles/edit/{role_id}', 'admin.roles.edit')->name('admin.roles.edit');
 
     // Departments
-    Route::view('/admin/departments', 'admin.department.index')->name('admin.departments');
-    Route::view('/admin/departments/create', 'admin.department.create')->name('admin.departments.create');
-    Route::view('/admin/departments/edit/{department_id}', 'admin.department.edit')->name('admin.departments.edit');
+    Route::view('/admin/departments', 'admin.departments.index')->name('admin.departments');
+    Route::view('/admin/departments/create', 'admin.departments.create')->name('admin.departments.create');
+    Route::view('/admin/departments/edit/{department_id}', 'admin.departments.edit')->name('admin.departments.edit');
+
+    // Buildings
+    Route::view('/admin/buildings', 'admin.buildings.index')->name('admin.buildings');
+    Route::view('/admin/buildings/create', 'admin.buildings.create')->name('admin.buildings.create');
+    Route::view('/admin/buildings/edit/{building_id}', 'admin.buildings.edit')->name('admin.buildings.edit');
 });

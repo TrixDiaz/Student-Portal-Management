@@ -25,13 +25,13 @@
                     <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $departmentsCount }}</p>
                 </a>
             </li>
-            <!-- Category -->
+            <!-- Buildings -->
             <li class="active">
-                <a wire:navigate href="#"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('categories.*') ? 'bg-gray-200' : '' }}">
+                <a wire:navigate href="{{ route('admin.buildings') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.buildings') ? 'bg-gray-200' : '' }}">
                     <x-icons.tag-icon />
-                    <span class="text-gray-900">Category</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">8</p>
+                    <span class="text-gray-900">Buildings</span>
+                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $buildingsCount }}</p>
                 </a>
             </li>
             <!-- Settings -->

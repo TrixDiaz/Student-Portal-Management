@@ -34,7 +34,6 @@ class Create extends Component
             $department->users()->sync($this->selectedTeachers);
         }
 
-
         Notification::send(Auth::user(), new CreateDepartment($department));
         toastr()->success('Department created successfully');
         return redirect()->route('admin.departments');
