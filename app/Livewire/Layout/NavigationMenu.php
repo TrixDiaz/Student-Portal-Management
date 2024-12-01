@@ -33,6 +33,13 @@ class NavigationMenu extends Component
         return redirect($url);
     }
 
+    public function deleteNotification($id)
+    {
+        $notification = Auth::user()->notifications()->findOrFail($id);
+        $notification->delete();
+        return redirect()->back();
+    }
+
     public function mount()
     {
         $this->notifications = Auth::user()->notifications;

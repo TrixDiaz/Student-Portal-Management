@@ -15,7 +15,11 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    // Users
     Route::view('/admin/users', 'admin.users.index')->name('admin.users');
     Route::view('/admin/users/create', 'admin.users.create')->name('admin.users.create');
     Route::view('/admin/users/edit/{user_id}', 'admin.users.edit')->name('admin.users.edit');
+
+    // Roles
+    Route::view('/admin/roles', 'admin.roles.index')->name('admin.roles');
 });

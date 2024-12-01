@@ -74,10 +74,12 @@
                         <!-- Notification Items -->
                         <div wire:poll.5s class="space-y-4">
                             @forelse ($notifications as $notification)
-                            <div wire:click="readNotification('{{ $notification->id }}')" class="p-4 bg-gray-50 hover:bg-gray-200 rounded-lg flex flex-col justify-between space-y-2 cursor-pointer">
+                            <div wire:click="readNotification('{{ $notification->id }}')" class="p-4 z-0 bg-gray-50 hover:bg-gray-200 rounded-lg flex flex-col justify-between space-y-2 cursor-pointer">
                                 <div class="font-semibold flex flex-row justify-between gap-2">
                                     <p>{{ $notification->data['message'] }}</p>
-                                    <x-icons.mark-icon wire:click.stop="deleteNotification({{ $notification->id }})" class="size-4 mt-1 cursor-pointer" />
+                                    <x-icons.mark-icon
+                                        wire:click.stop="deleteNotification('{{ $notification->id }}')"
+                                        class="size-4 mt-1 z-10 cursor-pointer" />
                                 </div>
                                 <div class="flex flex-row gap-2">
                                     <span class="text-xs text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
