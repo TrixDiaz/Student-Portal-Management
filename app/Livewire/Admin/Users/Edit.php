@@ -2,18 +2,25 @@
 
 namespace App\Livewire\Admin\Users;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Edit extends Component
 {
-    public $email, $name, $password, $user_id;
+    public $email, $name, $password, $user_id, $roles, $selectedRoles;
 
     public function mount($user_id)
     {
         $this->user_id = $user_id;
         $this->loadUserData();
+        $this->loadRolesData();
+    }
+
+    public function loadRolesData()
+    {
+        $this->roles = Role::all();
     }
 
     public function loadUserData()
@@ -44,9 +51,13 @@ class Edit extends Component
                 'password' => Hash::make($this->password),
             ]);
 
+            if ($this->selectedRoles) {
+                $validated->roles()->sync($this->selectedRoles);
+            }
+
 
             toastr()->success('User updated successfully!');
-            return redirect()->back();
+            return redirect()->route('admin.users');
         }
     }
 

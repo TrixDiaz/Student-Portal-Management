@@ -24,4 +24,9 @@ Route::middleware([
     Route::view('/admin/roles', 'admin.roles.index')->name('admin.roles');
     Route::view('/admin/roles/create', 'admin.roles.create')->name('admin.roles.create');
     Route::view('/admin/roles/edit/{role_id}', 'admin.roles.edit')->name('admin.roles.edit');
+
+    // Departments
+    Route::view('/admin/departments', 'admin.department.index')->name('admin.departments');
+    Route::view('/admin/departments/create', 'admin.department.create')->name('admin.departments.create');
+    Route::view('/admin/departments/edit/{department_id}', 'admin.department.edit')->name('admin.departments.edit');
 });

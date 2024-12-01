@@ -29,5 +29,12 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit_user', 'guard_name' => 'web', 'group_by' => 2]);
         Permission::create(['name' => 'delete_user', 'guard_name' => 'web', 'group_by' => 2]);
         Permission::create(['name' => 'view_users', 'guard_name' => 'web', 'group_by' => 2]);
+
+        // Department Permissions
+        Permission::create(['name' => 'department', 'guard_name' => 'web', 'group_by' => 3]);
+        Permission::create(['name' => 'create_department', 'guard_name' => 'web', 'group_by' => 3]);
+        Permission::create(['name' => 'edit_department', 'guard_name' => 'web', 'group_by' => 3]);
+        Permission::create(['name' => 'delete_department', 'guard_name' => 'web', 'group_by' => 3]);
+        Permission::create(['name' => 'view_departments', 'guard_name' => 'web', 'group_by' => 3]);
     }
 }

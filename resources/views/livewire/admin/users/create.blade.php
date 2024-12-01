@@ -56,6 +56,22 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <!-- Roles -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="roles">Roles</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="selectedRoles" name="roles" id="roles" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Role</option>
+                                    @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('password')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
                     <div class="flex flex-row space-x-4 mt-4">
                         <x-button type="submit">Submit</x-button>

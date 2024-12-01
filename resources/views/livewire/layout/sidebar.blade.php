@@ -18,11 +18,11 @@
 
             <!-- Assets -->
             <li class="active">
-                <a wire:navigate href="#"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('assets.*') ? 'bg-gray-200' : '' }}">
+                <a wire:navigate href="{{ route('admin.departments') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.departments') ? 'bg-gray-200' : '' }}">
                     <x-icons.archive-box-icon />
-                    <span class="text-gray-900">Assets</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">5</p>
+                    <span class="text-gray-900">Departments</span>
+                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $departmentsCount }}</p>
                 </a>
             </li>
             <!-- Category -->

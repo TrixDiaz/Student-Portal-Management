@@ -13,6 +13,9 @@ class RoleSeeder extends Seeder
         // Create admin role and give it all permissions
         $permissions = Permission::all();
         $adminRole = Role::create(['name' => 'admin']);
+        Role::create(['name' => 'teacher']);
+        Role::create(['name' => 'dean']);
+        Role::create(['name' => 'student']);
         $adminRole->syncPermissions($permissions);
 
         // Create user role with basic permissions
