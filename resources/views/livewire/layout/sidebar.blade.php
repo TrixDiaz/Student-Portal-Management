@@ -48,7 +48,7 @@
                                 class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.users') ? 'bg-gray-200' : '' }}">
                                 <x-icons.fingerprint-icon />
                                 <span class="text-gray-900">Users</span>
-                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">5</p>
+                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $usersCount }}</p>
                             </a>
                         </li>
                         <li>
