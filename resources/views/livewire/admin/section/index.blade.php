@@ -104,6 +104,9 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Name</th>
+                                <th scope="col" class="px-4 py-3">Room</th>
+                                <th scope="col" class="px-4 py-3">Start Date</th>
+                                <th scope="col" class="px-4 py-3">End Date</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>
@@ -113,7 +116,23 @@
                             @forelse ($sections as $section)
                             <tr wire:key="{{ $section->id }}" class="border-b">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $section->name }}</th>
-                                <td class="px-4 py-3">{{ $section->status }}</td>
+                                <td class="px-4 py-3">{{ optional($section->roomSection)->room?->name ?? 'No Room Assigned' }}</td>
+                                <td class="px-4 py-3">
+                                    @if(optional($section->roomSection)->start_date)
+                                    <div>{{ optional($section->roomSection)->start_date?->format('M d, Y') }}</div>
+                                    <div class="text-xs text-gray-500">{{ optional($section->roomSection)->start_date?->format('h:i A') }}</div>
+                                    @else
+                                    -
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
+                                    @if(optional($section->roomSection)->end_date)
+                                    <div>{{ optional($section->roomSection)->end_date?->format('M d, Y') }}</div>
+                                    <div class="text-xs text-gray-500">{{ optional($section->roomSection)->end_date?->format('h:i A') }}</div>
+                                    @else
+                                    -
+                                    @endif
+                                </td>
                                 <td class="px-4 py-3 flex items-center justify-end">
                                     <div x-data="{ open: false }">
                                         <button @click="open = !open" class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none" type="button">

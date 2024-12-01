@@ -36,6 +36,35 @@
                             </div>
                         </div>
 
+                        <!-- Room -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="room_id">Room</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="room_id" name="room_id" id="room_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Room</option>
+                                    @foreach ($rooms as $room)
+                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Start Date -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="start_date">Start Date</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="datetime-local" wire:model="start_date" name="start_date" id="start_date" autocomplete="start_date" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+                        <!-- End Date -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="end_date">End Date</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="datetime-local" wire:model="end_date" name="end_date" id="end_date" autocomplete="end_date" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
                     </div>
                     <div class="flex flex-row space-x-4 mt-4">
                         <x-button type="submit">Submit</x-button>

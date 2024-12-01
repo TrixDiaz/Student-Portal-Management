@@ -16,4 +16,9 @@ class Section extends Model
     {
         return $this->belongsToMany(Room::class);
     }
+
+    public function roomSection()
+    {
+        return $this->hasOne(RoomSection::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Rooms;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Room;
+use App\Models\RoomSection;
 
 class Index extends Component
 {
@@ -12,6 +13,12 @@ class Index extends Component
 
     public $search = '';
     public $archiveStatus = 'Active';
+    public $roomSections;
+
+    public function mount()
+    {
+        $this->roomSections = RoomSection::all();
+    }
 
     public function deleteRoom($id)
     {
