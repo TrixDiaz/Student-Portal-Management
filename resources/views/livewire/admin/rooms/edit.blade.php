@@ -36,6 +36,21 @@
                             </div>
                         </div>
 
+                        <!-- Building -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="building_id">Building</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="building_id" name="building_id" id="building_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="{{ $room->building_id }}">{{ $room->building->name }}</option>
+                                    @foreach ($buildings as $building)
+                                    @if ($building->id !== $room->building_id)
+                                    <option value="{{ $building->id }}">{{ $building->name }}</option>
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="flex flex-row space-x-4 mt-4">
                         <x-button type="submit">Save</x-button>

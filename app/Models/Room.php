@@ -10,10 +10,10 @@ class Room extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'is_active'];
+    protected $fillable = ['name', 'building_id', 'is_active'];
 
-    public function buildings()
+    public function building()
     {
-        return $this->hasOne(Building::class);
+        return $this->belongsTo(Building::class);
     }
 }
