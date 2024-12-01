@@ -105,6 +105,7 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3">Name</th>
                                 <th scope="col" class="px-4 py-3">Room</th>
+                                <th scope="col" class="px-4 py-3">Building</th>
                                 <th scope="col" class="px-4 py-3">Start Date</th>
                                 <th scope="col" class="px-4 py-3">End Date</th>
                                 <th scope="col" class="px-4 py-3">
@@ -117,6 +118,7 @@
                             <tr wire:key="{{ $section->id }}" class="border-b">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $section->name }}</th>
                                 <td class="px-4 py-3">{{ optional($section->roomSection)->room?->name ?? 'No Room Assigned' }}</td>
+                                <td class="px-4 py-3">{{ optional($section->roomSection)->room?->building?->name ?? '-' }}</td>
                                 <td class="px-4 py-3">
                                     @if(optional($section->roomSection)->start_date)
                                     <div>{{ optional($section->roomSection)->start_date?->format('M d, Y') }}</div>
@@ -166,7 +168,7 @@
                             </tr>
                             @empty
                             <tr>
-                                <td colspan="5" class="px-4 py-3 text-center">No sections found.</td>
+                                <td colspan="6" class="px-4 py-3 text-center">No sections found.</td>
                             </tr>
                             @endforelse
                         </tbody>
