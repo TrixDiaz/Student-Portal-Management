@@ -14,8 +14,8 @@ class Create extends Component
 {
     public $name;
     public $user_id;
-    public $student_id;
     public $room_id;
+    public $student_ids = [];
     public $start_date;
     public $end_date;
     public $rooms;
@@ -63,7 +63,8 @@ class Create extends Component
             'name' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
             'room_id' => 'required|exists:rooms,id',
-            'student_id' => 'required|exists:users,id',
+            'student_ids' => 'required|array|min:1',
+            'student_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
         ]);
@@ -84,11 +85,13 @@ class Create extends Component
                 'end_date' => $this->end_date,
             ]);
 
-            // Create room_section_student record
-            RoomSectionStudent::create([
-                'room_section_id' => $roomSection->id,
-                'student_id' => $this->student_id,
-            ]);
+            // Create room_section_student records for each selected student
+            foreach ($this->student_ids as $studentId) {
+                RoomSectionStudent::create([
+                    'room_section_id' => $roomSection->id,
+                    'student_id' => $studentId,
+                ]);
+            }
 
             session()->flash('message', 'Section created successfully.');
             return redirect()->route('admin.sections');
@@ -96,6 +99,11 @@ class Create extends Component
     }
     public function render()
     {
-        return view('livewire.admin.section.create');
+        return view('livewire.admin.section.create', [
+            'users' => User::role('teacher')->get(),
+            'students' => User::role('student')->get(),
+            'rooms' => Room::all(),
+            'existingSections' => $this->room_id ? $this->getExistingSections() : [],
+        ]);
     }
 }
