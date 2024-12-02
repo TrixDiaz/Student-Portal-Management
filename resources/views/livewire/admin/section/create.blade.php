@@ -36,6 +36,22 @@
                             </div>
                         </div>
 
+                        <!-- Teacher -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="user_id">Teacher</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="user_id" name="user_id" id="user_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Teacher</option>
+                                    @foreach ($users as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('user_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <!-- Room -->
                         <div>
                             <x-label class="text-sm/6 text-gray-900" for="room_id">Room</x-label>
@@ -46,6 +62,22 @@
                                     <option value="{{ $room->id }}">{{ $room->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+
+                        <!-- Students -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="student_id">Student</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="student_id" name="student_id" id="student_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Student</option>
+                                    @foreach ($students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('student_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
 

@@ -10,12 +10,17 @@ class RoomSection extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['room_id', 'section_id', 'start_date', 'end_date'];
+    protected $fillable = ['room_id', 'section_id', 'start_date', 'end_date', 'user_id'];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function room()
     {
