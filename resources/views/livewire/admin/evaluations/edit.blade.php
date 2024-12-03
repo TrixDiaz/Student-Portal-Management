@@ -1,7 +1,5 @@
 <div>
     <div class="py-12">
-        <!-- ... existing breadcrumb code ... -->
-
         <!-- Form -->
         <div>
             <form wire:submit.prevent="updateEvaluation" method="POST" class="mx-auto space-y-8">

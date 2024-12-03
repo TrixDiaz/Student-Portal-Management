@@ -236,19 +236,27 @@
                     </div>
 
                     <!-- Notification Items -->
-                    <div class="space-y-4">
-                        <!-- Example notification items - Replace with your actual notification data -->
-                        <div class="p-4 bg-gray-50 rounded-lg">
-                            <div class="font-semibold">New Message</div>
-                            <p class="text-sm text-gray-600">You have a new message from John Doe</p>
-                            <span class="text-xs text-gray-400">2 minutes ago</span>
+                    <div wire:poll.5s class="space-y-4">
+                        @forelse ($notifications as $notification)
+                        <div wire:click="readNotification('{{ $notification->id }}')" class="p-4 z-0 bg-gray-50 hover:bg-gray-200 rounded-lg flex flex-col justify-between space-y-2 cursor-pointer">
+                            <div class="font-semibold flex flex-row justify-between gap-2">
+                                <p>{{ $notification->data['message'] }}</p>
+                                <x-icons.mark-icon
+                                    wire:click.stop="deleteNotification('{{ $notification->id }}')"
+                                    class="size-4 mt-1 z-10 cursor-pointer" />
+                            </div>
+                            <div class="flex flex-row gap-2">
+                                <span class="text-xs text-gray-400">{{ $notification->created_at->diffForHumans() }}</span>
+                                @if($notification->read_at === null)
+                                <span class="h-4 w-4 px-2 py-1 text-xs bg-blue-500 rounded-full"></span>
+                                @endif
+                            </div>
                         </div>
-
+                        @empty
                         <div class="p-4 bg-gray-50 rounded-lg">
-                            <div class="font-semibold">System Update</div>
-                            <p class="text-sm text-gray-600">System maintenance scheduled for tonight</p>
-                            <span class="text-xs text-gray-400">1 hour ago</span>
+                            <p class="text-sm text-gray-600">No notifications</p>
                         </div>
+                        @endforelse
                     </div>
                 </div>
             </div>
