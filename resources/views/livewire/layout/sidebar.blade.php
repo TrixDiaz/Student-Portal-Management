@@ -26,34 +26,69 @@
                 </a>
             </li>
 
-            <!-- Buildings -->
-            <li class="active">
-                <a wire:navigate href="{{ route('admin.buildings') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.buildings') ? 'bg-gray-200' : '' }}">
-                    <x-icons.building-office-icon />
-                    <span class="text-gray-900">Buildings</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $buildingsCount }}</p>
-                </a>
+            <!-- Class Schedules -->
+
+            <li>
+                <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
+                    <x-icons.cog-8-tooth-icon />
+                    <span class="text-gray-700 text-xs">Class Schedules</span>
+                    <x-icons.arrow-down-icon />
+                </button>
+                <ul class="sub-menu bg-gray-50 rounded-md  transition-[grid-template-rows] duration-300 ease-in-out group-[.show]:grid-rows-[1fr] grid-rows-[0fr]">
+                    <div class="overflow-hidden">
+                        <!-- Buildings -->
+                        <li class="active">
+                            <a wire:navigate href="{{ route('admin.buildings') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.buildings') ? 'bg-gray-200' : '' }}">
+                                <x-icons.building-office-icon />
+                                <span class="text-gray-900">Buildings</span>
+                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $buildingsCount }}</p>
+                            </a>
+                        </li>
+
+                        <!-- Rooms -->
+                        <li class="active">
+                            <a wire:navigate href="{{ route('admin.rooms') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.rooms') ? 'bg-gray-200' : '' }}">
+                                <x-icons.building-library-icon />
+                                <span class="text-gray-900">Rooms</span>
+                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $roomsCount }}</p>
+                            </a>
+                        </li>
+
+                        <!-- Sections -->
+                        <li class="active">
+                            <a wire:navigate href="{{ route('admin.sections') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.sections') ? 'bg-gray-200' : '' }}">
+                                <x-icons.tag-icon />
+                                <span class="text-gray-900">Sections</span>
+                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $sectionsCount }}</p>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
             </li>
 
-            <!-- Rooms -->
-            <li class="active">
-                <a wire:navigate href="{{ route('admin.rooms') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.rooms') ? 'bg-gray-200' : '' }}">
-                    <x-icons.building-library-icon />
-                    <span class="text-gray-900">Rooms</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $roomsCount }}</p>
-                </a>
-            </li>
 
-            <!-- Sections -->
-            <li class="active">
-                <a wire:navigate href="{{ route('admin.sections') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.sections') ? 'bg-gray-200' : '' }}">
-                    <x-icons.tag-icon />
-                    <span class="text-gray-900">Sections</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $sectionsCount }}</p>
-                </a>
+
+            <!-- Evaluations -->
+            <li>
+                <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
+                    <x-icons.cog-8-tooth-icon />
+                    <span class="text-gray-700 text-xs">Evaluations</span>
+                    <x-icons.arrow-down-icon />
+                </button>
+                <ul class="sub-menu bg-gray-50 rounded-md  transition-[grid-template-rows] duration-300 ease-in-out group-[.show]:grid-rows-[1fr] grid-rows-[0fr]">
+                    <div class="overflow-hidden">
+                        <li>
+                            <a wire:navigate href="{{ route('admin.evaluations') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.evaluations') ? 'bg-gray-200' : '' }}">
+                                <x-icons.tag-icon />
+                                <span class="text-gray-900">Evaluations</span>
+                            </a>
+                        </li>
+                    </div>
+                </ul>
             </li>
 
             <!-- Settings -->

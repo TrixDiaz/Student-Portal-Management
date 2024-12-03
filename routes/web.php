@@ -44,4 +44,9 @@ Route::middleware([
     Route::view('/admin/sections', 'admin.section.index')->name('admin.sections');
     Route::view('/admin/sections/create', 'admin.section.create')->name('admin.sections.create');
     Route::view('/admin/sections/edit/{section_id}', 'admin.section.edit')->name('admin.sections.edit');
+
+    // Evaluations
+    Route::view('/admin/evaluations', 'admin.evaluations.index')->name('admin.evaluations');
+    Route::view('/admin/evaluations/create', 'admin.evaluations.create')->name('admin.evaluations.create');
+    Route::view('/admin/evaluations/edit/{evaluation_id}', 'admin.evaluations.edit')->name('admin.evaluations.edit');
 });
