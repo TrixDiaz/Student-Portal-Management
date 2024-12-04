@@ -19,7 +19,14 @@ class Room extends Component
 
         $this->roomSections = RoomSection::where('subject_id', $this->subjectId)
             ->where('user_id', auth()->id())
-            ->with(['students', 'section', 'subject', 'room'])
+            ->with([
+                'students',
+                'section',
+                'subject',
+                'room.building',
+                'room',
+                'user'
+            ])
             ->get();
     }
 

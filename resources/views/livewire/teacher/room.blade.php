@@ -29,12 +29,46 @@
                 @forelse($roomSections as $roomSection)
                 <div class="bg-white shadow-sm rounded-lg mb-6">
                     <div class="p-6">
-                        <h2 class="text-lg font-semibold mb-4">
-                            Room: {{ $roomSection->room->name }} -
-                            Section: {{ $roomSection->section->name }}
-                        </h2>
+                        <!-- Section Information -->
+                        <div class="mb-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Subject Information</h3>
+                                <p class="mt-1 text-sm text-gray-900">
+                                    Name: {{ $roomSection->subject->name }}<br>
+                                    Code: {{ $roomSection->subject->code }}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Section Details</h3>
+                                <p class="mt-1 text-sm text-gray-900">
+                                    Section: {{ $roomSection->section->name }}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Room & Building</h3>
+                                <p class="mt-1 text-sm text-gray-900">
+                                    Room: {{ $roomSection->room->name }}<br>
+                                    Building: {{ $roomSection->room->building->name }}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Schedule</h3>
+                                <p class="mt-1 text-sm text-gray-900">
+                                    Start Date: {{ $roomSection->start_date->format('M d, Y') }}<br>
+                                    End Date: {{ $roomSection->end_date->format('M d, Y') }}
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-medium text-gray-500">Teacher Information</h3>
+                                <p class="mt-1 text-sm text-gray-900">
+                                    Name: {{ $roomSection->user->name }}
+                                </p>
+                            </div>
+                        </div>
 
+                        <!-- Students Table -->
                         <div class="overflow-x-auto">
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Students List</h3>
                             <table class="min-w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
                                     <tr>
