@@ -7,6 +7,7 @@ use App\Models\RoomSectionStudent;
 use Livewire\Component;
 use App\Models\Section;
 use App\Models\Room;
+use App\Models\Subject;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
@@ -18,6 +19,7 @@ class Edit extends Component
     public $roomSection;
     public $room_id;
     public $user_id;
+    public $subject_id;
     public $student_ids = [];
     public $start_date;
     public $end_date;
@@ -42,6 +44,7 @@ class Edit extends Component
         $this->roomSection = RoomSection::where('section_id', $this->section_id)->firstOrFail();
         $this->room_id = $this->roomSection->room_id;
         $this->user_id = $this->roomSection->user_id;
+        $this->subject_id = $this->roomSection->subject_id;
         $this->start_date = $this->roomSection->start_date->format('Y-m-d\TH:i');
         $this->end_date = $this->roomSection->end_date->format('Y-m-d\TH:i');
 
@@ -87,6 +90,7 @@ class Edit extends Component
             'student_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
+            'subject_id' => 'required|exists:subjects,id',
         ]);
 
         DB::transaction(function () {
@@ -97,6 +101,7 @@ class Edit extends Component
             $this->roomSection->update([
                 'user_id' => $this->user_id,
                 'room_id' => $this->room_id,
+                'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
             ]);
@@ -122,6 +127,7 @@ class Edit extends Component
         return view('livewire.admin.section.edit', [
             'section' => $this->section,
             'rooms' => Room::all(),
+            'subjects' => Subject::all(),
             'users' => User::role('teacher')->get(),
             'students' => User::role('student')->get(),
         ]);

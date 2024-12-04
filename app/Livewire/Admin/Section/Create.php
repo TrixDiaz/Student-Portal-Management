@@ -9,6 +9,7 @@ use App\Models\Section;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\RoomSectionStudent;
+use App\Models\Subject;
 
 class Create extends Component
 {
@@ -63,6 +64,7 @@ class Create extends Component
             'name' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
             'room_id' => 'required|exists:rooms,id',
+            'subject_id' => 'required|exists:subjects,id',
             'student_ids' => 'required|array|min:1',
             'student_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
@@ -73,7 +75,6 @@ class Create extends Component
             // First create the section
             $section = Section::create([
                 'name' => $this->name,
-                // add other section fields if needed
             ]);
 
             // Create room_section record
@@ -81,6 +82,7 @@ class Create extends Component
                 'user_id' => $this->user_id,
                 'room_id' => $this->room_id,
                 'section_id' => $section->id,
+                'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
             ]);
@@ -103,6 +105,7 @@ class Create extends Component
             'users' => User::role('teacher')->get(),
             'students' => User::role('student')->get(),
             'rooms' => Room::all(),
+            'subjects' => Subject::all(),
             'existingSections' => $this->room_id ? $this->getExistingSections() : [],
         ]);
     }

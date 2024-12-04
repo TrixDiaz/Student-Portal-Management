@@ -65,6 +65,19 @@
                             </div>
                         </div>
 
+                        <!-- Subject -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900" for="subject_id">Subject</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="subject_id" name="subject_id" id="subject_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Subject</option>
+                                    @foreach ($subjects as $subject)
+                                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <!-- Students (Multiple) -->
                         <div>
                             <x-label class="text-sm/6 text-gray-900" for="student_ids">Students</x-label>
