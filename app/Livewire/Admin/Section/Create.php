@@ -17,6 +17,7 @@ class Create extends Component
     public $user_id;
     public $room_id;
     public $student_ids = [];
+    public $subject_id;
     public $start_date;
     public $end_date;
     public $rooms;
@@ -64,7 +65,6 @@ class Create extends Component
             'name' => 'required|string|max:255',
             'user_id' => 'required|exists:users,id',
             'room_id' => 'required|exists:rooms,id',
-            'subject_id' => 'required|exists:subjects,id',
             'student_ids' => 'required|array|min:1',
             'student_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
