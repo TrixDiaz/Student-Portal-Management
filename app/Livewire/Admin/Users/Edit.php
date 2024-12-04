@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class Edit extends Component
 {
-    public $email, $name, $password, $user_id, $roles, $selectedRoles;
+    public $email, $name, $user_id, $roles, $selectedRoles;
 
     public function mount($user_id)
     {
@@ -30,7 +30,6 @@ class Edit extends Component
         if ($user) {
             $this->name = $user->name;
             $this->email = $user->email;
-            $this->password = $user->password;
         }
     }
 
@@ -39,7 +38,6 @@ class Edit extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'password' => ['required', 'string', 'min:8'],
         ]);
 
         $validated = User::findOrFail($this->user_id);
@@ -48,7 +46,6 @@ class Edit extends Component
             $validated->update([
                 'name' => $this->name,
                 'email' => $this->email,
-                'password' => Hash::make($this->password),
             ]);
 
             if ($this->selectedRoles) {

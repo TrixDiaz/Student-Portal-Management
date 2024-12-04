@@ -54,4 +54,7 @@ Route::middleware([
     Route::view('/admin/evaluations', 'admin.evaluations.index')->name('admin.evaluations');
     Route::view('/admin/evaluations/create', 'admin.evaluations.create')->name('admin.evaluations.create');
     Route::view('/admin/evaluations/edit/{evaluation_id}', 'admin.evaluations.edit')->name('admin.evaluations.edit');
+
+    // Teacher Room Section
+    Route::view('/teacher/room/{subject_id}', 'teacher.room')->name('teacher.room');
 });

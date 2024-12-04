@@ -21,4 +21,9 @@ class Section extends Model
     {
         return $this->hasOne(RoomSection::class);
     }
+
+    public function students()
+    {
+        return $this->hasMany(User::class)->where('role', 'student');
+    }
 }
