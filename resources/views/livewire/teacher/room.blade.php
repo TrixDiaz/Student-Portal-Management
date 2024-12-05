@@ -106,6 +106,7 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
+                                                <x-secondary-button wire:click="$dispatch('open-grade-modal', { id: {{ $student->id }} )">Add Grade</x-secondary-button>
                                                 <x-button @click="$dispatch('open-modal', { id: {{ $student->id }} })">Remove</x-button>
                                             </div>
                                         </td>

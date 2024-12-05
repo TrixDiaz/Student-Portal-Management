@@ -117,8 +117,7 @@ class Edit extends Component
                 ]);
             }
 
-            session()->flash('message', 'Section updated successfully');
-            return redirect()->route('admin.sections');
+            return redirect()->route('admin.sections')->with('success', 'Section updated successfully');
         });
     }
 
