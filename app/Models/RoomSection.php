@@ -41,4 +41,9 @@ class RoomSection extends Model
     {
         return $this->belongsToMany(User::class, 'room_section_students', 'room_section_id', 'student_id');
     }
+
+    public function grades()
+    {
+        return $this->hasMany(StudentGrade::class);
+    }
 }
