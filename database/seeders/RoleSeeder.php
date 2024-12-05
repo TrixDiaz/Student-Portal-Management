@@ -17,8 +17,5 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'dean']);
         Role::create(['name' => 'student']);
         $adminRole->syncPermissions($permissions);
-
-        // Create user role with basic permissions
-        $userRole = Role::create(['name' => 'user']);
     }
 }

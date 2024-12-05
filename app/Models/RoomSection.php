@@ -10,7 +10,7 @@ class RoomSection extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['room_id', 'section_id', 'subject_id', 'start_date', 'end_date', 'user_id'];
+    protected $fillable = ['room_id', 'section_id', 'subject_id', 'semester', 'start_date', 'end_date', 'user_id'];
 
     protected $casts = [
         'start_date' => 'datetime',

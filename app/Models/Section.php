@@ -10,7 +10,12 @@ class Section extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name', 'is_active'];
+    protected $fillable = ['name', 'description', 'building_id', 'is_active'];
+
+    public function building()
+    {
+        return $this->belongsTo(Building::class);
+    }
 
     public function rooms()
     {
