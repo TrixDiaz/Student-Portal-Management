@@ -2,6 +2,8 @@
     <div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto space-y-4 sm:px-6 lg:px-8">
+                <!-- Admin and other Content -->
+                @if (auth()->user()->hasRole(['admin', 'teacher', 'dean']))
                 <!-- Welcome Content -->
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                     <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. goldenian</h1>
@@ -93,6 +95,9 @@
                     </div>
                 </div>
             </div>
+            @else
+            <livewire:student.dashboard />
+            @endif
         </div>
     </div>
 </x-admin-layout>

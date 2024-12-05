@@ -21,4 +21,37 @@ class Room extends Model
     {
         return $this->belongsToMany(Section::class);
     }
+
+    public function roomSections()
+    {
+        return $this->hasMany(RoomSection::class);
+    }
+
+    public function scopeForStudent($query, $studentId, $semester = null, $year = null)
+    {
+        $year = $year ?? date('Y');
+
+        return $query->whereHas('roomSections', function ($query) use ($studentId, $semester, $year) {
+            $query->whereHas('students', function ($query) use ($studentId) {
+                $query->where('users.id', $studentId);
+            })
+                ->when($year, function ($query) use ($year) {
+                    $query->whereYear('created_at', $year);
+                })
+                ->when($semester, function ($query) use ($semester) {
+                    $query->where('semester', $semester);
+                });
+        })
+            ->withCount(['roomSections as subjects_count' => function ($query) use ($studentId, $semester, $year) {
+                $query->whereHas('students', function ($query) use ($studentId) {
+                    $query->where('users.id', $studentId);
+                })
+                    ->when($year, function ($query) use ($year) {
+                        $query->whereYear('created_at', $year);
+                    })
+                    ->when($semester, function ($query) use ($semester) {
+                        $query->where('semester', $semester);
+                    });
+            }]);
+    }
 }

@@ -25,7 +25,7 @@ class RoomSectionFactory extends Factory
             'section_id' => Section::factory(),
             'subject_id' => Subject::factory(),
             'user_id' => User::factory(),
-            'semester' => fake()->randomElement(['First', 'Second', 'Summer']),
+            'semester' => fake()->randomElement(['first', 'second', 'summer']),
             'start_date' => fake()->dateTimeBetween('now', '+1 month'),
             'end_date' => fake()->dateTimeBetween('+2 months', '+6 months'),
         ];
