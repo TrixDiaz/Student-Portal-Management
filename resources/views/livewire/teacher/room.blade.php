@@ -81,6 +81,9 @@
                                         <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                             Subject
                                         </th>
+                                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Action
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
@@ -101,6 +104,39 @@
                                                 {{ $roomSection->subject->name }}
                                             </div>
                                         </td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="text-sm text-gray-900">
+                                                <x-button @click="$dispatch('open-modal', { id: {{ $student->id }} })">Remove</x-button>
+                                            </div>
+                                        </td>
+
+                                        <!-- Modal For Delete Student -->
+                                        <div x-data="{ showModal: false, studentId: null }"
+                                            @open-modal.window="showModal = true; studentId = $event.detail.id"
+                                            @student-removed.window="showModal = false"
+                                            x-show="showModal"
+                                            class="fixed inset-0 z-50 overflow-y-auto"
+                                            style="display: none;">
+                                            <div class="flex items-center justify-center min-h-screen px-4">
+                                                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showModal = false"></div>
+
+                                                <div class="relative bg-white rounded-lg shadow-xl max-w-lg w-full">
+                                                    <div class="p-6">
+                                                        <h3 class="text-lg font-medium text-gray-900">Confirm Deletion</h3>
+                                                        <p class="mt-2 text-sm text-gray-500">Are you sure you want to delete this user? This action cannot be undone.</p>
+
+                                                        <div class="mt-4 flex space-x-3">
+                                                            <button @click="showModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
+                                                                Cancel
+                                                            </button>
+                                                            <button @click="$wire.removeStudent(studentId); showModal = false" type="submit" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                                Delete
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </tr>
                                     @empty
                                     <tr>
