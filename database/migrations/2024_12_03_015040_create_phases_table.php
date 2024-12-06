@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('phases', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('evaluation_id')->constrained('evaluations');
+            $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');;
             $table->string('title');
             $table->string('order');
             $table->timestamps();

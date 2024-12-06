@@ -6,6 +6,8 @@ use App\Models\Evaluation;
 use Livewire\Component;
 use App\Models\Phase;
 use App\Models\Question;
+use App\Models\EvaluationResponse;
+use App\Models\RoomSectionStudent;
 
 class Create extends Component
 {
@@ -74,6 +76,18 @@ class Create extends Component
                     'order' => $questionIndex + 1,
                 ]);
             }
+        }
+
+        $roomSectionStudents = RoomSectionStudent::with(['student', 'roomSection'])->get();
+
+        foreach ($roomSectionStudents as $roomSectionStudent) {
+            EvaluationResponse::create([
+                'room_section_id' => $roomSectionStudent->room_section_id,
+                'user_id' => $roomSectionStudent->student_id,
+                'evaluation_id' => $evaluation->id,
+                'is_completed' => false,
+                'completed_at' => null,
+            ]);
         }
 
         return redirect()->route('admin.evaluations')->with('success', 'Evaluation created successfully!');

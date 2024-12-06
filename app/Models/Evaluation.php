@@ -11,8 +11,24 @@ class Evaluation extends Model
 
     protected $fillable = ['order', 'title', 'description', 'question', 'rating_scale'];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        // This will automatically delete related records when an evaluation is deleted
+        static::deleting(function ($evaluation) {
+            $evaluation->phases()->delete();
+            $evaluation->evaluationResponses()->delete();
+        });
+    }
+
     public function phases()
     {
         return $this->hasMany(Phase::class);
+    }
+
+    public function evaluationResponses()
+    {
+        return $this->hasMany(EvaluationResponse::class);
     }
 }
