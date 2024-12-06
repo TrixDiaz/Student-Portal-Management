@@ -110,7 +110,7 @@
                                         <div x-show="open" @click.away="open = false" class="absolute z-10 w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow">
                                             @if($evaluation->deleted_at === null)
                                             <div class="py-1">
-                                                <button class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Send Evaluation</button>
+                                                <button wire:click="sendEvaluation({{ $evaluation->id }})" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Send Evaluation</button>
                                             </div>
                                             <ul class="py-1 text-sm text-gray-700">
                                                 <li>
@@ -123,10 +123,10 @@
                                             @endif
                                             @if($evaluation->deleted_at !== null)
                                             <div class="py-1">
-                                                <button @click="$dispatch('restore-evaluation', { id: {{ $evaluation->id }} })" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Restore</button>
+                                                <button wire:click="restoreEvaluation({{ $evaluation->id }})" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Restore</button>
                                             </div>
                                             <div class="py-1">
-                                                <button @click="$dispatch('force-delete-evaluation', { id: {{ $evaluation->id }} })" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-gray-100">Permanently Delete</button>
+                                                <button wire:click="forceDeleteEvaluation({{ $evaluation->id }})" class="block w-full text-left py-2 px-4 text-sm text-red-700 hover:bg-gray-100">Permanently Delete</button>
                                             </div>
                                             @endif
                                         </div>

@@ -46,4 +46,9 @@ class RoomSection extends Model
     {
         return $this->hasMany(StudentGrade::class);
     }
+
+    public function evaluationResponses()
+    {
+        return $this->hasMany(EvaluationResponse::class);
+    }
 }

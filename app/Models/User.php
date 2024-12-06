@@ -81,4 +81,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(RoomSection::class);
     }
+
+    public function evaluationResponses(): HasMany
+    {
+        return $this->hasMany(EvaluationResponse::class);
+    }
 }

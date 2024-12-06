@@ -12,6 +12,11 @@ class Index extends Component
 
     public $search = '';
 
+    public function sendEvaluation($id)
+    {
+        dump($id);
+    }
+
     public function deleteEvaluation($id)
     {
         $evaluation = Evaluation::find($id);
