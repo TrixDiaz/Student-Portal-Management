@@ -10,6 +10,8 @@ use App\Models\EvaluationResponse;
 use App\Models\RoomSectionStudent;
 use App\Models\Section;
 use App\Models\RoomSection;
+use App\Notifications\CreateEvaluationNotification;
+use Illuminate\Support\Facades\Notification;
 
 class Create extends Component
 {
@@ -63,7 +65,7 @@ class Create extends Component
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'phases.*.title' => 'required|string|max:255',
-            'phases.*.questions.*.question_text' => 'required|string',
+            'phases.*.questions.*.question' => 'required|string',
             'selectedSections' => 'required|array|min:1',
         ]);
 
@@ -80,7 +82,7 @@ class Create extends Component
 
             foreach ($phaseData['questions'] as $questionIndex => $questionData) {
                 $phase->questions()->create([
-                    'question_text' => $questionData['question_text'],
+                    'question_text' => $questionData['question'],
                     'order' => $questionIndex + 1,
                 ]);
             }
@@ -89,18 +91,26 @@ class Create extends Component
         RoomSection::whereIn('section_id', $this->selectedSections)
             ->update(['evaluation_id' => $evaluation->id]);
 
-        $roomSectionStudents = RoomSectionStudent::whereHas('roomSection', function ($query) {
-            $query->whereIn('section_id', $this->selectedSections);
-        })->with(['student', 'roomSection'])->get();
+        $roomSections = RoomSection::whereIn('section_id', $this->selectedSections)
+            ->with(['students' => function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                });
+            }])
+            ->get();
 
-        foreach ($roomSectionStudents as $roomSectionStudent) {
-            EvaluationResponse::create([
-                'room_section_id' => $roomSectionStudent->room_section_id,
-                'user_id' => $roomSectionStudent->student_id,
-                'evaluation_id' => $evaluation->id,
-                'is_completed' => false,
-                'completed_at' => null,
-            ]);
+        foreach ($roomSections as $roomSection) {
+            foreach ($roomSection->students as $student) {
+                EvaluationResponse::create([
+                    'room_section_id' => $roomSection->id,
+                    'user_id' => $student->id,
+                    'evaluation_id' => $evaluation->id,
+                    'is_completed' => false,
+                    'completed_at' => null,
+                ]);
+
+                Notification::send($student, new CreateEvaluationNotification($evaluation, $roomSection));
+            }
         }
 
         return redirect()->route('admin.evaluations')->with('success', 'Evaluation created successfully!');

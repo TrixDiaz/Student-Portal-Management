@@ -42,9 +42,9 @@
                         <div class="flex justify-between items-center">
                             <div class="flex-1">
                                 <p class="text-gray-700 font-semibold">{{ $roomSection->subject->name }}</p>
+                                <p class="text-gray-700 font-semibold text-sm">Section: {{ $roomSection->section->name }}</p>
                                 <p class="text-sm text-gray-500">Code: {{ $roomSection->subject->code }}</p>
                                 <p class="text-sm text-gray-500">Semester: {{ ucfirst($roomSection->semester) }}</p>
-
                                 <div class="mt-2">
                                     <p class="text-sm text-gray-600">
                                         <span class="font-medium">Schedule:</span>
