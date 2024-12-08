@@ -59,4 +59,5 @@ Route::middleware([
     Route::view('/teacher/room/{subject_id}', 'teacher.room')->name('teacher.room');
 
     Route::view('/student/evaluation/{roomSection}', 'student.evaluation')->name('student.evaluation');
+    Route::view('/admin/notifications/create', 'admin.notification.create')->name('admin.notifications.create');
 });

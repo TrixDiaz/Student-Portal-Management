@@ -26,6 +26,14 @@
                 </a>
             </li>
 
+            <li class="active">
+                <a wire:navigate href="{{ route('admin.notifications.create') }}"
+                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.notifications.create') ? 'bg-gray-200' : '' }}">
+                    <x-icons.bell-alert-icon />
+                    <span class="text-gray-900">Notifications</span>
+                </a>
+            </li>
+
             <!-- Class Schedules -->
 
             <li>
