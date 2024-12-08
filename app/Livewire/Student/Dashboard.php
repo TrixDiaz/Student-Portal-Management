@@ -45,7 +45,7 @@ class Dashboard extends Component
         );
 
         $this->subjects = $query->with(['roomSections' => function ($query) {
-            $query->with('subject')
+            $query->with(['subject', 'user'])
                 ->when($this->selectedSemester, function ($query) {
                     $query->where('semester', $this->selectedSemester);
                 })

@@ -40,11 +40,27 @@
                     @foreach($room->roomSections as $roomSection)
                     <div wire:key="{{ $roomSection->id }}" class="p-4 bg-white rounded-lg shadow">
                         <div class="flex justify-between items-center">
-                            <div>
-                                <p class="text-gray-700">{{ $roomSection->subject->name }}</p>
+                            <div class="flex-1">
+                                <p class="text-gray-700 font-semibold">{{ $roomSection->subject->name }}</p>
                                 <p class="text-sm text-gray-500">Code: {{ $roomSection->subject->code }}</p>
                                 <p class="text-sm text-gray-500">Semester: {{ ucfirst($roomSection->semester) }}</p>
+
+                                <div class="mt-2">
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium">Schedule:</span>
+                                        {{ $roomSection->day }} {{ $roomSection->start_date }} - {{ $roomSection->end_date }}
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium">Room:</span>
+                                        {{ $roomSection->room_number }}
+                                    </p>
+                                    <p class="text-sm text-gray-600">
+                                        <span class="font-medium">Instructor:</span>
+                                        {{ $roomSection->user->name }}
+                                    </p>
+                                </div>
                             </div>
+
                             <div>
                                 @php
                                 $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
