@@ -17,8 +17,9 @@
 
             #id-card {
                 position: fixed;
-                top: 0;
-                left: 0;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
                 width: 3.375in;
                 height: 2.125in;
                 margin: 0;
