@@ -52,7 +52,7 @@
                                     </p>
                                     <p class="text-sm text-gray-600">
                                         <span class="font-medium">Room:</span>
-                                        {{ $roomSection->room_number }}
+                                        {{ $roomSection->room->name }}
                                     </p>
                                     <p class="text-sm text-gray-600">
                                         <span class="font-medium">Instructor:</span>
