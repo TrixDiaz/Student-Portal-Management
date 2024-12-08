@@ -24,6 +24,7 @@ class Create extends Component
     public $existingSections = [];
     public $users;
     public $students;
+    public $semester;
 
     public function mount()
     {
@@ -69,6 +70,7 @@ class Create extends Component
             'student_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
+            'semester' => 'required|in:prelim,midterm,final',
         ]);
 
         DB::transaction(function () {
@@ -86,6 +88,7 @@ class Create extends Component
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
                 'evaluation_id' => null,
+                'semester' => $this->semester,
             ]);
 
             // Create room_section_student records for each selected student
