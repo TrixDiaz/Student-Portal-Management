@@ -4,6 +4,24 @@
             <h2 class="text-2xl font-bold mb-4">Teacher Evaluation</h2>
             <p class="mb-4">Subject: {{ $roomSection->subject->name }}</p>
 
+            @if(count($responses) > 0)
+            {{-- Show completed evaluation responses --}}
+            @foreach($phases as $phase)
+            <div class="mb-8">
+                <h3 class="text-xl font-semibold mb-4">{{ $phase->name }}</h3>
+
+                @foreach($phase->questions->sortBy('order') as $question)
+                <div class="mb-6">
+                    <p class="mb-2">{{ $question->question_text }}</p>
+                    <div class="flex space-x-4">
+                        <p class="font-semibold">Your Rating: {{ $responses[$question->id] ?? 'N/A' }}</p>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endforeach
+            @else
+            {{-- Show evaluation form --}}
             <form wire:submit.prevent="submitEvaluation">
                 @foreach($phases as $phase)
                 <div class="mb-8">
@@ -37,6 +55,7 @@
                     </button>
                 </div>
             </form>
+            @endif
         </div>
     </div>
 </div>

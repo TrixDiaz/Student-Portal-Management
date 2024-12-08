@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('semester');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

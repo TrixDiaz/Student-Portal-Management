@@ -106,9 +106,19 @@
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <div class="text-sm text-gray-900">
+                                                @php
+                                                $existingGrade = $student->grades->where('room_section_id', $roomSection->id)->first();
+                                                @endphp
+
+                                                @if($existingGrade)
+                                                <span class="px-2 py-1 text-sm rounded-full {{ $existingGrade->status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                    Grade: {{ number_format($existingGrade->grade, 2) }} ({{ $existingGrade->status }})
+                                                </span>
+                                                @else
                                                 <x-secondary-button @click="$dispatch('open-grade-modal', { studentId: {{ $student->id }}, roomSectionId: {{ $roomSection->id }} })">
                                                     Add Grade
                                                 </x-secondary-button>
+                                                @endif
                                                 <x-button @click="$dispatch('open-modal', { id: {{ $student->id }} })">
                                                     Remove
                                                 </x-button>

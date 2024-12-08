@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('phase_id')->constrained('phases');
-            $table->string('question_text');
-            $table->string('order');
+            $table->foreignId('phase_id')->constrained()->onDelete('cascade');
+            $table->string('question');
+            $table->integer('order');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

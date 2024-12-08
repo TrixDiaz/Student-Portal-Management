@@ -62,20 +62,20 @@ class Dashboard extends Component
     {
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
             ->where('user_id', auth()->id())
-            ->where('is_completed', true)
             ->first();
 
-        $this->hasCompletedEvaluation = !is_null($evaluationResponse);
+        $this->hasCompletedEvaluation = $evaluationResponse?->is_completed ?? false;
 
         if ($this->hasCompletedEvaluation) {
             $grade = StudentGrade::where('room_section_id', $roomSectionId)
                 ->where('student_id', auth()->id())
                 ->first();
 
-            if ($grade) {
-                $this->grade = $grade->grade;
-                $this->status = $grade->status;
-            }
+            $this->grade = $grade?->grade;
+            $this->status = $grade?->status;
+        } else {
+            $this->grade = null;
+            $this->status = null;
         }
     }
 

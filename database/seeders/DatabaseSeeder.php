@@ -21,6 +21,9 @@ class DatabaseSeeder extends Seeder
             BuildingSeeder::class,
             SectionSeeder::class,
             SubjectSeeder::class,
+            EvaluationSeeder::class,
+            PhaseSeeder::class,
+            QuestionSeeder::class,
             RoomSeeder::class,
             DepartmentSeeder::class,
         ]);

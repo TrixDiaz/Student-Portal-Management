@@ -50,7 +50,8 @@ class Room extends Component
                 'subject',
                 'room.building',
                 'room',
-                'user'
+                'user',
+                'students.grades'
             ])
             ->get();
     }

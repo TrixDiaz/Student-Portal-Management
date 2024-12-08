@@ -21,8 +21,12 @@ class Evaluation extends Component
     public function mount(RoomSection $roomSection)
     {
         $this->roomSection = $roomSection;
-        // Get the evaluation associated with the room section
         $this->evaluation = $roomSection->evaluation;
+
+        if (!$this->evaluation) {
+            $this->phases = collect();
+            return;
+        }
 
         // Get questions grouped by phases
         $this->phases = Phase::with(['questions' => function ($query) {
@@ -36,12 +40,18 @@ class Evaluation extends Component
             ->first();
 
         if ($existingResponse) {
-            return redirect()->route('student.dashboard')->with('error', 'You have already completed this evaluation.');
+            // Instead of redirecting, store the response to display grades
+            $this->responses = $existingResponse->responses ?? [];
+            return;
         }
     }
 
     public function submitEvaluation()
     {
+        if (!$this->evaluation) {
+            return;
+        }
+
         $this->validate([
             'responses.*' => 'required|integer|between:1,5',
         ]);
@@ -54,7 +64,7 @@ class Evaluation extends Component
             'completed_at' => now(),
         ]);
 
-        return redirect()->route('student.dashboard')->with('success', 'Evaluation submitted successfully!');
+        return redirect()->route('dashboard')->with('success', 'Evaluation submitted successfully!');
     }
 
     public function render()

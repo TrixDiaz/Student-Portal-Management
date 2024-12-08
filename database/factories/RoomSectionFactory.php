@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\Section;
 use App\Models\Subject;
 use App\Models\User;
+use App\Models\Evaluation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -28,6 +29,7 @@ class RoomSectionFactory extends Factory
             'semester' => fake()->randomElement(['first', 'second', 'summer']),
             'start_date' => fake()->dateTimeBetween('now', '+1 month'),
             'end_date' => fake()->dateTimeBetween('+2 months', '+6 months'),
+            'evaluation_id' => Evaluation::factory(),
         ];
     }
 }

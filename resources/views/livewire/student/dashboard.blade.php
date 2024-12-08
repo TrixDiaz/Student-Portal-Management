@@ -45,51 +45,39 @@
                                 <p class="text-sm text-gray-500">Code: {{ $roomSection->subject->code }}</p>
                                 <p class="text-sm text-gray-500">Semester: {{ ucfirst($roomSection->semester) }}</p>
                             </div>
-                            <x-secondary-button @click="$dispatch('open-grade-modal', { id: {{ $roomSection->id }} })">
-                                View Grade
-                            </x-secondary-button>
+                            <div>
+                                @php
+                                $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
+                                ->where('user_id', auth()->id())
+                                ->first();
+                                $hasCompleted = $evaluationResponse?->is_completed ?? false;
+
+                                if ($hasCompleted) {
+                                $grade = App\Models\StudentGrade::where('room_section_id', $roomSection->id)
+                                ->where('student_id', auth()->id())
+                                ->first();
+                                }
+                                @endphp
+
+                                @if($hasCompleted && $grade)
+                                <div class="text-right">
+                                    <p class="font-medium text-gray-700">Grade: {{ $grade->grade }}</p>
+                                    <p class="text-sm {{ $grade->status === 'Passed' ? 'text-green-500' : 'text-red-500' }}">
+                                        {{ $grade->status }}
+                                    </p>
+                                </div>
+                                @else
+                                <x-secondary-button wire:click="redirectToEvaluation({{ $roomSection->id }})">
+                                    Answer Evaluation
+                                </x-secondary-button>
+                                @endif
+                            </div>
                         </div>
                     </div>
                     @endforeach
                 </div>
             </div>
             @endforeach
-        </div>
-
-
-        <!-- Show Grade Modal -->
-        <div x-data="{ showGradeModal: false, gradeId: null }"
-            @open-grade-modal.window="showGradeModal = true; gradeId = $event.detail.id"
-            x-show="showGradeModal"
-            class="fixed inset-0 z-50 overflow-y-auto"
-            style="display: none;">
-            <div class="flex items-center justify-center min-h-screen px-4">
-                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="showGradeModal = false"></div>
-
-                <div class="relative bg-white rounded-lg shadow-xl max-w-lg w-full">
-                    <div class="p-6">
-                        @if($hasCompletedEvaluation)
-                        <h3 class="text-lg font-medium text-gray-900">Grade</h3>
-                        <p class="mt-2 text-sm text-gray-500">Your Grade for this subject is: {{ $grade }}</p>
-                        <p class="mt-2 text-sm {{ $status === 'Passed' ? 'text-green-500' : 'text-red-500' }}">{{ $status }}</p>
-                        @else
-                        <h3 class="text-lg font-medium text-gray-900">Evaluation Required</h3>
-                        <p class="mt-2 text-sm text-gray-500">Please complete the evaluation first to view your grade.</p>
-                        @endif
-
-                        <div class="mt-4 flex space-x-3">
-                            <button @click="showGradeModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
-                                Cancel
-                            </button>
-                            @if(!$hasCompletedEvaluation)
-                            <button wire:click="redirectToEvaluation(gradeId)" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                Complete Evaluation
-                            </button>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

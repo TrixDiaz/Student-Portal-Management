@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('description')->nullable();
+            $table->integer('order');
+            $table->string('rating_scale')->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
