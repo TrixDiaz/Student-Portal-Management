@@ -27,10 +27,14 @@ class NavigationMenu extends Component
     public function readNotification($id)
     {
         $notification = Auth::user()->notifications()->findOrFail($id);
-        $url = $notification->data['url'];
         $notification->markAsRead();
-        $this->dispatch('notification-drawer-close');
-        return redirect($url);
+
+        if (isset($notification->data['url'])) {
+            $this->dispatch('notification-drawer-close');
+            return redirect($notification->data['url']);
+        }
+
+        return null;
     }
 
     public function deleteNotification($id)

@@ -84,7 +84,8 @@
                         <!-- Notification Items -->
                         <div wire:poll.5s class="space-y-4">
                             @forelse ($notifications as $notification)
-                            <div wire:click="readNotification('{{ $notification->id }}')" class="p-4 z-0 bg-gray-50 hover:bg-gray-200 rounded-lg flex flex-col justify-between space-y-2 cursor-pointer">
+                            <div wire:click="{{ isset($notification->data['url']) ? "readNotification('$notification->id')" : '' }}"
+                                class="p-4 z-0 bg-gray-50 hover:{{ isset($notification->data['url']) ? 'bg-gray-200' : 'bg-gray-50' }} rounded-lg flex flex-col justify-between space-y-2 {{ isset($notification->data['url']) ? 'cursor-pointer' : 'cursor-default' }}">
                                 <div class="font-semibold flex flex-row justify-between gap-2">
                                     <p>{{ $notification->data['message'] }}</p>
                                     <x-icons.mark-icon
@@ -248,7 +249,8 @@
                     <!-- Notification Items -->
                     <div wire:poll.5s class="space-y-4">
                         @forelse ($notifications as $notification)
-                        <div wire:click="readNotification('{{ $notification->id }}')" class="p-4 z-0 bg-gray-50 hover:bg-gray-200 rounded-lg flex flex-col justify-between space-y-2 cursor-pointer">
+                        <div wire:click="{{ isset($notification->data['url']) ? "readNotification('$notification->id')" : '' }}"
+                            class="p-4 z-0 bg-gray-50 hover:{{ isset($notification->data['url']) ? 'bg-gray-200' : 'bg-gray-50' }} rounded-lg flex flex-col justify-between space-y-2 {{ isset($notification->data['url']) ? 'cursor-pointer' : 'cursor-default' }}">
                             <div class="font-semibold flex flex-row justify-between gap-2">
                                 <p>{{ $notification->data['message'] }}</p>
                                 <x-icons.mark-icon
