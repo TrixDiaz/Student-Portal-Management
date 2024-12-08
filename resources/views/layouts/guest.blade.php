@@ -28,7 +28,7 @@
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div class="flex flex-col justify-center items-center text-center">
                     <p class="uppercase font-bold font-sans text-3xl text-white">welcome to</p>
-                    <p class="uppercase font-bold font-sans text-3xl -me-8 my-4 text-white">student portal <span class="text-yellow-600">goldenian</span></p>
+                    <p class="uppercase font-bold font-sans text-3xl -me-8 my-4 text-white">student portal <span class="text-yellow-600">{{ config('app.name') }}</span></p>
                     <img src="/images/auth-logo.png" alt="logo" class="block h-64 w-auto">
                 </div>
             </div>

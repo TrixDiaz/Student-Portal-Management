@@ -57,4 +57,6 @@ Route::middleware([
 
     // Teacher Room Section
     Route::view('/teacher/room/{subject_id}', 'teacher.room')->name('teacher.room');
+
+    Route::view('/student/evaluation/{roomSection}', 'student.evaluation')->name('student.evaluation');
 });

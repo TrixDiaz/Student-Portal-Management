@@ -144,16 +144,16 @@
                                         </div>
 
                                         <div x-data="{ 
-    showGradeModal: false,
-    grade: null,
-    init() {
-        window.addEventListener('open-grade-modal', (event) => {
-            this.showGradeModal = true;
-            $wire.selectedStudentId = event.detail.studentId;
-            $wire.selectedRoomSectionId = event.detail.roomSectionId;
-        });
-    }
-}"
+                                            showGradeModal: false,
+                                            grade: null,
+                                            init() {
+                                                window.addEventListener('open-grade-modal', (event) => {
+                                                    this.showGradeModal = true;
+                                                    $wire.selectedStudentId = event.detail.studentId;
+                                                    $wire.selectedRoomSectionId = event.detail.roomSectionId;
+                                                });
+                                            }
+                                        }"
                                             x-show="showGradeModal"
                                             class="fixed inset-0 z-50 overflow-y-auto"
                                             style="display: none;">

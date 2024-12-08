@@ -68,17 +68,24 @@
 
                 <div class="relative bg-white rounded-lg shadow-xl max-w-lg w-full">
                     <div class="p-6">
+                        @if($hasCompletedEvaluation)
                         <h3 class="text-lg font-medium text-gray-900">Grade</h3>
-                        <p class="mt-2 text-sm text-gray-500">Your Grade for this subject is: 82</p>
-                        <p class="mt-2 text-sm text-green-500">Passed</p>
+                        <p class="mt-2 text-sm text-gray-500">Your Grade for this subject is: {{ $grade }}</p>
+                        <p class="mt-2 text-sm {{ $status === 'Passed' ? 'text-green-500' : 'text-red-500' }}">{{ $status }}</p>
+                        @else
+                        <h3 class="text-lg font-medium text-gray-900">Evaluation Required</h3>
+                        <p class="mt-2 text-sm text-gray-500">Please complete the evaluation first to view your grade.</p>
+                        @endif
 
                         <div class="mt-4 flex space-x-3">
                             <button @click="showGradeModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                                 Cancel
                             </button>
-                            <button @click="$wire.sendEvaluation(gradeId); showGradeModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                                Send Evaluation
+                            @if(!$hasCompletedEvaluation)
+                            <button wire:click="redirectToEvaluation(gradeId)" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-yellow-600 border border-transparent rounded-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                Complete Evaluation
                             </button>
+                            @endif
                         </div>
                     </div>
                 </div>

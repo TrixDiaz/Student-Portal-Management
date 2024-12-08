@@ -31,4 +31,27 @@ class EvaluationResponse extends Model
     {
         return $this->belongsTo(RoomSection::class);
     }
+
+    public static function getOrCreateForStudent($roomSectionId, $userId)
+    {
+        $activeEvaluation = Evaluation::where('is_active', true)->first();
+
+        if (!$activeEvaluation) {
+            \Log::error('No active evaluation found');
+            return null;
+        }
+
+        try {
+            return self::firstOrCreate(
+                [
+                    'room_section_id' => $roomSectionId,
+                    'user_id' => $userId,
+                    'evaluation_id' => $activeEvaluation->id,
+                ]
+            );
+        } catch (\Exception $e) {
+            \Log::error('Error creating evaluation response: ' . $e->getMessage());
+            return null;
+        }
+    }
 }

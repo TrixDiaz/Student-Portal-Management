@@ -7,7 +7,7 @@
 
                  <!-- Welcome Content -->
                  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-                     <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. goldenian</h1>
+                     <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. qcuian</h1>
                  </div>
 
                  <!-- Users Count Content -->
@@ -49,13 +49,13 @@
                      <div class="bg-lime-900 overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-start rounded-lg p-4">
                              <p class="text-white text-start text-xl font-bold">Mission</p>
-                             <h1 class="font-bold text-white text-center">Golden Gate Colleges, as a private non-sectarian institution.</h1>
+                             <h1 class="font-bold text-white text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, praesentium? Aperiam ab neque quibusdam ex?</h1>
                          </div>
                      </div>
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-start rounded-lg p-4">
                              <p class="text-gray-700 text-start text-xl font-bold">Vision</p>
-                             <h1 class="font-bold text-gray-700 text-center">A center of educational excellence, whose graduates are global.</h1>
+                             <h1 class="font-bold text-gray-700 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, praesentium? Aperiam ab neque quibusdam ex?</h1>
                          </div>
                      </div>
                  </div>

@@ -4,6 +4,8 @@ namespace App\Livewire\Student;
 
 use App\Models\Room;
 use Livewire\Component;
+use App\Models\EvaluationResponse;
+use App\Models\StudentGrade;
 
 class Dashboard extends Component
 {
@@ -13,6 +15,9 @@ class Dashboard extends Component
     public $selectedYear;
     public $availableYears;
     public $semesters = ['first', 'second', 'summer'];
+    public $hasCompletedEvaluation = false;
+    public $grade = null;
+    public $status = null;
 
     public function mount()
     {
@@ -51,6 +56,32 @@ class Dashboard extends Component
         }])->get();
 
         $this->totalSubjects = $this->subjects->sum('subjects_count');
+    }
+
+    public function checkEvaluation($roomSectionId)
+    {
+        $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
+            ->where('user_id', auth()->id())
+            ->where('is_completed', true)
+            ->first();
+
+        $this->hasCompletedEvaluation = !is_null($evaluationResponse);
+
+        if ($this->hasCompletedEvaluation) {
+            $grade = StudentGrade::where('room_section_id', $roomSectionId)
+                ->where('student_id', auth()->id())
+                ->first();
+
+            if ($grade) {
+                $this->grade = $grade->grade;
+                $this->status = $grade->status;
+            }
+        }
+    }
+
+    public function redirectToEvaluation($roomSectionId)
+    {
+        return redirect()->route('student.evaluation', ['roomSection' => $roomSectionId]);
     }
 
     public function render()

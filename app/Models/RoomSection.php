@@ -51,4 +51,9 @@ class RoomSection extends Model
     {
         return $this->hasMany(EvaluationResponse::class);
     }
+
+    public function evaluation()
+    {
+        return $this->belongsTo(Evaluation::class);
+    }
 }
