@@ -77,7 +77,7 @@ class Create extends Component
                 'name' => $this->name,
             ]);
 
-            // Create room_section record
+            // Create room_section record with evaluation_id set to null
             $roomSection = RoomSection::create([
                 'user_id' => $this->user_id,
                 'room_id' => $this->room_id,
@@ -85,6 +85,7 @@ class Create extends Component
                 'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'evaluation_id' => null,
             ]);
 
             // Create room_section_student records for each selected student
@@ -95,8 +96,7 @@ class Create extends Component
                 ]);
             }
 
-            session()->flash('message', 'Section created successfully.');
-            return redirect()->route('admin.sections');
+            return redirect()->route('admin.sections')->with('success', 'Section created successfully.');
         });
     }
     public function render()
@@ -106,7 +106,7 @@ class Create extends Component
             'students' => User::role('student')->get(),
             'rooms' => Room::all(),
             'subjects' => Subject::all(),
-            'existingSections' => $this->room_id ? $this->getExistingSections() : [],
+            'existingSections' => $this->existingSections,
         ]);
     }
 }

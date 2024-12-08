@@ -6,6 +6,8 @@ use App\Models\Subject;
 use App\Models\RoomSection;
 use App\Models\RoomSectionStudent;
 use App\Models\StudentGrade;
+use App\Notifications\StudentGradeNotification;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Component;
 
 class Room extends Component
@@ -60,13 +62,14 @@ class Room extends Component
     {
         $this->validate();
 
-        StudentGrade::create([
+        $studentGrade = StudentGrade::create([
             'room_section_id' => $this->selectedRoomSectionId,
             'student_id' => $this->selectedStudentId,
             'grade' => $this->grade,
             'status' => $this->grade <= 3.0 ? 'Passed' : 'Failed'
         ]);
 
+        Notification::send([$studentGrade->student, auth()->user()], new StudentGradeNotification($studentGrade));
         $this->reset(['grade', 'selectedStudentId', 'selectedRoomSectionId']);
         toastr()->success('Grade added successfully');
     }
