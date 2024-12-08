@@ -24,6 +24,7 @@ class Edit extends Component
     public $start_date;
     public $end_date;
     public $existingSections = [];
+    public $semester;
 
     public function mount($section_id)
     {
@@ -47,6 +48,7 @@ class Edit extends Component
         $this->subject_id = $this->roomSection->subject_id;
         $this->start_date = $this->roomSection->start_date->format('Y-m-d\TH:i');
         $this->end_date = $this->roomSection->end_date->format('Y-m-d\TH:i');
+        $this->semester = $this->roomSection->semester;
 
         $this->updatedRoomId();
     }
@@ -91,6 +93,7 @@ class Edit extends Component
             'start_date' => 'required|date',
             'end_date' => 'required|date|after:start_date',
             'subject_id' => 'required|exists:subjects,id',
+            'semester' => 'required|in:1st,2nd',
         ]);
 
         DB::transaction(function () {
@@ -104,6 +107,7 @@ class Edit extends Component
                 'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
+                'semester' => $this->semester,
             ]);
 
             // Delete existing student associations

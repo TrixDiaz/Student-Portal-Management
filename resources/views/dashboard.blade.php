@@ -10,6 +10,9 @@
                      <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. qcuian</h1>
                  </div>
 
+                 <!-- Chart -->
+                 <livewire:chart.grade />
+
                  <!-- Users Count Content -->
                  <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Accounts</h1>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -81,6 +81,21 @@
                         </div>
                     </div>
 
+                    <!-- Semester -->
+                    <div>
+                        <x-label for="semester">Semester</x-label>
+                        <div class="mt-2.5">
+                            <select wire:model="semester" id="semester" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                <option value="">Select Semester</option>
+                                <option value="1st">1st Semester</option>
+                                <option value="2nd">2nd Semester</option>
+                            </select>
+                            @error('semester')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
                     <!-- Students (Multiple) -->
                     <div>
                         <x-label for="student_ids">Students</x-label>
