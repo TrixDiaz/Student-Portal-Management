@@ -28,10 +28,13 @@ class Evaluation extends Component
             return;
         }
 
-        // Get questions grouped by phases
+        // Get phases and questions that belong to the current evaluation
         $this->phases = Phase::with(['questions' => function ($query) {
             $query->orderBy('order');
-        }])->get();
+        }])
+            ->where('evaluation_id', $this->evaluation->id)  // Only get phases for this evaluation
+            ->orderBy('order')
+            ->get();
 
         // Check if evaluation was already completed
         $existingResponse = EvaluationResponse::where('room_section_id', $roomSection->id)
@@ -40,7 +43,6 @@ class Evaluation extends Component
             ->first();
 
         if ($existingResponse) {
-            // Instead of redirecting, store the response to display grades
             $this->responses = $existingResponse->responses ?? [];
             return;
         }

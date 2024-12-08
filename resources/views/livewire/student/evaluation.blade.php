@@ -12,7 +12,7 @@
 
                 @foreach($phase->questions->sortBy('order') as $question)
                 <div class="mb-6">
-                    <p class="mb-2">{{ $question->question_text }}</p>
+                    <p class="mb-2">{{ $question->question }}</p>
                     <div class="flex space-x-4">
                         <p class="font-semibold">Your Rating: {{ $responses[$question->id] ?? 'N/A' }}</p>
                     </div>
@@ -29,7 +29,7 @@
 
                     @foreach($phase->questions->sortBy('order') as $question)
                     <div class="mb-6">
-                        <p class="mb-2">{{ $question->question_text }}</p>
+                        <p class="mb-2">{{ $question->question }}</p>
                         <div class="flex space-x-4">
                             @foreach(range(1, 5) as $rating)
                             <label class="flex items-center">
