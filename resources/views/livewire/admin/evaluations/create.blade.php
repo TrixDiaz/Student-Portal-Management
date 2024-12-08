@@ -72,9 +72,9 @@
                                     </button>
                                 </div>
                                 <div class="mt-2">
-                                    <x-label for="phases.{{ $phaseIndex }}.questions.{{ $questionIndex }}.question_text">Question Text</x-label>
-                                    <x-input type="text" wire:model="phases.{{ $phaseIndex }}.questions.{{ $questionIndex }}.question_text" class="block w-full mt-1" />
-                                    @error("phases.{$phaseIndex}.questions.{$questionIndex}.question_text")
+                                    <x-label for="phases.{{ $phaseIndex }}.questions.{{ $questionIndex }}.question">Question Text</x-label>
+                                    <x-input type="text" wire:model="phases.{{ $phaseIndex }}.questions.{{ $questionIndex }}.question" class="block w-full mt-1" />
+                                    @error("phases.{$phaseIndex}.questions.{$questionIndex}.question")
                                     <span class="text-red-500 text-sm">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -92,6 +92,20 @@
                         <button type="button" wire:click="addPhase" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200">
                             + Add Phase
                         </button>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700">Assign to Sections</label>
+                        <select wire:model="selectedSections" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
+                            @foreach($sections as $section)
+                            <option value="{{ $section->id }}">
+                                {{ $section->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                        @error('selectedSections')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="flex justify-end space-x-4 mt-4">

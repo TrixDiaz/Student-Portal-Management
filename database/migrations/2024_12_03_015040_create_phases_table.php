@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('phases', function (Blueprint $table) {
             $table->id();
             $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
-            $table->string('name');
+            $table->string('title');
             $table->string('description')->nullable();
             $table->integer('order');
             $table->timestamps();

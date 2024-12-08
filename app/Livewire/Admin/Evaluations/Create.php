@@ -8,17 +8,24 @@ use App\Models\Phase;
 use App\Models\Question;
 use App\Models\EvaluationResponse;
 use App\Models\RoomSectionStudent;
+use App\Models\Section;
+use App\Models\RoomSection;
 
 class Create extends Component
 {
     public $title;
     public $description;
     public $phases = [];
+    public $sections = [];
+    public $selectedSections = [];
 
     public function mount()
     {
         // Initialize with one empty phase
         $this->addPhase();
+
+        // Load all active sections
+        $this->sections = Section::where('is_active', true)->get();
     }
 
     public function addPhase()
@@ -26,7 +33,7 @@ class Create extends Component
         $this->phases[] = [
             'title' => '',
             'questions' => [
-                ['question_text' => '']
+                ['question' => '']
             ]
         ];
     }
@@ -40,7 +47,7 @@ class Create extends Component
     public function addQuestion($phaseIndex)
     {
         $this->phases[$phaseIndex]['questions'][] = [
-            'question_text' => ''
+            'question' => ''
         ];
     }
 
@@ -57,6 +64,7 @@ class Create extends Component
             'description' => 'required|string',
             'phases.*.title' => 'required|string|max:255',
             'phases.*.questions.*.question_text' => 'required|string',
+            'selectedSections' => 'required|array|min:1',
         ]);
 
         $evaluation = Evaluation::create([
@@ -78,7 +86,12 @@ class Create extends Component
             }
         }
 
-        $roomSectionStudents = RoomSectionStudent::with(['student', 'roomSection'])->get();
+        RoomSection::whereIn('section_id', $this->selectedSections)
+            ->update(['evaluation_id' => $evaluation->id]);
+
+        $roomSectionStudents = RoomSectionStudent::whereHas('roomSection', function ($query) {
+            $query->whereIn('section_id', $this->selectedSections);
+        })->with(['student', 'roomSection'])->get();
 
         foreach ($roomSectionStudents as $roomSectionStudent) {
             EvaluationResponse::create([

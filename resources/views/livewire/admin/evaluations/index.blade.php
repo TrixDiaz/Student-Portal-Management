@@ -109,9 +109,9 @@
                                         </button>
                                         <div x-show="open" @click.away="open = false" class="absolute z-10 w-44 right-10 bg-white rounded divide-y divide-gray-100 shadow">
                                             @if($evaluation->deleted_at === null)
-                                            <div class="py-1">
+                                            <!-- <div class="py-1">
                                                 <button wire:click="sendEvaluation({{ $evaluation->id }})" class="block w-full text-left py-2 px-4 text-sm text-gray-700 hover:bg-gray-100">Send Evaluation</button>
-                                            </div>
+                                            </div> -->
                                             <ul class="py-1 text-sm text-gray-700">
                                                 <li>
                                                     <a wire:navigate href="{{ route('admin.evaluations.edit', $evaluation->id) }}" class="block py-2 px-4 hover:bg-gray-100">Edit</a>

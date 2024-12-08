@@ -31,4 +31,9 @@ class Evaluation extends Model
     {
         return $this->hasMany(EvaluationResponse::class);
     }
+
+    public function roomSections()
+    {
+        return $this->hasMany(RoomSection::class);
+    }
 }

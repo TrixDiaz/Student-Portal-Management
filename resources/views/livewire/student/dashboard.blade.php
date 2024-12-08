@@ -63,29 +63,29 @@
 
                             <div>
                                 @php
-                                $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
-                                ->where('user_id', auth()->id())
-                                ->first();
-                                $hasCompleted = $evaluationResponse?->is_completed ?? false;
-
-                                if ($hasCompleted) {
                                 $grade = App\Models\StudentGrade::where('room_section_id', $roomSection->id)
                                 ->where('student_id', auth()->id())
+                                ->first();
+
+                                $evaluationResponse = null;
+                                if ($grade) {
+                                $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
+                                ->where('user_id', auth()->id())
                                 ->first();
                                 }
                                 @endphp
 
-                                @if($hasCompleted && $grade)
+                                @if($grade && (!$evaluationResponse || !$evaluationResponse->is_completed))
+                                <x-secondary-button wire:click="redirectToEvaluation({{ $roomSection->id }})">
+                                    Answer Evaluation
+                                </x-secondary-button>
+                                @elseif($evaluationResponse && $evaluationResponse->is_completed && $grade)
                                 <div class="text-right">
                                     <p class="font-medium text-gray-700">Grade: {{ $grade->grade }}</p>
                                     <p class="text-sm {{ $grade->status === 'Passed' ? 'text-green-500' : 'text-red-500' }}">
                                         {{ $grade->status }}
                                     </p>
                                 </div>
-                                @else
-                                <x-secondary-button wire:click="redirectToEvaluation({{ $roomSection->id }})">
-                                    Answer Evaluation
-                                </x-secondary-button>
                                 @endif
                             </div>
                         </div>
