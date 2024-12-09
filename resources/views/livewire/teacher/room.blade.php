@@ -175,17 +175,6 @@
                                                         <h3 class="text-lg font-medium text-gray-900">Add Grade</h3>
 
                                                         <div class="mt-4">
-                                                            <label for="grade" class="block text-sm font-medium text-gray-700">Grade (1-5)</label>
-                                                            <input type="number"
-                                                                wire:model="grade"
-                                                                step="0.01"
-                                                                min="1"
-                                                                max="5"
-                                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                                            @error('grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
-                                                        </div>
-
-                                                        <div class="mt-4">
                                                             <div class="flex justify-between items-center">
                                                                 <label class="block text-sm font-medium text-gray-700">Quiz Scores</label>
                                                                 <div class="flex items-center space-x-4">
@@ -257,7 +246,54 @@
                                                                     </button>
                                                                 </div>
                                                                 @endforeach
+
                                                             </div>
+                                                        </div>
+
+                                                        <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                                                            <div>
+                                                                <label for="prelim_grade" class="block text-sm font-medium text-gray-700">Prelim Exam Grade</label>
+                                                                <input type="number"
+                                                                    wire:model="prelim_grade"
+                                                                    step="0.01"
+                                                                    min="1"
+                                                                    max="5"
+                                                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                @error('prelim_grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                                            </div>
+
+                                                            <div>
+                                                                <label for="midterm_grade" class="block text-sm font-medium text-gray-700">Midterm Exam Grade</label>
+                                                                <input type="number"
+                                                                    wire:model="midterm_grade"
+                                                                    step="0.01"
+                                                                    min="1"
+                                                                    max="5"
+                                                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                @error('midterm_grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                                            </div>
+
+                                                            <div>
+                                                                <label for="final_grade" class="block text-sm font-medium text-gray-700">Final Exam Grade</label>
+                                                                <input type="number"
+                                                                    wire:model="final_grade"
+                                                                    step="0.01"
+                                                                    min="1"
+                                                                    max="5"
+                                                                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                @error('final_grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mt-4">
+                                                            <label for="grade" class="block text-sm font-medium text-gray-700">Grade (1-5)</label>
+                                                            <input type="number"
+                                                                wire:model="grade"
+                                                                step="0.01"
+                                                                min="1"
+                                                                max="5"
+                                                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                            @error('grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                         </div>
 
                                                         <div class="mt-4 flex space-x-3">

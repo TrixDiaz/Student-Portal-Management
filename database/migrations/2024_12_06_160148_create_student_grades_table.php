@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('room_section_id')->constrained()->onDelete('cascade');
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('grade', 3, 2);
-            $table->string('prelim_grade')->nullable();
-            $table->string('midterm_grade')->nullable();
-            $table->string('final_grade')->nullable();
-            $table->json('quiz_score')->nullable();
-            $table->enum('status', ['Passed', 'Failed']);
+            $table->decimal('grade', 8, 2)->nullable();
+            $table->decimal('prelim_grade', 8, 2)->nullable();
+            $table->decimal('midterm_grade', 8, 2)->nullable();
+            $table->decimal('final_grade', 8, 2)->nullable();
+            $table->json('quiz_scores')->nullable();
+            $table->enum('status', ['Passed', 'Failed'])->nullable();
             $table->timestamps();
         });
     }
