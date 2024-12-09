@@ -7,7 +7,7 @@
 
                  <!-- Welcome Content -->
                  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
-                     <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. qcuian</h1>
+                     <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. {{ config('app.name') }}</h1>
                  </div>
 
                  <!-- Chart -->
