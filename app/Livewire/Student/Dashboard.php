@@ -14,7 +14,7 @@ class Dashboard extends Component
     public $selectedSemester = null;
     public $selectedYear;
     public $availableYears;
-    public $semesters = ['first', 'second', 'summer'];
+    public $semesters = ['1st', '2nd'];
     public $hasCompletedEvaluation = false;
     public $grade = null;
     public $status = null;

@@ -18,6 +18,8 @@ class DepartmentFactory extends Factory
     {
         return [
             'name' => fake()->name(),
+            'courses' => fake()->randomElement(['IT', 'CS', 'IS', 'BA', 'BS', 'BBA']),
+            'is_active' => fake()->boolean(),
         ];
     }
 }

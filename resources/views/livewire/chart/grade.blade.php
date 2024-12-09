@@ -27,91 +27,182 @@
             </div>
         </div>
 
-        <div id="grade-chart"></div>
+        <div wire:key="grade-chart-{{ $selectedSemester }}-{{ $selectedYear }}" id="grade-chart"></div>
     </div>
 
     <script>
-        const gradeOptions = {
-            series: @json($grades),
-            chart: {
-                type: "bar",
-                height: "320px",
-                fontFamily: "Inter, sans-serif",
-                toolbar: {
-                    show: false,
-                },
-            },
-            plotOptions: {
-                bar: {
-                    horizontal: false,
-                    columnWidth: "70%",
-                    borderRadiusApplication: "end",
-                    borderRadius: 8,
-                },
-            },
-            tooltip: {
-                shared: true,
-                intersect: false,
-                style: {
+        document.addEventListener('livewire:update', function() {
+            if (document.getElementById("grade-chart") && typeof ApexCharts !== 'undefined') {
+                // Clear the previous chart
+                document.getElementById("grade-chart").innerHTML = '';
+
+                const gradeOptions = {
+                    series: @json($grades),
+                    chart: {
+                        type: "bar",
+                        height: "320px",
+                        fontFamily: "Inter, sans-serif",
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: "70%",
+                            borderRadiusApplication: "end",
+                            borderRadius: 8,
+                        },
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        style: {
+                            fontFamily: "Inter, sans-serif",
+                        },
+                    },
+                    states: {
+                        hover: {
+                            filter: {
+                                type: "darken",
+                                value: 1,
+                            },
+                        },
+                    },
+                    stroke: {
+                        show: true,
+                        width: 0,
+                        colors: ["transparent"],
+                    },
+                    grid: {
+                        show: false,
+                        strokeDashArray: 4,
+                        padding: {
+                            left: 2,
+                            right: 2,
+                            top: -14
+                        },
+                    },
+                    dataLabels: {
+                        enabled: false,
+                    },
+                    legend: {
+                        show: true,
+                        position: 'top',
+                        fontSize: '14px',
+                        fontFamily: "Inter, sans-serif",
+                    },
+                    xaxis: {
+                        floating: false,
+                        labels: {
+                            show: true,
+                            style: {
+                                fontFamily: "Inter, sans-serif",
+                                cssClass: 'text-xs font-normal fill-gray-500'
+                            }
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                    },
+                    yaxis: {
+                        show: false,
+                    },
+                    fill: {
+                        opacity: 1,
+                    },
+                }
+
+                const gradeChart = new ApexCharts(document.getElementById("grade-chart"), gradeOptions);
+                gradeChart.render();
+            }
+        });
+
+        // Initial render
+        if (document.getElementById("grade-chart") && typeof ApexCharts !== 'undefined') {
+            const gradeOptions = {
+                series: @json($grades),
+                chart: {
+                    type: "bar",
+                    height: "320px",
                     fontFamily: "Inter, sans-serif",
-                },
-            },
-            states: {
-                hover: {
-                    filter: {
-                        type: "darken",
-                        value: 1,
+                    toolbar: {
+                        show: false,
                     },
                 },
-            },
-            stroke: {
-                show: true,
-                width: 0,
-                colors: ["transparent"],
-            },
-            grid: {
-                show: false,
-                strokeDashArray: 4,
-                padding: {
-                    left: 2,
-                    right: 2,
-                    top: -14
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: "70%",
+                        borderRadiusApplication: "end",
+                        borderRadius: 8,
+                    },
                 },
-            },
-            dataLabels: {
-                enabled: false,
-            },
-            legend: {
-                show: true,
-                position: 'top',
-                fontSize: '14px',
-                fontFamily: "Inter, sans-serif",
-            },
-            xaxis: {
-                floating: false,
-                labels: {
-                    show: true,
+                tooltip: {
+                    shared: true,
+                    intersect: false,
                     style: {
                         fontFamily: "Inter, sans-serif",
-                        cssClass: 'text-xs font-normal fill-gray-500'
-                    }
+                    },
                 },
-                axisBorder: {
+                states: {
+                    hover: {
+                        filter: {
+                            type: "darken",
+                            value: 1,
+                        },
+                    },
+                },
+                stroke: {
+                    show: true,
+                    width: 0,
+                    colors: ["transparent"],
+                },
+                grid: {
+                    show: false,
+                    strokeDashArray: 4,
+                    padding: {
+                        left: 2,
+                        right: 2,
+                        top: -14
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                legend: {
+                    show: true,
+                    position: 'top',
+                    fontSize: '14px',
+                    fontFamily: "Inter, sans-serif",
+                },
+                xaxis: {
+                    floating: false,
+                    labels: {
+                        show: true,
+                        style: {
+                            fontFamily: "Inter, sans-serif",
+                            cssClass: 'text-xs font-normal fill-gray-500'
+                        }
+                    },
+                    axisBorder: {
+                        show: false,
+                    },
+                    axisTicks: {
+                        show: false,
+                    },
+                },
+                yaxis: {
                     show: false,
                 },
-                axisTicks: {
-                    show: false,
+                fill: {
+                    opacity: 1,
                 },
-            },
-            yaxis: {
-                show: false,
-            },
-            fill: {
-                opacity: 1,
-            },
-        }
+            }
 
-        if (document.getElementById("grade-chart") && typeof ApexCharts !== 'undefined') {
             const gradeChart = new ApexCharts(document.getElementById("grade-chart"), gradeOptions);
             gradeChart.render();
         }

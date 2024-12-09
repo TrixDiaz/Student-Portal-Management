@@ -14,6 +14,14 @@ class Create extends Component
     public $name;
     public $is_active = true;
     public $selectedTeachers = [];
+    public $courses = [
+        'IT' => 'Bachelor of Science in Information Technology',
+        'CS' => 'Bachelor of Science in Computer Science',
+        'IS' => 'Bachelor of Science in Information Systems',
+        'BA' => 'Bachelor of Arts',
+        'BS' => 'Bachelor of Science',
+        'BBA' => 'Bachelor of Business Administration',
+    ];
     public $teachers;
 
     public function mount()
@@ -27,6 +35,7 @@ class Create extends Component
     {
         $department = Department::create([
             'name' => $this->name,
+            'courses' => $this->courses,
             'is_active' => $this->is_active,
         ]);
 
