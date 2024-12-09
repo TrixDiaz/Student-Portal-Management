@@ -20,4 +20,9 @@ class Phase extends Model
     {
         return $this->hasMany(Question::class)->orderBy('order');
     }
+
+    public function responses()
+    {
+        return $this->hasManyThrough(Response::class, Question::class);
+    }
 }

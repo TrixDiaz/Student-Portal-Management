@@ -32,6 +32,21 @@ class EvaluationResponse extends Model
         return $this->belongsTo(RoomSection::class);
     }
 
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function getResponsesByPhase()
+    {
+        return $this->evaluation->phases()
+            ->with(['questions.responses' => function ($query) {
+                $query->where('evaluation_response_id', $this->id);
+            }])
+            ->orderBy('order')
+            ->get();
+    }
+
     public static function getOrCreateForStudent($roomSectionId, $userId)
     {
         $activeEvaluation = Evaluation::where('is_active', true)->first();

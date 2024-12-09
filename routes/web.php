@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentResponseController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -60,4 +61,7 @@ Route::middleware([
 
     Route::view('/student/evaluation/{roomSection}', 'student.evaluation')->name('student.evaluation');
     Route::view('/admin/notifications/create', 'admin.notification.create')->name('admin.notifications.create');
+
+    Route::get('/student-responses', [StudentResponseController::class, 'index'])->name('student-responses.index');
+    Route::get('/student-responses/{evaluationResponse}', [StudentResponseController::class, 'show'])->name('student-responses.show');
 });
