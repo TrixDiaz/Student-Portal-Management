@@ -110,7 +110,7 @@
                                                 $existingGrade = $student->grades->where('room_section_id', $roomSection->id)->first();
                                                 @endphp
 
-                                                @if($existingGrade)
+                                                @if($existingGrade && $existingGrade->grade !== null)
                                                 <span class="px-2 py-1 text-sm rounded-full {{ $existingGrade->status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                                     Grade: {{ number_format($existingGrade->grade, 2) }} ({{ $existingGrade->status }})
                                                 </span>

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg p-6">
@@ -23,12 +23,10 @@
                     @foreach($responsesByPhase as $phase)
                     <section class="border-t pt-6">
                         <h3 class="text-xl font-semibold mb-4">Category: {{ $phase->title }}</h3>
-
                         <div class="space-y-6">
                             <p>Questions:</p>
                             @foreach($phase->questions as $question)
                             <div class="bg-gray-50 p-4 rounded-lg">
-
                                 <p class="font-medium text-gray-800">{{ $question->question }}</p>
                                 @foreach($question->responses as $response)
                                 <p class="mt-2 text-gray-600">
@@ -45,4 +43,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

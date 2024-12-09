@@ -10,16 +10,11 @@
                      <h1 class="uppercase text-2xl font-bold text-yellow-700 text-center">Your Gateway to success welcome back. {{ config('app.name') }}</h1>
                  </div>
 
-                 <!-- Chart -->
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto w-full">
-                     <livewire:chart.grade />
-                     <livewire:chart.quiz-score />
-                 </div>
-
-
+                 @if(auth()->user()->hasRole('admin'))
                  <!-- Users Count Content -->
                  <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start my-8">Accounts</h1>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
@@ -77,6 +72,7 @@
                          </div>
                      </div>
                  </div>
+                 @endif
 
                  <!-- Mission and Vision -->
                  <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start my-8">Mission and Vision</h1>

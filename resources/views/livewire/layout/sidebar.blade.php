@@ -16,6 +16,7 @@
                 </a>
             </li>
 
+            @if(auth()->user()->hasRole('dean'))
             <!-- Assets -->
             <li class="active">
                 <a wire:navigate href="{{ route('admin.departments') }}"
@@ -26,6 +27,7 @@
                 </a>
             </li>
 
+
             <li class="active">
                 <a wire:navigate href="{{ route('admin.notifications.create') }}"
                     class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.notifications.create') ? 'bg-gray-200' : '' }}">
@@ -34,14 +36,7 @@
                 </a>
             </li>
 
-            <li class="active">
-                <a wire:navigate href="{{ route('student-responses.index') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('student-responses.index') ? 'bg-gray-200' : '' }}">
-                    <x-icons.user-group-icon />
-                    <span class="text-gray-900">Student Responses</span>
-                </a>
-            </li>
-
+            @endif
             <!-- Class Schedules -->
 
             <li>
@@ -96,7 +91,7 @@
             </li>
 
 
-
+            @if(auth()->user()->hasRole('dean'))
             <!-- Evaluations -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
@@ -113,10 +108,19 @@
                                 <span class="text-gray-900">Evaluations</span>
                             </a>
                         </li>
+                        <li>
+                            <a wire:navigate href="{{ route('student-responses.index') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline {{ request()->routeIs('student-responses.index') ? 'bg-gray-200' : '' }}">
+                                <x-icons.user-group-icon />
+                                <span class="text-gray-900">Student Responses</span>
+                            </a>
+                        </li>
                     </div>
                 </ul>
             </li>
+            @endif
 
+            @if(auth()->user()->hasRole('admin'))
             <!-- Settings -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
@@ -149,6 +153,7 @@
                     </div>
                 </ul>
             </li>
+            @endif
         </ul>
     </nav>
 

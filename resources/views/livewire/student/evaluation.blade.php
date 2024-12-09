@@ -3,7 +3,11 @@
         <div class="p-6 bg-white border-b border-gray-200">
             <h2 class="text-2xl font-bold mb-4">Teacher Evaluation</h2>
             <p class="mb-4">Subject: {{ $roomSection->subject->name }}</p>
-
+            <p class="mb-4">Code: {{ $roomSection->subject->code }}</p>
+            <p class="mb-4">Semester: {{ ucfirst($roomSection->semester) }}</p>
+            <p class="mb-4">Section: {{ $roomSection->section->name }}</p>
+            <p class="mb-4">Room: {{ $roomSection->room->name }}</p>
+            <p class="mb-4">Instructor: {{ $roomSection->user->name }}</p>
             @if(count($responses) > 0)
             {{-- Show completed evaluation responses --}}
             @foreach($phases as $phase)
