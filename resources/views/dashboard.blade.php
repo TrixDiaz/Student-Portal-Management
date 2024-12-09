@@ -11,10 +11,11 @@
                  </div>
 
                  <!-- Chart -->
-                 <div class="h-auto grid grid-cols-1 md:grid-cols-2 gap-4">
-                     <livewire:chart.quiz-score />
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto">
                      <livewire:chart.grade />
+                     <livewire:chart.quiz-score />
                  </div>
+
 
                  <!-- Users Count Content -->
                  <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Accounts</h1>
@@ -32,6 +33,8 @@
                          </div>
                      </div>
                  </div>
+
+
 
                  <!-- Users Count Content -->
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

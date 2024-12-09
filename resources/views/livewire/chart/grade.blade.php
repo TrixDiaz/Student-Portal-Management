@@ -27,11 +27,11 @@
             </div>
         </div>
 
-        <div id="column-chart"></div>
+        <div id="grade-chart"></div>
     </div>
 
     <script>
-        const options = {
+        const gradeOptions = {
             series: @json($grades),
             chart: {
                 type: "bar",
@@ -111,9 +111,9 @@
             },
         }
 
-        if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("column-chart"), options);
-            chart.render();
+        if (document.getElementById("grade-chart") && typeof ApexCharts !== 'undefined') {
+            const gradeChart = new ApexCharts(document.getElementById("grade-chart"), gradeOptions);
+            gradeChart.render();
         }
     </script>
 </div>

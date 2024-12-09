@@ -27,11 +27,11 @@
             </div>
         </div>
 
-        <div id="column-chart"></div>
+        <div id="quiz-score-chart"></div>
     </div>
 
     <script>
-        const options = {
+        const quizOptions = {
             series: @json($grades),
             chart: {
                 type: "bar",
@@ -129,9 +129,9 @@
             },
         }
 
-        if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("column-chart"), options);
-            chart.render();
+        if (document.getElementById("quiz-score-chart") && typeof ApexCharts !== 'undefined') {
+            const quizChart = new ApexCharts(document.getElementById("quiz-score-chart"), quizOptions);
+            quizChart.render();
         }
     </script>
 </div>
