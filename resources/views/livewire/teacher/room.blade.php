@@ -185,6 +185,49 @@
                                                             @error('grade') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                                                         </div>
 
+                                                        <div class="mt-4">
+                                                            <div class="flex justify-between items-center">
+                                                                <label class="block text-sm font-medium text-gray-700">Quiz Scores</label>
+                                                                <button type="button"
+                                                                    wire:click="addQuiz"
+                                                                    class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                                                    Add Quiz
+                                                                </button>
+                                                            </div>
+
+                                                            <div class="space-y-3 mt-2">
+                                                                @foreach($quizzes as $index => $quiz)
+                                                                <div class="flex items-center space-x-2">
+                                                                    <div class="flex-1">
+                                                                        <input type="text"
+                                                                            wire:model="quizzes.{{ $index }}.quiz_name"
+                                                                            placeholder="Quiz Name"
+                                                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                        @error("quizzes.{$index}.quiz_name")
+                                                                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="flex-1">
+                                                                        <input type="number"
+                                                                            wire:model="quizzes.{{ $index }}.quiz_score"
+                                                                            placeholder="Score"
+                                                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                        @error("quizzes.{$index}.quiz_score")
+                                                                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <button type="button"
+                                                                        wire:click="removeQuiz({{ $index }})"
+                                                                        class="text-red-600 hover:text-red-800">
+                                                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                                        </svg>
+                                                                    </button>
+                                                                </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+
                                                         <div class="mt-4 flex space-x-3">
                                                             <button @click="showGradeModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50">
                                                                 Cancel

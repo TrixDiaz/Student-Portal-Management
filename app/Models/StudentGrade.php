@@ -9,7 +9,11 @@ class StudentGrade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['room_section_id', 'student_id', 'grade', 'status'];
+    protected $fillable = ['room_section_id', 'student_id', 'grade', 'status', 'quiz_scores'];
+
+    protected $casts = [
+        'quiz_scores' => 'array'
+    ];
 
     public function roomSection()
     {

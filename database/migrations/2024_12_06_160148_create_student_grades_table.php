@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->decimal('grade', 3, 2);
             $table->enum('status', ['Passed', 'Failed']);
+            $table->json('quiz_score')->nullable();
             $table->timestamps();
         });
     }
