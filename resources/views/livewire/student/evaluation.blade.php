@@ -7,7 +7,7 @@
             <p class="mb-4">Semester: {{ ucfirst($roomSection->semester) }}</p>
             <p class="mb-4">Section: {{ $roomSection->section->name }}</p>
             <p class="mb-4">Room: {{ $roomSection->room->name }}</p>
-            <p class="mb-4">Instructor: {{ $roomSection->user->name }}</p>
+            <p class="mb-4">Instructor: {{ $roomSection->teacher->name }}</p>
             @if(count($responses) > 0)
             {{-- Show completed evaluation responses --}}
             @foreach($phases as $phase)
