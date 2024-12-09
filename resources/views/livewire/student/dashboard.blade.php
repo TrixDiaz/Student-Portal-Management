@@ -83,7 +83,7 @@
                                     $evaluationResponse = null;
                                     if ($grade) {
                                     $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
-                                    ->where('user_id', auth()->id())
+                                    ->where('student_id', auth()->id())
                                     ->first();
                                     }
                                     @endphp

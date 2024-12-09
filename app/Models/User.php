@@ -77,9 +77,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Department::class);
     }
 
-    public function roomSections(): HasMany
+    public function roomSections()
     {
-        return $this->hasMany(RoomSection::class);
+        return $this->hasMany(RoomSection::class, 'teacher_id');
     }
 
     public function evaluationResponses(): HasMany

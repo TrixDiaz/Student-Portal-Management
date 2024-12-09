@@ -22,6 +22,11 @@ class RoomSection extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function teacher()
+    {
+        return $this->belongsTo(User::class, 'teacher_id');
+    }
+
     public function room()
     {
         return $this->belongsTo(Room::class);
