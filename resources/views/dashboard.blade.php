@@ -98,23 +98,24 @@
                 $totalStudents = 0;
                 @endphp
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    @foreach(auth()->user()->roomSections->groupBy('subject_id') as $subjectId => $roomSections)
+                    @foreach(auth()->user()->rooms as $room)
+                    @foreach($room->roomSections as $roomSection)
                     @php
-                    $subject = App\Models\Subject::find($subjectId);
-                    $studentCount = $roomSections->flatMap(function($roomSection) {
-                    return $roomSection->students;
-                    })->unique('id')->count();
+                    $subject = $roomSection->subject;
+                    $studentCount = $roomSection->students->count();
                     $totalStudents += $studentCount;
                     @endphp
-                    <a href="{{ route('teacher.room', ['subject_id' => $subjectId]) }}">
+                    <a href="{{ route('teacher.room', ['subject_id' => $subject->id]) }}">
                         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                             <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                                 <x-application-logo class="w-20 h-20" />
                                 <h1 class="font-bold text-gray-700">{{ $subject->name }}</h1>
                                 <p class="text-gray-700 text-sm my-2">Total Students: {{ $studentCount }}</p>
+                                <p class="text-gray-700 text-sm">Room: {{ $room->name }}</p>
                             </div>
                         </div>
                     </a>
+                    @endforeach
                     @endforeach
                 </div>
 

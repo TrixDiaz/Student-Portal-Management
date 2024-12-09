@@ -50,7 +50,7 @@ class Room extends Component
         $this->subjectId = $subjectId;
 
         $this->roomSections = RoomSection::where('subject_id', $this->subjectId)
-            ->where('user_id', auth()->id())
+            ->where('teacher_id', auth()->id())
             ->with([
                 'students',
                 'section',

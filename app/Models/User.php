@@ -91,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(StudentGrade::class, 'student_id');
     }
+
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class, 'room_sections', 'teacher_id', 'room_id');
+    }
 }

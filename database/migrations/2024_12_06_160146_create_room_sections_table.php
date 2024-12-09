@@ -23,7 +23,6 @@ return new class extends Migration
             $table->string('semester');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

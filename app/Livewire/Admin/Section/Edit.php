@@ -45,12 +45,12 @@ class Edit extends Component
     {
         $this->roomSection = RoomSection::where('section_id', $this->section_id)->firstOrFail();
         $this->room_id = $this->roomSection->room_id;
-        $this->user_id = $this->roomSection->user_id;
+        $this->user_id = $this->roomSection->teacher_id;
         $this->subject_id = $this->roomSection->subject_id;
         $this->start_date = $this->roomSection->start_date->format('Y-m-d\TH:i');
         $this->end_date = $this->roomSection->end_date->format('Y-m-d\TH:i');
         $this->semester = $this->roomSection->semester;
-        $this->year_level = $this->section->year_level;
+        $this->year_level = $this->roomSection->section->year_level;
 
         $this->updatedRoomId();
     }
