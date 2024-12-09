@@ -27,10 +27,10 @@ class Room extends Component
     public $final_grade;
 
     protected $rules = [
-        'grade' => 'nullable|numeric|min:max:5',
-        'prelim_grade' => 'nullable|numeric|min:0|max:5',
-        'midterm_grade' => 'nullable|numeric|min:0|max:5',
-        'final_grade' => 'nullable|numeric|min:0|max:5',
+        'grade' => 'nullable|numeric|min:0|max:5',
+        'prelim_grade' => 'nullable|numeric|min:0',
+        'midterm_grade' => 'nullable|numeric|min:0',
+        'final_grade' => 'nullable|numeric|min:0',
         'quizzes.*.quiz_name' => 'nullable|string',
         'quizzes.*.quiz_score' => 'nullable|numeric|min:0',
         'quizzes.*.quiz_over' => 'nullable|numeric|min:1',
