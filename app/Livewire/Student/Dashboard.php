@@ -6,6 +6,7 @@ use App\Models\Room;
 use Livewire\Component;
 use App\Models\EvaluationResponse;
 use App\Models\StudentGrade;
+use App\Models\RoomSection;
 
 class Dashboard extends Component
 {
@@ -40,30 +41,37 @@ class Dashboard extends Component
 
     private function updateTotalSubjects()
     {
-        $query = Room::forStudent(
-            auth()->user()->id,
-            $this->selectedSemester,
-            $this->selectedYear,
-            $this->selectedYearLevel
-        );
+        $query = RoomSection::with(['subject', 'user', 'section', 'room'])
+            ->whereHas('students', function ($query) {
+                $query->where('users.id', auth()->id());
+            })
+            ->when($this->selectedSemester, function ($query) {
+                $query->where('semester', $this->selectedSemester);
+            })
+            ->when($this->selectedYearLevel, function ($query) {
+                $query->where('year_level', $this->selectedYearLevel);
+            })
+            ->whereYear('created_at', $this->selectedYear);
 
-        $this->subjects = $query->with(['roomSections' => function ($query) {
-            $query->with(['subject', 'user', 'studentGrades' => function ($query) {
-                $query->where('student_id', auth()->id());
-            }])
-                ->when($this->selectedSemester, function ($query) {
-                    $query->where('semester', $this->selectedSemester);
+        $this->subjects = Room::whereHas('roomSections', function ($query) {
+            $query->whereIn('id', RoomSection::whereHas('students', function ($q) {
+                $q->where('users.id', auth()->id());
+            })->pluck('id'));
+        })->with(['roomSections' => function ($query) {
+            $query->with(['subject', 'user', 'section'])
+                ->whereHas('students', function ($q) {
+                    $q->where('users.id', auth()->id());
                 })
-                ->when($this->selectedYearLevel, function ($query) {
-                    $query->where('year_level', $this->selectedYearLevel);
+                ->when($this->selectedSemester, function ($q) {
+                    $q->where('semester', $this->selectedSemester);
                 })
-                ->whereYear('created_at', $this->selectedYear)
-                ->whereHas('students', function ($query) {
-                    $query->where('users.id', auth()->user()->id);
-                });
+                ->when($this->selectedYearLevel, function ($q) {
+                    $q->where('year_level', $this->selectedYearLevel);
+                })
+                ->whereYear('created_at', $this->selectedYear);
         }])->get();
 
-        $this->totalSubjects = $this->subjects->sum('subjects_count');
+        $this->totalSubjects = $this->subjects->flatMap->roomSections->count();
     }
 
     public function checkEvaluation($roomSectionId)
