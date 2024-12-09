@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Department;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DepartmentSeeder extends Seeder
 {
@@ -13,27 +12,9 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Department::insert(
-            [
-                'name' => 'IT Department',
-                'courses' => 'Bachelor of Science in Information Technology',
-            ],
-            [
-                'name' => 'Accountancy Department',
-                'courses' => 'Bachelor of Science in Accounting Management',
-            ],
-            [
-                'name' => 'Entrepreneurship Department',
-                'courses' => 'Bachelor of Science in Entrepreneurship',
-            ],
-            [
-                'name' => 'Education Department',
-                'courses' => 'Bachelor of Elementary Education',
-            ],
-            [
-                'name' => 'Business Administration Department',
-                'courses' => 'Bachelor of Science in Business Administration',
-            ],
-        );
+        DB::table('departments')->insert([
+            ['id' => 1, 'name' => 'Department 1'],
+            ['id' => 2, 'name' => 'Department 2'],
+        ]);
     }
 }

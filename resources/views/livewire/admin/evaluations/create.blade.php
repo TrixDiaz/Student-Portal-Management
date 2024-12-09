@@ -57,7 +57,7 @@
 
                         <div class="space-y-4">
                             <div>
-                                <x-label for="phases.{{ $phaseIndex }}.title">Phase Title</x-label>
+                                <x-label for="phases.{{ $phaseIndex }}.title" class="text-sm/6 text-gray-900">Phase Title</x-label>
                                 <x-input type="text" wire:model="phases.{{ $phaseIndex }}.title" class="block w-full mt-1" />
                                 @error("phases.{$phaseIndex}.title") <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
                             </div>
@@ -95,8 +95,8 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block text-sm font-medium text-gray-700">Assign to Sections</label>
-                        <select wire:model="selectedSections" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm" multiple>
+                        <x-label for="selectedSections" class="text-sm/6 text-gray-900">Assign to Sections</x-label>
+                        <select wire:model="selectedSections" class="mt-1 block w-full h-56 rounded-md border-gray-300 shadow-sm" multiple>
                             @foreach($sections as $section)
                             <option value="{{ $section->id }}">
                                 {{ $section->name }}
@@ -106,6 +106,7 @@
                         @error('selectedSections')
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
+                        <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple sections</p>
                     </div>
 
                     <div class="flex justify-end space-x-4 mt-4">

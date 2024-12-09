@@ -45,6 +45,9 @@
                                 <option value="{{ $key }}">{{ $course }}</option>
                                 @endforeach
                             </select>
+                            @error('courses')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <!-- Teachers -->
@@ -58,7 +61,11 @@
                                     <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('selectedTeachers')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
+                            <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
 
                     </div>

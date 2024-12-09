@@ -36,6 +36,20 @@
                             </div>
                         </div>
 
+                        <!-- Courses -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="courses">Courses</x-label>
+                            <select name="courses" id="courses" wire:model="courses"
+                                class="block w-full rounded-md shadow-gray-400 shadow-md dark:shadow-sm dark:shadow-bg-gray-100 border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                @foreach($courses as $key => $course)
+                                <option value="{{ $key }}">{{ $course }}</option>
+                                @endforeach
+                            </select>
+                            @error('courses')
+                            <span class="text-red-500 text-sm">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <!-- Teachers -->
                         <div>
                             <x-label for="teachers" class="text-sm/6 text-gray-900">Teachers</x-label>
@@ -44,10 +58,14 @@
                                     class="block w-full rounded-md shadow-gray-400 shadow-md dark:shadow-sm dark:shadow-bg-gray-100 border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
                                     multiple>
                                     @foreach($teachers as $teacher)
-                                    <option value="{{ $teacher->id }}" {{ $selectedTeachers->contains($teacher->id) ? 'selected' : '' }}>{{ $teacher->name }}</option>
+                                    <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
                                     @endforeach
                                 </select>
+                                @error('selectedTeachers')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
+                            <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
 
                     </div>

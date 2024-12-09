@@ -17,4 +17,9 @@ class Department extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function roomSections()
+    {
+        return $this->hasMany(RoomSection::class);
+    }
 }

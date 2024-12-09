@@ -26,21 +26,6 @@ class SectionSeeder extends Seeder
                 'name' => 'Section 2',
                 'is_active' => true,
             ],
-            [
-                'id' => 3,
-                'name' => 'Section 3',
-                'is_active' => true,
-            ],
-            [
-                'id' => 4,
-                'name' => 'Section 4',
-                'is_active' => true,
-            ],
-            [
-                'id' => 5,
-                'name' => 'Section 5',
-                'is_active' => true,
-            ],
         ]);
 
         RoomSection::insert([
@@ -50,6 +35,7 @@ class SectionSeeder extends Seeder
                 'section_id' => 1,
                 'subject_id' => 1,
                 'evaluation_id' => 1,
+                'department_id' => 1,
                 'semester' => '1st',
                 'start_date' => '2024-01-01 10:00:00',
                 'end_date' => '2024-01-01 12:00:00',
@@ -60,6 +46,7 @@ class SectionSeeder extends Seeder
                 'section_id' => 2,
                 'subject_id' => 2,
                 'evaluation_id' => 1,
+                'department_id' => 2,
                 'semester' => '2nd',
                 'start_date' => '2024-01-01 10:00:00',
                 'end_date' => '2024-01-01 12:00:00',

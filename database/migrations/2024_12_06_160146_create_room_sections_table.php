@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('room_id')->constrained('rooms')->onDelete('cascade');
             $table->foreignId('section_id')->constrained('sections')->onDelete('cascade');
             $table->foreignId('subject_id')->constrained('subjects')->onDelete('cascade');
+            $table->foreignId('department_id')->constrained('departments')->onDelete('cascade');
             $table->foreignId('evaluation_id')->constrained('evaluations')->onDelete('cascade')->nullable();
             $table->string('semester');
             $table->dateTime('start_date');
