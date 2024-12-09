@@ -103,7 +103,7 @@
                     <table class="w-full text-sm text-left text-gray-500">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-4 py-3">Name</th>
+                                <th scope="col" class="px-4 py-3">Building Name</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
                                 </th>

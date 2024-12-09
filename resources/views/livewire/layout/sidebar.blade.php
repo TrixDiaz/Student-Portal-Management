@@ -16,33 +16,12 @@
                 </a>
             </li>
 
-            @if(auth()->user()->hasRole('dean'))
-            <!-- Assets -->
-            <li class="active">
-                <a wire:navigate href="{{ route('admin.departments') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.departments') ? 'bg-gray-200' : '' }}">
-                    <x-icons.archive-box-icon />
-                    <span class="text-gray-900">Departments</span>
-                    <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $departmentsCount }}</p>
-                </a>
-            </li>
 
-
-            <li class="active">
-                <a wire:navigate href="{{ route('admin.notifications.create') }}"
-                    class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.notifications.create') ? 'bg-gray-200' : '' }}">
-                    <x-icons.bell-alert-icon />
-                    <span class="text-gray-900">Notifications</span>
-                </a>
-            </li>
-
-            @endif
             <!-- Class Schedules -->
-
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
-                    <x-icons.cog-8-tooth-icon />
-                    <span class="text-gray-700 text-xs">Class Schedules</span>
+                    <x-icons.building-library-icon />
+                    <span class="text-gray-700 text-xs">Classes</span>
                     <x-icons.arrow-down-icon />
                 </button>
                 <ul class="sub-menu bg-gray-50 rounded-md  transition-[grid-template-rows] duration-300 ease-in-out group-[.show]:grid-rows-[1fr] grid-rows-[0fr]">
@@ -56,6 +35,18 @@
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $buildingsCount }}</p>
                             </a>
                         </li>
+
+                        @if(auth()->user()->hasRole('dean'))
+                        <!-- Assets -->
+                        <li class="active">
+                            <a wire:navigate href="{{ route('admin.departments') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.departments') ? 'bg-gray-200' : '' }}">
+                                <x-icons.archive-box-icon />
+                                <span class="text-gray-900">Departments</span>
+                                <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $departmentsCount }}</p>
+                            </a>
+                        </li>
+                        @endif
 
                         <!-- Rooms -->
                         <li class="active">
@@ -95,7 +86,7 @@
             <!-- Evaluations -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
-                    <x-icons.cog-8-tooth-icon />
+                    <x-icons.newspaper-icon />
                     <span class="text-gray-700 text-xs">Evaluations</span>
                     <x-icons.arrow-down-icon />
                 </button>
@@ -112,7 +103,14 @@
                             <a wire:navigate href="{{ route('student-responses.index') }}"
                                 class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100 no-underline {{ request()->routeIs('student-responses.index') ? 'bg-gray-200' : '' }}">
                                 <x-icons.user-group-icon />
-                                <span class="text-gray-900">Student Responses</span>
+                                <span class="text-gray-900">Responses</span>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a wire:navigate href="{{ route('admin.notifications.create') }}"
+                                class="rounded-lg p-2 flex items-center gap-4 text-blue-600 hover:bg-gray-100 no-underline {{ request()->routeIs('admin.notifications.create') ? 'bg-gray-200' : '' }}">
+                                <x-icons.bell-alert-icon />
+                                <span class="text-gray-900">Announcements</span>
                             </a>
                         </li>
                     </div>
@@ -143,11 +141,6 @@
                                 <x-icons.key-icon />
                                 <span class="text-gray-900">Roles</span>
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">10</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a wire:navigate href="{{ route('profile.show') }}" class="rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  no-underline">
-                                <span class="text-gray-900">Profile</span>
                             </a>
                         </li>
                     </div>
