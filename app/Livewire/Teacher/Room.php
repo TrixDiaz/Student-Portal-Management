@@ -69,6 +69,24 @@ class Room extends Component
             ->get();
     }
 
+    public function loadExistingGrade($studentId, $roomSectionId)
+    {
+        $existingGrade = StudentGrade::where('student_id', $studentId)
+            ->where('room_section_id', $roomSectionId)
+            ->first();
+
+        if ($existingGrade) {
+            $this->grade = $existingGrade->grade;
+            $this->prelim_grade = $existingGrade->prelim_grade;
+            $this->midterm_grade = $existingGrade->midterm_grade;
+            $this->final_grade = $existingGrade->final_grade;
+            $this->quizzes = $existingGrade->quiz_scores['quizzes'] ?? [];
+        }
+
+        $this->selectedStudentId = $studentId;
+        $this->selectedRoomSectionId = $roomSectionId;
+    }
+
     public function addQuiz()
     {
         $this->quizzes[] = [
@@ -116,20 +134,29 @@ class Room extends Component
             $status = $this->grade <= 3.0 ? 'Passed' : 'Failed';
         }
 
-        $studentGrade = StudentGrade::create([
+        // Find existing grade or create new one
+        $studentGrade = StudentGrade::firstOrNew([
             'room_section_id' => $this->selectedRoomSectionId,
             'student_id' => $this->selectedStudentId,
-            'grade' => $this->grade,
-            'prelim_grade' => $this->prelim_grade,
-            'midterm_grade' => $this->midterm_grade,
-            'final_grade' => $this->final_grade,
-            'status' => $status,
-            'quiz_scores' => $quizScores
         ]);
 
-        Notification::send([$studentGrade->student, auth()->user()], new StudentGradeNotification($studentGrade));
+        // Update the grade data
+        $studentGrade->grade = $this->grade;
+        $studentGrade->prelim_grade = $this->prelim_grade;
+        $studentGrade->midterm_grade = $this->midterm_grade;
+        $studentGrade->final_grade = $this->final_grade;
+        $studentGrade->status = $status;
+        $studentGrade->quiz_scores = $quizScores;
+        $studentGrade->save();
+
+        // Send notification only if it's a new record
+        if (!$studentGrade->wasRecentlyCreated) {
+            Notification::send([$studentGrade->student, auth()->user()], new StudentGradeNotification($studentGrade));
+        }
+
         $this->reset(['grade', 'prelim_grade', 'midterm_grade', 'final_grade', 'selectedStudentId', 'selectedRoomSectionId', 'quizzes']);
-        toastr()->success('Grade added successfully');
+        toastr()->success('Grade updated successfully');
+        redirect()->route('teacher.room', $this->subjectId);
     }
 
     public function render()

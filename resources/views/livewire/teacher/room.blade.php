@@ -115,7 +115,7 @@
                                                     Grade: {{ number_format($existingGrade->grade, 2) }} ({{ $existingGrade->status }})
                                                 </span>
                                                 @else
-                                                <x-secondary-button @click="$dispatch('open-grade-modal', { studentId: {{ $student->id }}, roomSectionId: {{ $roomSection->id }} })">
+                                                <x-secondary-button @click="$wire.loadExistingGrade({{ $student->id }}, {{ $roomSection->id }}); $dispatch('open-grade-modal', { studentId: {{ $student->id }}, roomSectionId: {{ $roomSection->id }} })">
                                                     Add Grade
                                                 </x-secondary-button>
                                                 @endif
