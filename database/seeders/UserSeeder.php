@@ -12,40 +12,91 @@ class UserSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+    // public function run(): void
+    // {
+
+    //     User::create([
+    //         'name' => 'Admin',
+    //         'email' => 'admin@example.com',
+    //         'password' => Hash::make('password'),
+    //     ])->assignRole('admin');
+
+
+    //     for ($i = 1; $i <= 10; $i++) {
+    //         User::create([
+    //             'name' => "Teacher $i",
+    //             'email' => "teacher$i@example.com",
+    //             'password' => Hash::make('password'),
+    //         ])->assignRole('teacher');
+    //     }
+
+
+    //     for ($i = 1; $i <= 10; $i++) {
+    //         User::create([
+    //             'name' => "Dean $i",
+    //             'email' => "dean$i@example.com",
+    //             'password' => Hash::make('password'),
+    //         ])->assignRole('dean');
+    //     }
+
+
+    //     for ($i = 1; $i <= 10; $i++) {
+    //         User::create([
+    //             'name' => "Student $i",
+    //             'email' => "student$i@example.com",
+    //             'password' => Hash::make('password'),
+    //         ])->assignRole('student');
+    //     }
+    // }
+
     public function run(): void
     {
-        // Create admin user
         User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
-        ])->assignRole('admin');
+        ])->assignRole(['admin', 'teacher', 'dean', 'student']);
 
-        // Create 10 teachers
-        for ($i = 1; $i <= 10; $i++) {
-            User::create([
-                'name' => "Teacher $i",
-                'email' => "teacher$i@example.com",
-                'password' => Hash::make('password'),
-            ])->assignRole('teacher');
-        }
+        User::create([
+            'name' => 'Teacher',
+            'email' => 'teacher@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('teacher');
 
-        // Create 10 deans
-        for ($i = 1; $i <= 10; $i++) {
-            User::create([
-                'name' => "Dean $i",
-                'email' => "dean$i@example.com",
-                'password' => Hash::make('password'),
-            ])->assignRole('dean');
-        }
+        User::create([
+            'name' => 'Dean',
+            'email' => 'dean@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('dean');
 
-        // Create 10 students
-        for ($i = 1; $i <= 10; $i++) {
-            User::create([
-                'name' => "Student $i",
-                'email' => "student$i@example.com",
-                'password' => Hash::make('password'),
-            ])->assignRole('student');
-        }
+        User::create([
+            'name' => 'Student',
+            'email' => 'student@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('student');
+
+        User::create([
+            'name' => 'Student 2',
+            'email' => 'student2@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('student');
+
+        User::create([
+            'name' => 'Student 3',
+            'email' => 'student3@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('student');
+
+        User::create([
+            'name' => 'Student 4',
+            'email' => 'student4@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('student');
+
+        User::create([
+            'name' => 'Student 5',
+            'email' => 'student5@example.com',
+            'password' => Hash::make('password'),
+        ])->assignRole('student');
     }
 }

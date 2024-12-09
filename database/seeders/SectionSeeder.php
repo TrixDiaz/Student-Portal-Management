@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\RoomSection;
+use App\Models\RoomSectionStudent;
 use App\Models\Section;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,6 +15,98 @@ class SectionSeeder extends Seeder
      */
     public function run(): void
     {
-        Section::factory(10)->create();
+        Section::insert([
+            [
+                'id' => 1,
+                'name' => 'Section 1',
+                'is_active' => true,
+            ],
+            [
+                'id' => 2,
+                'name' => 'Section 2',
+                'is_active' => true,
+            ],
+            [
+                'id' => 3,
+                'name' => 'Section 3',
+                'is_active' => true,
+            ],
+            [
+                'id' => 4,
+                'name' => 'Section 4',
+                'is_active' => true,
+            ],
+            [
+                'id' => 5,
+                'name' => 'Section 5',
+                'is_active' => true,
+            ],
+        ]);
+
+        RoomSection::insert([
+            [
+                'user_id' => 1,
+                'room_id' => 1,
+                'section_id' => 1,
+                'subject_id' => 1,
+                'evaluation_id' => 1,
+                'semester' => '1st',
+                'start_date' => '2024-01-01 10:00:00',
+                'end_date' => '2024-01-01 12:00:00',
+            ],
+            [
+                'user_id' => 2,
+                'room_id' => 2,
+                'section_id' => 2,
+                'subject_id' => 2,
+                'evaluation_id' => 1,
+                'semester' => '2nd',
+                'start_date' => '2024-01-01 10:00:00',
+                'end_date' => '2024-01-01 12:00:00',
+            ],
+        ]);
+
+        RoomSectionStudent::insert([
+            [
+                'room_section_id' => 1,
+                'student_id' => 4,
+            ],
+            [
+                'room_section_id' => 2,
+                'student_id' => 4,
+            ],
+            [
+                'room_section_id' => 1,
+                'student_id' => 5,
+            ],
+            [
+                'room_section_id' => 2,
+                'student_id' => 5,
+            ],
+            [
+                'room_section_id' => 2,
+                'student_id' => 6,
+            ],
+            [
+                'room_section_id' => 1,
+                'student_id' => 6,
+            ],
+            [
+                'room_section_id' => 2,
+                'student_id' => 7,
+            ],
+            [
+                'room_section_id' => 1,
+                'student_id' => 7,
+            ],
+            [
+                'room_section_id' => 2,
+                'student_id' => 8,
+            ],
+            [
+                'room_section_id' => 1,
+                'student_id' => 8,
+            ],
+        ]);
     }
 }

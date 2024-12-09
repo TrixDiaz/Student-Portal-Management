@@ -36,5 +36,54 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'edit_department', 'guard_name' => 'web', 'group_by' => 3]);
         Permission::create(['name' => 'delete_department', 'guard_name' => 'web', 'group_by' => 3]);
         Permission::create(['name' => 'view_departments', 'guard_name' => 'web', 'group_by' => 3]);
+
+        // Building Permissions
+        Permission::create(['name' => 'building', 'guard_name' => 'web', 'group_by' => 4]);
+        Permission::create(['name' => 'create_building', 'guard_name' => 'web', 'group_by' => 4]);
+        Permission::create(['name' => 'edit_building', 'guard_name' => 'web', 'group_by' => 4]);
+        Permission::create(['name' => 'delete_building', 'guard_name' => 'web', 'group_by' => 4]);
+        Permission::create(['name' => 'view_buildings', 'guard_name' => 'web', 'group_by' => 4]);
+
+        // Room Permissions
+        Permission::create(['name' => 'room', 'guard_name' => 'web', 'group_by' => 5]);
+        Permission::create(['name' => 'create_room', 'guard_name' => 'web', 'group_by' => 5]);
+        Permission::create(['name' => 'edit_room', 'guard_name' => 'web', 'group_by' => 5]);
+        Permission::create(['name' => 'delete_room', 'guard_name' => 'web', 'group_by' => 5]);
+        Permission::create(['name' => 'view_rooms', 'guard_name' => 'web', 'group_by' => 5]);
+
+        // Subject Permissions
+        Permission::create(['name' => 'subject', 'guard_name' => 'web', 'group_by' => 6]);
+        Permission::create(['name' => 'create_subject', 'guard_name' => 'web', 'group_by' => 6]);
+        Permission::create(['name' => 'edit_subject', 'guard_name' => 'web', 'group_by' => 6]);
+        Permission::create(['name' => 'delete_subject', 'guard_name' => 'web', 'group_by' => 6]);
+        Permission::create(['name' => 'view_subjects', 'guard_name' => 'web', 'group_by' => 6]);
+
+        // Section Permissions
+        Permission::create(['name' => 'section', 'guard_name' => 'web', 'group_by' => 7]);
+        Permission::create(['name' => 'create_section', 'guard_name' => 'web', 'group_by' => 7]);
+        Permission::create(['name' => 'edit_section', 'guard_name' => 'web', 'group_by' => 7]);
+        Permission::create(['name' => 'delete_section', 'guard_name' => 'web', 'group_by' => 7]);
+        Permission::create(['name' => 'view_sections', 'guard_name' => 'web', 'group_by' => 7]);
+
+        // Evaluation Permissions
+        Permission::create(['name' => 'evaluation', 'guard_name' => 'web', 'group_by' => 8]);
+        Permission::create(['name' => 'create_evaluation', 'guard_name' => 'web', 'group_by' => 8]);
+        Permission::create(['name' => 'edit_evaluation', 'guard_name' => 'web', 'group_by' => 8]);
+        Permission::create(['name' => 'delete_evaluation', 'guard_name' => 'web', 'group_by' => 8]);
+        Permission::create(['name' => 'view_evaluations', 'guard_name' => 'web', 'group_by' => 8]);
+
+        // Result Permissions
+        Permission::create(['name' => 'response', 'guard_name' => 'web', 'group_by' => 9]);
+        Permission::create(['name' => 'create_response', 'guard_name' => 'web', 'group_by' => 9]);
+        Permission::create(['name' => 'edit_response', 'guard_name' => 'web', 'group_by' => 9]);
+        Permission::create(['name' => 'delete_response', 'guard_name' => 'web', 'group_by' => 9]);
+        Permission::create(['name' => 'view_responses', 'guard_name' => 'web', 'group_by' => 9]);
+
+        // Announcement Permissions
+        Permission::create(['name' => 'announcement', 'guard_name' => 'web', 'group_by' => 10]);
+        Permission::create(['name' => 'create_announcement', 'guard_name' => 'web', 'group_by' => 10]);
+        Permission::create(['name' => 'edit_announcement', 'guard_name' => 'web', 'group_by' => 10]);
+        Permission::create(['name' => 'delete_announcement', 'guard_name' => 'web', 'group_by' => 10]);
+        Permission::create(['name' => 'view_announcements', 'guard_name' => 'web', 'group_by' => 10]);
     }
 }

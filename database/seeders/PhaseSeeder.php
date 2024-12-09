@@ -13,6 +13,6 @@ class PhaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Phase::factory()->count(10)->create();
+        Phase::factory()->count(3)->create();
     }
 }

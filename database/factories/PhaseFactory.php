@@ -20,6 +20,7 @@ class PhaseFactory extends Factory
         return [
             'evaluation_id' => Evaluation::factory(),
             'name' => fake()->words(2, true),
+            'title' => fake()->words(2, true),
             'description' => fake()->sentence(),
             'order' => fake()->numberBetween(1, 100),
         ];

@@ -13,6 +13,27 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Department::factory(5)->create();
+        Department::insert(
+            [
+                'name' => 'IT Department',
+                'courses' => 'Bachelor of Science in Information Technology',
+            ],
+            [
+                'name' => 'Accountancy Department',
+                'courses' => 'Bachelor of Science in Accounting Management',
+            ],
+            [
+                'name' => 'Entrepreneurship Department',
+                'courses' => 'Bachelor of Science in Entrepreneurship',
+            ],
+            [
+                'name' => 'Education Department',
+                'courses' => 'Bachelor of Elementary Education',
+            ],
+            [
+                'name' => 'Business Administration Department',
+                'courses' => 'Bachelor of Science in Business Administration',
+            ],
+        );
     }
 }
