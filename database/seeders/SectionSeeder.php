@@ -30,23 +30,25 @@ class SectionSeeder extends Seeder
 
         RoomSection::insert([
             [
-                'user_id' => 1,
+                'teacher_id' => 1,
                 'room_id' => 1,
                 'section_id' => 1,
                 'subject_id' => 1,
                 'evaluation_id' => 1,
                 'department_id' => 1,
+                'year_level' => '1st',
                 'semester' => '1st',
                 'start_date' => '2024-01-01 10:00:00',
                 'end_date' => '2024-01-01 12:00:00',
             ],
             [
-                'user_id' => 2,
+                'teacher_id' => 2,
                 'room_id' => 2,
                 'section_id' => 2,
                 'subject_id' => 2,
                 'evaluation_id' => 1,
                 'department_id' => 2,
+                'year_level' => '2nd',
                 'semester' => '2nd',
                 'start_date' => '2024-01-01 10:00:00',
                 'end_date' => '2024-01-01 12:00:00',

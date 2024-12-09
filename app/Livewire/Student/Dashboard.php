@@ -15,6 +15,8 @@ class Dashboard extends Component
     public $selectedYear;
     public $availableYears;
     public $semesters = ['1st', '2nd'];
+    public $yearLevels = ['1st', '2nd', '3rd', '4th'];
+    public $selectedYearLevel = null;
     public $hasCompletedEvaluation = false;
     public $grade = null;
     public $status = null;
@@ -41,7 +43,8 @@ class Dashboard extends Component
         $query = Room::forStudent(
             auth()->user()->id,
             $this->selectedSemester,
-            $this->selectedYear
+            $this->selectedYear,
+            $this->selectedYearLevel
         );
 
         $this->subjects = $query->with(['roomSections' => function ($query) {
@@ -50,6 +53,9 @@ class Dashboard extends Component
             }])
                 ->when($this->selectedSemester, function ($query) {
                     $query->where('semester', $this->selectedSemester);
+                })
+                ->when($this->selectedYearLevel, function ($query) {
+                    $query->where('year_level', $this->selectedYearLevel);
                 })
                 ->whereYear('created_at', $this->selectedYear)
                 ->whereHas('students', function ($query) {

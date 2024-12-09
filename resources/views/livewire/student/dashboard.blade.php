@@ -7,6 +7,7 @@
         <div class="my-2">
             <p class="uppercase text-2xl font-bold text-yellow-700 text-start">Total Subjects for
                 {{ $selectedSemester ? ucfirst($selectedSemester) . ' Semester' : 'All Semesters' }},
+                {{ $selectedYearLevel ? ucfirst($selectedYearLevel) . ' Year Level' : 'All Year Levels' }},
                 {{ $selectedYear }}: {{ $totalSubjects }}
             </p>
 
@@ -19,6 +20,16 @@
                     <option value="">All Semesters</option>
                     @foreach($semesters as $semester)
                     <option value="{{ $semester }}">{{ $semester }} Semester</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div>
+                <label for="year_level" class="block text-sm font-medium text-gray-700">Year Level</label>
+                <select wire:model.live="selectedYearLevel" id="year_level" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
+                    <option value="">All Year Levels</option>
+                    @foreach($yearLevels as $yearLevel)
+                    <option value="{{ $yearLevel }}">{{ $yearLevel }}</option>
                     @endforeach
                 </select>
             </div>

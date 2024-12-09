@@ -104,10 +104,8 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Name</th>
-                                <th scope="col" class="px-4 py-3">Room</th>
-                                <th scope="col" class="px-4 py-3">Building</th>
-                                <th scope="col" class="px-4 py-3">Subject</th>
-                                <th scope="col" class="px-4 py-3">Section</th>
+                                <th scope="col" class="px-4 py-3">Building & Room</th>
+                                <th scope="col" class="px-4 py-3">Subject & Section</th>
                                 <th scope="col" class="px-4 py-3">Start Date</th>
                                 <th scope="col" class="px-4 py-3">End Date</th>
                                 <th scope="col" class="px-4 py-3">
@@ -119,10 +117,16 @@
                             @forelse ($sections as $section)
                             <tr wire:key="{{ $section->id }}" class="border-b">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $section->name }}</th>
-                                <td class="px-4 py-3">{{ optional($section->roomSection)->room?->name ?? 'No Room Assigned' }}</td>
-                                <td class="px-4 py-3">{{ optional($section->roomSection)->room?->building?->name ?? '-' }}</td>
-                                <td class="px-4 py-3">{{ optional($section->roomSection)->subject?->name ?? '-' }}</td>
-                                <td class="px-4 py-3">{{ $section->name }}</td>
+                                <td class="px-4 py-3">
+                                    <div> {{ optional($section->roomSection)->room?->name ?? 'No Room Assigned' }}</div>
+                                    <div class="text-xs text-gray-500">{{ optional($section->roomSection)->room?->building?->name ?? '-' }}</div>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <div>
+                                        {{ optional($section->roomSection)->subject?->name ?? '-' }}
+                                    </div>
+                                    <div class="text-xs text-gray-500"> {{ $section->name }}</div>
+                                </td>
                                 <td class="px-4 py-3">
                                     @if(optional($section->roomSection)->start_date)
                                     <div>{{ optional($section->roomSection)->start_date?->format('M d, Y') }}</div>
