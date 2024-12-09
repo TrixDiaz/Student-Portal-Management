@@ -23,13 +23,27 @@
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
-                             <h1 class="font-bold text-gray-700 text-start">Total Students <span class="text-gray-700 text-sm my-2">231</span> </h1>
+                             <h1 class="font-bold text-gray-700 text-start">Total Students <span class="text-gray-700 text-sm my-2">
+                                     @php
+                                     $totalStudents = App\Models\User::whereHas('roles', function($query) {
+                                     $query->where('name', 'student');
+                                     })->count();
+                                     @endphp
+                                     {{ $totalStudents }}
+                                 </span> </h1>
                          </div>
                      </div>
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
-                             <h1 class="font-bold text-gray-700 text-start">Total Professors <span class="text-gray-700 text-sm my-2">50</span></h1>
+                             <h1 class="font-bold text-gray-700 text-start">Total Professors <span class="text-gray-700 text-sm my-2">
+                                     @php
+                                     $totalTeachers = App\Models\User::whereHas('roles', function($query) {
+                                     $query->where('name', 'teacher');
+                                     })->count();
+                                     @endphp
+                                     {{ $totalTeachers }}
+                                 </span></h1>
                          </div>
                      </div>
                  </div>
@@ -41,13 +55,25 @@
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
-                             <h1 class="font-bold text-gray-700 text-start">Total staff <span class="text-gray-700 text-sm my-2">231</span> </h1>
+                             <h1 class="font-bold text-gray-700 text-start">Total staff <span class="text-gray-700 text-sm my-2">
+                                     @php
+                                     $totalStaff = App\Models\User::whereHas('roles', function($query) {
+                                     $query->where('name', 'teacher')->where('name', 'dean');
+                                     })->count();
+                                     @endphp
+                                     {{ $totalStaff }}
+                                 </span> </h1>
                          </div>
                      </div>
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
-                             <h1 class="font-bold text-gray-700 text-start">Total Department <span class="text-gray-700 text-sm my-2">50</span></h1>
+                             <h1 class="font-bold text-gray-700 text-start">Total Department <span class="text-gray-700 text-sm my-2">
+                                     @php
+                                     $totalDepartment = App\Models\Department::count();
+                                     @endphp
+                                     {{ $totalDepartment }}
+                                 </span></h1>
                          </div>
                      </div>
                  </div>
