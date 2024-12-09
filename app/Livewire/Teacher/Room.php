@@ -27,6 +27,7 @@ class Room extends Component
         'grade' => 'required|numeric|min:1|max:5',
         'quizzes.*.quiz_name' => 'required|string',
         'quizzes.*.quiz_score' => 'required|numeric|min:0',
+        'quizzes.*.quiz_over' => 'required|numeric|min:1',
     ];
 
     public function removeStudent($studentId)
@@ -66,7 +67,8 @@ class Room extends Component
     {
         $this->quizzes[] = [
             'quiz_name' => '',
-            'quiz_score' => null
+            'quiz_score' => null,
+            'quiz_over' => null
         ];
     }
 
@@ -78,15 +80,32 @@ class Room extends Component
 
     public function saveGrade()
     {
-        $this->validate();
+        $this->validate([
+            'grade' => 'required|numeric|min:1|max:5',
+            'quizzes.*.quiz_name' => 'required|string',
+            'quizzes.*.quiz_score' => 'required|numeric|min:0',
+            'quizzes.*.quiz_over' => 'required|numeric|min:1',
+        ]);
 
-        // Calculate quiz total
-        $this->quizTotal = collect($this->quizzes)->sum('quiz_score');
+        // Calculate quiz totals
+        $quizTotal = collect($this->quizzes)->sum('quiz_score');
+        $quizOverTotal = collect($this->quizzes)->sum('quiz_over');
 
-        // Add quiz total to the quizzes array
-        $quizData = [
-            'quizzes' => $this->quizzes,
-            'quiz_total' => $this->quizTotal
+        // Create the quiz_scores array with quizzes, totals, and percentage
+        $quizScores = [
+            'quizzes' => collect($this->quizzes)->map(function ($quiz) {
+                $percentage = ($quiz['quiz_score'] / $quiz['quiz_over']) * 100;
+                return [
+                    'quiz_name' => $quiz['quiz_name'],
+                    'quiz_score' => $quiz['quiz_score'],
+                    'quiz_over' => $quiz['quiz_over'],
+                    'status' => $percentage >= 75 ? 'Passed' : 'Failed',
+                    'percentage' => round($percentage, 2)
+                ];
+            })->toArray(),
+            'quiz_total' => $quizTotal,
+            'quiz_over_total' => $quizOverTotal,
+            'total_percentage' => round(($quizTotal / $quizOverTotal) * 100, 2)
         ];
 
         $studentGrade = StudentGrade::create([
@@ -94,11 +113,11 @@ class Room extends Component
             'student_id' => $this->selectedStudentId,
             'grade' => $this->grade,
             'status' => $this->grade <= 3.0 ? 'Passed' : 'Failed',
-            'quiz_scores' => $quizData
+            'quiz_scores' => $quizScores
         ]);
 
         Notification::send([$studentGrade->student, auth()->user()], new StudentGradeNotification($studentGrade));
-        $this->reset(['grade', 'selectedStudentId', 'selectedRoomSectionId', 'quizzes', 'quizTotal']);
+        $this->reset(['grade', 'selectedStudentId', 'selectedRoomSectionId', 'quizzes']);
         toastr()->success('Grade added successfully');
     }
 

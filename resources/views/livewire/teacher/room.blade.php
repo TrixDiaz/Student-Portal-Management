@@ -188,11 +188,24 @@
                                                         <div class="mt-4">
                                                             <div class="flex justify-between items-center">
                                                                 <label class="block text-sm font-medium text-gray-700">Quiz Scores</label>
-                                                                <button type="button"
-                                                                    wire:click="addQuiz"
-                                                                    class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
-                                                                    Add Quiz
-                                                                </button>
+                                                                <div class="flex items-center space-x-4">
+                                                                    <div class="text-sm text-gray-500">
+                                                                        <span>Total Score: {{ collect($quizzes)->sum('quiz_score') }} / {{ collect($quizzes)->sum('quiz_over') }}</span>
+                                                                        @php
+                                                                        $totalScore = collect($quizzes)->sum('quiz_score');
+                                                                        $totalOver = collect($quizzes)->sum('quiz_over');
+                                                                        $percentage = $totalOver > 0 ? round(($totalScore / $totalOver) * 100, 2) : 0;
+                                                                        @endphp
+                                                                        <span class="ml-2 px-2 py-1 text-xs rounded-full {{ $percentage >= 75 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                                            {{ $percentage }}%
+                                                                        </span>
+                                                                    </div>
+                                                                    <button type="button"
+                                                                        wire:click="addQuiz"
+                                                                        class="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                                                                        Add Quiz
+                                                                    </button>
+                                                                </div>
                                                             </div>
 
                                                             <div class="space-y-3 mt-2">
@@ -215,6 +228,25 @@
                                                                         @error("quizzes.{$index}.quiz_score")
                                                                         <span class="text-red-500 text-xs">{{ $message }}</span>
                                                                         @enderror
+                                                                    </div>
+                                                                    <div class="flex-1">
+                                                                        <input type="number"
+                                                                            wire:model="quizzes.{{ $index }}.quiz_over"
+                                                                            placeholder="Over"
+                                                                            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                                                        @error("quizzes.{$index}.quiz_over")
+                                                                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                                                                        @enderror
+                                                                    </div>
+                                                                    <div class="flex-none w-20">
+                                                                        @php
+                                                                        $score = floatval($quiz['quiz_score'] ?? 0);
+                                                                        $over = floatval($quiz['quiz_over'] ?? 1);
+                                                                        $quizPercentage = $over > 0 ? round(($score / $over) * 100, 2) : 0;
+                                                                        @endphp
+                                                                        <span class="px-2 py-1 text-xs rounded-full {{ $quizPercentage >= 75 ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                                                            {{ $quizPercentage }}%
+                                                                        </span>
                                                                     </div>
                                                                     <button type="button"
                                                                         wire:click="removeQuiz({{ $index }})"
