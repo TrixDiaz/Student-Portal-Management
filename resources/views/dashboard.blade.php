@@ -3,7 +3,7 @@
  <x-admin-layout>
      <div>
          <div class="py-12">
-             <div class="max-w-7xl mx-auto space-y-4 sm:px-6 lg:px-8">
+             <div class="max-w-7xl mx-auto space-y-8 sm:px-6 lg:px-8 ">
 
                  <!-- Welcome Content -->
                  <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
@@ -11,14 +11,14 @@
                  </div>
 
                  <!-- Chart -->
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto">
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-auto w-full">
                      <livewire:chart.grade />
                      <livewire:chart.quiz-score />
                  </div>
 
 
                  <!-- Users Count Content -->
-                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Accounts</h1>
+                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start my-8">Accounts</h1>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
@@ -37,7 +37,7 @@
 
 
                  <!-- Users Count Content -->
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div class="grid grid-cols-1 md:grid-cols-2 my-8 gap-4">
                      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                              <x-application-logo class="w-20 h-20" />
@@ -53,7 +53,7 @@
                  </div>
 
                  <!-- Mission and Vision -->
-                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Mission and Vision</h1>
+                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start my-8">Mission and Vision</h1>
                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                      <div class="bg-lime-900 overflow-hidden shadow-xl sm:rounded-lg p-4">
                          <div class="flex flex-col justify-center items-start rounded-lg p-4">
@@ -69,8 +69,9 @@
                      </div>
                  </div>
 
+                 @if(auth()->user()->hasRole('teacher'))
                  <!-- Teacher Dashboard Student Count -->
-                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start">Student Count</h1>
+                 <h1 class="uppercase text-2xl font-bold text-yellow-700 text-start my-8">Student Count</h1>
                  @php
                  $totalStudents = 0;
                  @endphp
@@ -104,6 +105,7 @@
                          </div>
                      </div>
                  </div>
+                 @endif
              </div>
          </div>
      </div>
