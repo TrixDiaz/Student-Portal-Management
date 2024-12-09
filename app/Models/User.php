@@ -79,7 +79,7 @@ class User extends Authenticatable
 
     public function roomSections()
     {
-        return $this->hasMany(RoomSection::class, 'teacher_id');
+        return $this->belongsToMany(RoomSection::class, 'room_section_students', 'student_id', 'room_section_id');
     }
 
     public function evaluationResponses(): HasMany

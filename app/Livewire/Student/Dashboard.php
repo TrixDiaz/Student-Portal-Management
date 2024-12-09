@@ -42,8 +42,8 @@ class Dashboard extends Component
     private function updateTotalSubjects()
     {
         $query = RoomSection::with(['subject', 'user', 'section', 'room'])
-            ->whereHas('students', function ($query) {
-                $query->where('users.id', auth()->id());
+            ->whereHas('student', function ($query) {
+                $query->where('student_id', auth()->id());
             })
             ->when($this->selectedSemester, function ($query) {
                 $query->where('semester', $this->selectedSemester);
@@ -53,14 +53,12 @@ class Dashboard extends Component
             })
             ->whereYear('created_at', $this->selectedYear);
 
-        $this->subjects = Room::whereHas('roomSections', function ($query) {
-            $query->whereIn('id', RoomSection::whereHas('students', function ($q) {
-                $q->where('users.id', auth()->id());
-            })->pluck('id'));
+        $this->subjects = Room::whereHas('roomSections.students', function ($query) {
+            $query->where('student_id', auth()->id());
         })->with(['roomSections' => function ($query) {
-            $query->with(['subject', 'user', 'section'])
+            $query->with(['subject', 'teacher', 'section', 'room'])
                 ->whereHas('students', function ($q) {
-                    $q->where('users.id', auth()->id());
+                    $q->where('student_id', auth()->id());
                 })
                 ->when($this->selectedSemester, function ($q) {
                     $q->where('semester', $this->selectedSemester);
@@ -77,7 +75,7 @@ class Dashboard extends Component
     public function checkEvaluation($roomSectionId)
     {
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
-            ->where('user_id', auth()->id())
+            ->where('student_id', auth()->id())
             ->first();
 
         $this->hasCompletedEvaluation = $evaluationResponse?->is_completed ?? false;
