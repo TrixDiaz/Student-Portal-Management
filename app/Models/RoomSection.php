@@ -71,4 +71,13 @@ class RoomSection extends Model
     {
         return $this->belongsTo(Department::class);
     }
+
+    /**
+     * Get the formatted name for the room section
+     */
+    public function getSelectedNameAttribute()
+    {
+        $teacherName = $this->teacher ? $this->teacher->name : 'No Teacher';
+        return "{$this->section->name} - {$this->subject->name} - {$teacherName} ({$this->section->year_level} Year, {$this->semester} Semester)";
+    }
 }

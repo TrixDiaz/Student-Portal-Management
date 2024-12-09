@@ -25,6 +25,7 @@ class Edit extends Component
     public $end_date;
     public $existingSections = [];
     public $semester;
+    public $year_level;
 
     public function mount($section_id)
     {
@@ -49,6 +50,7 @@ class Edit extends Component
         $this->start_date = $this->roomSection->start_date->format('Y-m-d\TH:i');
         $this->end_date = $this->roomSection->end_date->format('Y-m-d\TH:i');
         $this->semester = $this->roomSection->semester;
+        $this->year_level = $this->section->year_level;
 
         $this->updatedRoomId();
     }
@@ -64,14 +66,14 @@ class Edit extends Component
     {
         if ($this->room_id) {
             $this->existingSections = RoomSection::where('room_id', $this->room_id)
-                ->where('section_id', '!=', $this->section_id) // Exclude current section
+                ->where('section_id', '!=', $this->section_id)
                 ->whereHas('section')
-                ->with('section')
+                ->with(['section', 'subject', 'teacher'])
                 ->orderBy('start_date')
                 ->get()
                 ->map(function ($roomSection) {
                     return [
-                        'name' => $roomSection->section?->name ?? 'Unknown Section',
+                        'name' => $roomSection->selected_name,
                         'start_date' => $roomSection->start_date->format('Y-m-d H:i'),
                         'end_date' => $roomSection->end_date->format('Y-m-d H:i'),
                     ];
@@ -94,15 +96,17 @@ class Edit extends Component
             'end_date' => 'required|date|after:start_date',
             'subject_id' => 'required|exists:subjects,id',
             'semester' => 'required|in:1st,2nd',
+            'year_level' => 'required|in:1st,2nd,3rd,4th',
         ]);
 
         DB::transaction(function () {
             $this->section->update([
                 'name' => $this->name,
+                'year_level' => $this->year_level,
             ]);
 
             $this->roomSection->update([
-                'user_id' => $this->user_id,
+                'teacher_id' => $this->user_id,
                 'room_id' => $this->room_id,
                 'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,

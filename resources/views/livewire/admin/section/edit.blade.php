@@ -41,7 +41,7 @@
                         <x-label for="user_id">Teacher</x-label>
                         <div class="mt-2.5">
                             <select wire:model.live="user_id" id="user_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                <option value="">Select Teacher</option>
+                                <option disabled selected value="">Select Teacher</option>
                                 @foreach ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
                                 @endforeach
@@ -87,7 +87,7 @@
                             <x-label class="text-sm/6 text-gray-900" for="semester">Semester</x-label>
                             <div class="mt-2.5">
                                 <select wire:model="semester" name="semester" id="semester" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                    <option value="">Select Semester</option>
+                                    <option disabled selected value="">Select Semester</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
                                 </select>
@@ -100,7 +100,7 @@
                             <x-label class="text-sm/6 text-gray-900" for="year_level">Year Level</x-label>
                             <div class="mt-2.5">
                                 <select wire:model="year_level" name="year_level" id="year_level" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                    <option value="">Select Year Level</option>
+                                    <option disabled selected value="">Select Year Level</option>
                                     <option value="1st">1st</option>
                                     <option value="2nd">2nd</option>
                                     <option value="3rd">3rd</option>

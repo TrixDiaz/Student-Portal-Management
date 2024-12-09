@@ -83,7 +83,7 @@ class Create extends Component
 
             // Create room_section record with evaluation_id set to null
             $roomSection = RoomSection::create([
-                'user_id' => $this->user_id,
+                'teacher_id' => $this->user_id,
                 'room_id' => $this->room_id,
                 'section_id' => $section->id,
                 'subject_id' => $this->subject_id,
