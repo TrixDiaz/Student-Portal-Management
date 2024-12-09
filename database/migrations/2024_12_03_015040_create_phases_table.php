@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
             $table->string('title');
+            $table->string('name');
             $table->string('description')->nullable();
             $table->integer('order');
             $table->timestamps();

@@ -9,7 +9,7 @@ class Phase extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['evaluation_id', 'title', 'order'];
+    protected $fillable = ['evaluation_id', 'title', 'order', 'name'];
 
     public function evaluation()
     {
