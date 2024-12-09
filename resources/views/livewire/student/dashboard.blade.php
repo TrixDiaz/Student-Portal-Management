@@ -25,14 +25,6 @@
                 </select>
             </div>
 
-            <div>
-                <label for="year" class="block text-sm font-medium text-gray-700">Year</label>
-                <select wire:model.live="selectedYear" id="year" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-yellow-500 focus:ring-yellow-500 sm:text-sm">
-                    @foreach($availableYears as $year)
-                    <option value="{{ $year }}">{{ $year }}</option>
-                    @endforeach
-                </select>
-            </div>
         </div>
 
         <!-- Total Subjects Counter -->

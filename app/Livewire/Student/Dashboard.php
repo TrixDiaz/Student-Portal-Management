@@ -14,7 +14,6 @@ class Dashboard extends Component
     public $subjects;
     public $selectedSemester = null;
     public $selectedYear;
-    public $availableYears;
     public $semesters = ['1st', '2nd'];
     public $yearLevels = ['1st', '2nd', '3rd', '4th'];
     public $selectedYearLevel = null;
@@ -25,7 +24,6 @@ class Dashboard extends Component
     public function mount()
     {
         $this->selectedYear = date('Y');
-        $this->availableYears = range(date('Y') - 4, date('Y'));
         $this->updateTotalSubjects();
     }
 
@@ -41,33 +39,30 @@ class Dashboard extends Component
 
     private function updateTotalSubjects()
     {
-        $query = RoomSection::with(['subject', 'user', 'section', 'room'])
-            ->whereHas('student', function ($query) {
-                $query->where('student_id', auth()->id());
-            })
-            ->when($this->selectedSemester, function ($query) {
-                $query->where('semester', $this->selectedSemester);
-            })
-            ->when($this->selectedYearLevel, function ($query) {
-                $query->where('year_level', $this->selectedYearLevel);
-            })
-            ->whereYear('created_at', $this->selectedYear);
+        $studentId = auth()->id();
 
-        $this->subjects = Room::whereHas('roomSections.students', function ($query) {
-            $query->where('student_id', auth()->id());
-        })->with(['roomSections' => function ($query) {
-            $query->with(['subject', 'teacher', 'section', 'room'])
-                ->whereHas('students', function ($q) {
-                    $q->where('student_id', auth()->id());
-                })
+        $this->subjects = Room::whereHas('roomSections', function ($query) use ($studentId) {
+            $query->join('room_section_students', 'room_sections.id', '=', 'room_section_students.room_section_id')
+                ->where('room_section_students.student_id', $studentId)
                 ->when($this->selectedSemester, function ($q) {
-                    $q->where('semester', $this->selectedSemester);
+                    $q->where('room_sections.semester', $this->selectedSemester);
                 })
                 ->when($this->selectedYearLevel, function ($q) {
-                    $q->where('year_level', $this->selectedYearLevel);
-                })
-                ->whereYear('created_at', $this->selectedYear);
-        }])->get();
+                    $q->where('room_sections.year_level', $this->selectedYearLevel);
+                });
+        })
+            ->with(['roomSections' => function ($query) use ($studentId) {
+                $query->join('room_section_students', 'room_sections.id', '=', 'room_section_students.room_section_id')
+                    ->where('room_section_students.student_id', $studentId)
+                    ->when($this->selectedSemester, function ($q) {
+                        $q->where('room_sections.semester', $this->selectedSemester);
+                    })
+                    ->when($this->selectedYearLevel, function ($q) {
+                        $q->where('room_sections.year_level', $this->selectedYearLevel);
+                    })
+                    ->with(['subject', 'teacher', 'section', 'room']);
+            }])
+            ->get();
 
         $this->totalSubjects = $this->subjects->flatMap->roomSections->count();
     }
