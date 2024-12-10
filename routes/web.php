@@ -64,5 +64,5 @@ Route::middleware([
     Route::view('/admin/notifications/create', 'admin.notification.create')->name('admin.notifications.create');
 
     Route::get('/student-responses', [StudentResponseController::class, 'index'])->name('student-responses.index');
-    Route::get('/student-responses/{evaluationResponse}', [StudentResponseController::class, 'show'])->name('student-responses.show');
+    Route::get('/student-responses/{evaluation}', [StudentResponseController::class, 'show'])->name('student-responses.show');
 });

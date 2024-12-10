@@ -16,8 +16,13 @@ class Question extends Model
         return $this->belongsTo(Phase::class);
     }
 
+    public function questionResponses()
+    {
+        return $this->hasMany(QuestionResponse::class);
+    }
+
     public function responses()
     {
-        return $this->hasMany(Response::class);
+        return $this->hasMany(QuestionResponse::class);
     }
 }
