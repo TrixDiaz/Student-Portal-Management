@@ -33,6 +33,11 @@ class Create extends Component
 
     public function storeDepartment()
     {
+        $this->validate([
+            'name' => 'required|string|max:255',
+            'course' => 'required|string|max:255',
+        ]);
+
         $department = Department::create([
             'name' => $this->name,
             'course' => $this->course,
