@@ -35,7 +35,7 @@ class Create extends Component
     {
         $department = Department::create([
             'name' => $this->name,
-            'courses' => $this->courses,
+            'course' => $this->course,
         ]);
 
         if ($this->selectedTeachers) {
