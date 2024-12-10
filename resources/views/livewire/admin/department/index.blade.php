@@ -176,8 +176,8 @@
     </div>
 
     <!-- Modal Delete -->
-    <div x-data="{ showModal: false, userId: null }"
-        @open-modal.window="showModal = true; userId = $event.detail.id"
+    <div x-data="{ showModal: false, teacherId: null }"
+        @open-modal.window="showModal = true; teacherId = $event.detail.id"
         x-show="showModal"
         class="fixed inset-0 z-50 overflow-y-auto"
         style="display: none;">
@@ -193,7 +193,7 @@
                         <button @click="showModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                             Cancel
                         </button>
-                        <button @click="$wire.deleteDepartment(userId); showModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        <button @click="$wire.deleteDepartment(teacherId); showModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Delete
                         </button>
                     </div>
@@ -203,8 +203,8 @@
     </div>
 
     <!-- Modal Restore -->
-    <div x-data="{ showRestoreModal: false, userId: null }"
-        @restore-department.window="showRestoreModal = true; userId = $event.detail.id"
+    <div x-data="{ showRestoreModal: false, teacherId: null }"
+        @restore-department.window="showRestoreModal = true; teacherId = $event.detail.id"
         x-show="showRestoreModal"
         class="fixed inset-0 z-50 overflow-y-auto"
         style="display: none;">
@@ -220,7 +220,7 @@
                         <button @click="showRestoreModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                             Cancel
                         </button>
-                        <button @click="$wire.restoreDepartment(userId); showRestoreModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        <button @click="$wire.restoreDepartment(teacherId); showRestoreModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             Restore
                         </button>
                     </div>
@@ -230,8 +230,8 @@
     </div>
 
     <!-- Modal Force Delete -->
-    <div x-data="{ showForceDeleteModal: false, userId: null }"
-        @force-delete-department.window="showForceDeleteModal = true; userId = $event.detail.id"
+    <div x-data="{ showForceDeleteModal: false, teacherId: null }"
+        @force-delete-department.window="showForceDeleteModal = true; teacherId = $event.detail.id"
         x-show="showForceDeleteModal"
         class="fixed inset-0 z-50 overflow-y-auto"
         style="display: none;">
@@ -247,7 +247,7 @@
                         <button @click="showForceDeleteModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500">
                             Cancel
                         </button>
-                        <button @click="$wire.forceDeleteDepartment(userId); showForceDeleteModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        <button @click="$wire.forceDeleteDepartment(teacherId); showForceDeleteModal = false" type="button" class="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Delete Permanently
                         </button>
                     </div>

@@ -66,6 +66,24 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
+                            <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple teachers</p>
+                        </div>
+
+                        <!-- Students -->
+                        <div>
+                            <x-label for="students" class="text-sm/6 text-gray-900">Students</x-label>
+                            <div class="mt-2.5">
+                                <select name="selectedStudents[]" id="students" wire:model="selectedStudents"
+                                    class="block w-full rounded-md shadow-gray-400 shadow-md dark:shadow-sm dark:shadow-bg-gray-100 border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
+                                    multiple>
+                                    @foreach($students as $student)
+                                    <option value="{{ $student->id }}">{{ $student->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('selectedStudents')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
 

@@ -25,13 +25,13 @@
                     </form>
                 </div>
 
-                @if (auth()->user()->hasRole('student'))
-                <div class="hidden sm:flex items-center justify-center ml-4">
+
+                <!-- <div class="hidden sm:flex items-center justify-center ml-4">
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Home') }}
                     </x-nav-link>
-                </div>
-                @endif
+                </div> -->
+
 
                 <div class="hidden sm:flex items-center justify-center ml-4"
                     x-data="{ time: new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Manila', hour12: false }) }"
@@ -278,11 +278,11 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            @if (auth()->user()->hasRole('student'))
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+
+            <!-- <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Home') }}
-            </x-responsive-nav-link>
-            @endif
+            </x-responsive-nav-link> -->
+
         </div>
 
         <!-- Responsive Settings Options -->

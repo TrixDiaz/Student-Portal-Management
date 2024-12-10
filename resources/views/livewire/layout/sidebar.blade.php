@@ -58,6 +58,7 @@
                             </a>
                         </li>
 
+                        @if(auth()->user()->hasRole('dean'))
                         <!-- Subjects -->
                         <li class="active">
                             <a wire:navigate href="{{ route('admin.subjects') }}"
@@ -68,6 +69,7 @@
                             </a>
                         </li>
 
+
                         <!-- Sections -->
                         <li class="active">
                             <a wire:navigate href="{{ route('admin.sections') }}"
@@ -77,6 +79,7 @@
                                 <p class="hidden md:block bg-blue-500 text-white px-2 py-1 rounded-md text-xs">{{ $sectionsCount }}</p>
                             </a>
                         </li>
+                        @endif
                     </div>
                 </ul>
             </li>

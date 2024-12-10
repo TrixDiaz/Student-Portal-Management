@@ -96,4 +96,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Room::class, 'room_sections', 'teacher_id', 'room_id');
     }
+
+    public function departmentStudents()
+    {
+        return $this->hasMany(DepartmentStudents::class);
+    }
 }

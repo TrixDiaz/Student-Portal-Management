@@ -18,14 +18,14 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             UserSeeder::class,
-            DepartmentSeeder::class,
-            BuildingSeeder::class,
-            RoomSeeder::class,
-            SubjectSeeder::class,
-            EvaluationSeeder::class,
-            PhaseSeeder::class,
-            QuestionSeeder::class,
-            SectionSeeder::class,
+            // DepartmentSeeder::class,
+            // BuildingSeeder::class,
+            // RoomSeeder::class,
+            // SubjectSeeder::class,
+            // EvaluationSeeder::class,
+            // PhaseSeeder::class,
+            // QuestionSeeder::class,
+            // SectionSeeder::class,
         ]);
     }
 }

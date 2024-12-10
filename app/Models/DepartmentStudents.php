@@ -4,22 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class DepartmentUser extends Model
+class DepartmentStudents extends Model
 {
     use HasFactory;
 
-    protected $guarded = [];
-    protected $table = 'department_teachers';
+    protected $fillable = ['department_id', 'student_id'];
 
     public function department()
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function user()
+    public function student()
     {
-        return $this->belongsTo(User::class, 'teacher_id');
+        return $this->belongsTo(User::class);
     }
 }

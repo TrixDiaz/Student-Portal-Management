@@ -13,13 +13,23 @@ class Department extends Model
 
     protected $guarded = [];
 
-    public function users(): BelongsToMany
+    public function users()
     {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class, 'department_teachers', 'department_id', 'teacher_id');
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'department_students', 'department_id', 'student_id');
     }
 
     public function roomSections()
     {
         return $this->hasMany(RoomSection::class);
+    }
+
+    public function departmentStudents()
+    {
+        return $this->hasMany(DepartmentStudents::class);
     }
 }
