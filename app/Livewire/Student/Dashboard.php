@@ -117,27 +117,15 @@ class Dashboard extends Component
 
     public function checkEvaluationStatus($roomSectionId)
     {
-        $studentId = auth()->id();
-
-        $grade = StudentGrade::where('room_section_id', $roomSectionId)
-            ->where('student_id', $studentId)
+        $grade = StudentGrade::forCurrentStudent()
+            ->forRoomSection($roomSectionId)
             ->first();
 
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
-            ->where('student_id', $studentId)
+            ->where('student_id', auth()->id())
             ->where('is_completed', 1)
             ->whereNotNull('completed_at')
             ->first();
-
-        logger('Evaluation Status Check:', [
-            'roomSectionId' => $roomSectionId,
-            'studentId' => $studentId,
-            'hasGrade' => (bool)$grade,
-            'gradeValue' => $grade?->grade,
-            'hasEvalResponse' => (bool)$evaluationResponse,
-            'evalCompleted' => $evaluationResponse?->is_completed,
-            'completedAt' => $evaluationResponse?->completed_at,
-        ]);
 
         return [
             'grade' => $grade,
