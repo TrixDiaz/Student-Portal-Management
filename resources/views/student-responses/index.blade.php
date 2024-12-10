@@ -29,10 +29,14 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
+                                            @if($response->is_completed)
                                             <a href="{{ route('student-responses.show', $response) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 font-medium">
                                                 View Responses
                                             </a>
+                                            @else
+                                            <p class="text-red-500 text-sm">Not Completed</p>
+                                            @endif
                                         </td>
                                     </tr>
                                     @endforeach
