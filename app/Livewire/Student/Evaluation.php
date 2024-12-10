@@ -13,7 +13,7 @@ class Evaluation extends Component
 {
     public $roomSection;
     public $questions;
-    public $responses = [];
+    public $evaluationResponses = [];
     public $phases;
     public $evaluation;
     public $evaluation_id;
@@ -39,12 +39,12 @@ class Evaluation extends Component
 
         // Updated to use student_id instead of user_id
         $existingResponse = EvaluationResponse::where('room_section_id', $roomSection->id)
-            ->where('student_id', auth()->id())  // Changed from user_id to student_id
+            ->where('student_id', auth()->id())
             ->where('is_completed', true)
             ->first();
 
         if ($existingResponse) {
-            $this->responses = $existingResponse->responses ?? [];
+            $this->evaluationResponses = $existingResponse->responses ?? [];
             return;
         }
     }
@@ -69,7 +69,7 @@ class Evaluation extends Component
         ]);
 
         // Store individual question responses
-        foreach ($this->responses as $questionId => $rating) {
+        foreach ($this->evaluationResponses as $questionId => $rating) {
             QuestionResponse::create([
                 'evaluation_response_id' => $evaluationResponse->id,
                 'question_id' => $questionId,

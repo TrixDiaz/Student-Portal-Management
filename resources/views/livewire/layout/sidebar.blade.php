@@ -16,7 +16,7 @@
                 </a>
             </li>
 
-
+            @if(auth()->user()->hasRole('dean'))
             <!-- Class Schedules -->
             <li>
                 <button onclick=toggleSubMenu(this) class=" dropdown-btn w-full text-left rounded-lg p-2 flex items-center gap-4 text-gray-900 hover:bg-gray-100  cursor-pointer bg-transparent border-0">
@@ -36,7 +36,7 @@
                             </a>
                         </li>
 
-                        @if(auth()->user()->hasRole('dean'))
+
                         <!-- Assets -->
                         <li class="active">
                             <a wire:navigate href="{{ route('admin.departments') }}"
@@ -47,7 +47,7 @@
                             </a>
                         </li>
                         @endif
-
+                        @if(auth()->user()->hasRole('dean'))
                         <!-- Rooms -->
                         <li class="active">
                             <a wire:navigate href="{{ route('admin.rooms') }}"
@@ -58,7 +58,7 @@
                             </a>
                         </li>
 
-                        @if(auth()->user()->hasRole('dean'))
+
                         <!-- Subjects -->
                         <li class="active">
                             <a wire:navigate href="{{ route('admin.subjects') }}"

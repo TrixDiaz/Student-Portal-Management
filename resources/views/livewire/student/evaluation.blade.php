@@ -8,7 +8,7 @@
             <p class="mb-4">Section: {{ $roomSection->section->name }}</p>
             <p class="mb-4">Room: {{ $roomSection->room->name }}</p>
             <p class="mb-4">Instructor: {{ $roomSection->teacher->name }}</p>
-            @if(count($responses) > 0)
+            @if(count($evaluationResponses) > 0)
             {{-- Show completed evaluation responses --}}
             @foreach($phases as $phase)
             <div class="mb-8">
@@ -18,7 +18,7 @@
                 <div class="mb-6">
                     <p class="mb-2">{{ $question->question }}</p>
                     <div class="flex space-x-4">
-                        <p class="font-semibold">Your Rating: {{ $responses[$question->id] ?? 'N/A' }}</p>
+                        <p class="font-semibold">Your Rating: {{ $evaluationResponses[$question->id] ?? 'N/A' }}</p>
                     </div>
                 </div>
                 @endforeach
@@ -38,14 +38,14 @@
                             @foreach(range(1, 5) as $rating)
                             <label class="flex items-center">
                                 <input type="radio"
-                                    wire:model="responses.{{ $question->id }}"
+                                    wire:model="evaluationResponses.{{ $question->id }}"
                                     value="{{ $rating }}"
                                     class="form-radio">
                                 <span class="ml-2">{{ $rating }}</span>
                             </label>
                             @endforeach
                         </div>
-                        @error('responses.' . $question->id)
+                        @error('evaluationResponses.' . $question->id)
                         <span class="text-red-500 text-sm">{{ $message }}</span>
                         @enderror
                     </div>

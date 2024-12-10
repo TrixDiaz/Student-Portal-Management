@@ -103,7 +103,7 @@ class Create extends Component
             foreach ($roomSection->students as $student) {
                 EvaluationResponse::create([
                     'room_section_id' => $roomSection->id,
-                    'user_id' => $student->id,
+                    'student_id' => $student->id,
                     'evaluation_id' => $evaluation->id,
                     'is_completed' => false,
                     'completed_at' => null,

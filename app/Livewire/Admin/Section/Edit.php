@@ -29,6 +29,8 @@ class Edit extends Component
     public $year_level;
     public $departments;
     public $department_id;
+    public $users;
+    public $students;
 
     public function mount($section_id)
     {
@@ -37,6 +39,15 @@ class Edit extends Component
         $this->loadRoomSectionData();
         $this->loadStudentData();
         $this->departments = Department::all();
+
+        // Initialize collections
+        $this->users = collect();
+        $this->students = collect();
+
+        // Load department-specific users and students
+        if ($this->department_id) {
+            $this->updatedDepartmentId($this->department_id);
+        }
     }
 
     public function loadSectionData()
@@ -86,6 +97,43 @@ class Edit extends Component
         } else {
             $this->existingSections = [];
         }
+    }
+
+    public function updatedDepartmentId($value)
+    {
+        if ($value) {
+            // Get teachers using the correct relationship and table names
+            $this->users = User::role('teacher')
+                ->whereExists(function ($query) use ($value) {
+                    $query->select(DB::raw(1))
+                        ->from('department_teachers')
+                        ->whereColumn('department_teachers.teacher_id', 'users.id')
+                        ->where('department_teachers.department_id', $value);
+                })
+                ->get();
+
+            // Get students using the correct relationship and table names
+            $this->students = User::role('student')
+                ->whereExists(function ($query) use ($value) {
+                    $query->select(DB::raw(1))
+                        ->from('department_students')
+                        ->whereColumn('department_students.student_id', 'users.id')
+                        ->where('department_students.department_id', $value);
+                })
+                ->get();
+
+            // Add debug logging
+            \Log::info('Department ID:', ['id' => $value]);
+            \Log::info('Teachers found:', ['count' => $this->users->count(), 'teachers' => $this->users->pluck('name')]);
+            \Log::info('Students found:', ['count' => $this->students->count(), 'students' => $this->students->pluck('name')]);
+        } else {
+            $this->users = collect();
+            $this->students = collect();
+        }
+
+        // Reset selections
+        $this->user_id = null;
+        $this->student_ids = [];
     }
 
     public function updateSection()
@@ -141,8 +189,9 @@ class Edit extends Component
             'section' => $this->section,
             'rooms' => Room::all(),
             'subjects' => Subject::all(),
-            'users' => User::role('teacher')->get(),
-            'students' => User::role('student')->get(),
+            'departments' => $this->departments,
+            'users' => $this->users,
+            'students' => $this->students,
         ]);
     }
 }

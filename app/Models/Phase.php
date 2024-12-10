@@ -23,6 +23,6 @@ class Phase extends Model
 
     public function responses()
     {
-        return $this->hasManyThrough(Response::class, Question::class);
+        return $this->hasManyThrough(EvaluationResponse::class, Question::class);
     }
 }

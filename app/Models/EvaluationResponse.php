@@ -10,8 +10,8 @@ class EvaluationResponse extends Model
     use HasFactory;
 
     protected $fillable = [
-        'student_id',
         'room_section_id',
+        'student_id',
         'evaluation_id',
         'is_completed',
         'completed_at',
@@ -39,7 +39,7 @@ class EvaluationResponse extends Model
 
     public function questionResponses()
     {
-        return $this->hasMany(QuestionResponse::class);
+        return $this->hasMany(QuestionResponse::class, 'evaluation_response_id');
     }
 
     public function getResponsesByPhase()

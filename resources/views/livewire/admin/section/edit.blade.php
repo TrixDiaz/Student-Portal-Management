@@ -40,11 +40,15 @@
                     <div>
                         <x-label for="user_id">Teacher</x-label>
                         <div class="mt-2.5">
-                            <select wire:model.live="user_id" id="user_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                <option disabled selected value="">Select Teacher</option>
-                                @foreach ($users as $user)
+                            <select wire:model.live="user_id" id="user_id"
+                                class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
+                                {{ !$department_id ? 'disabled' : '' }}>
+                                <option value="">{{ !$department_id ? 'Select a department first' : 'Select Teacher' }}</option>
+                                @forelse ($users as $user)
                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                @endforeach
+                                @empty
+                                <option disabled>No teachers found in this department</option>
+                                @endforelse
                             </select>
                             @error('user_id')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
@@ -127,16 +131,19 @@
                         </div>
                     </div>
 
-                    <!-- Students (Multiple) -->
+                    <!-- Students -->
                     <div>
                         <x-label for="student_ids">Students</x-label>
                         <div class="mt-2.5">
                             <select wire:model="student_ids" id="student_ids"
                                 class="block w-full rounded-md shadow-gray-400 h-32 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
-                                multiple>
-                                @foreach ($students as $student)
+                                multiple
+                                {{ !$department_id ? 'disabled' : '' }}>
+                                @forelse ($students as $student)
                                 <option value="{{ $student->id }}">{{ $student->name }}</option>
-                                @endforeach
+                                @empty
+                                <option disabled>No students found in this department</option>
+                                @endforelse
                             </select>
                             @error('student_ids')
                             <span class="text-red-500 text-sm">{{ $message }}</span>
