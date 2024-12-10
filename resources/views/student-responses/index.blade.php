@@ -20,8 +20,8 @@
                                 <tbody class="bg-white divide-y divide-gray-200">
                                     @foreach($evaluation->evaluationResponses as $response)
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $response->user->name }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap">{{ $response->roomSection->name }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $response->user?->name ?? 'No User' }}</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">{{ $response->roomSection->section->name ?? 'No Section' }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                                                 {{ $response->is_completed ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800' }}">

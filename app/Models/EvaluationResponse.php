@@ -19,7 +19,7 @@ class EvaluationResponse extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'student_id');
     }
 
     public function evaluation()
@@ -29,7 +29,7 @@ class EvaluationResponse extends Model
 
     public function roomSection()
     {
-        return $this->belongsTo(RoomSection::class);
+        return $this->belongsTo(RoomSection::class, 'room_section_id');
     }
 
     public function responses()
@@ -60,7 +60,7 @@ class EvaluationResponse extends Model
             return self::firstOrCreate(
                 [
                     'room_section_id' => $roomSectionId,
-                    'user_id' => $userId,
+                    'student_id' => $userId,
                     'evaluation_id' => $activeEvaluation->id,
                 ]
             );

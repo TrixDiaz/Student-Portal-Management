@@ -34,6 +34,13 @@ class Evaluation extends Model
 
     public function roomSections()
     {
-        return $this->hasMany(RoomSection::class);
+        return $this->hasManyThrough(
+            RoomSection::class,
+            EvaluationResponse::class,
+            'evaluation_id',
+            'id',
+            'id',
+            'room_section_id'
+        );
     }
 }

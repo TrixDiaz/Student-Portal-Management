@@ -14,7 +14,9 @@ class StudentResponseController extends Controller
             'evaluationResponses.user',
             'evaluationResponses.roomSection',
             'phases.questions'
-        ])->get();
+        ])
+            ->whereHas('evaluationResponses')
+            ->get();
 
         return view('student-responses.index', compact('evaluations'));
     }
