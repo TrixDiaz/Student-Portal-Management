@@ -111,6 +111,20 @@
                                 @enderror
                             </div>
                         </div>
+                        <!-- Department -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900" for="department_id">Department</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="department_id" name="department_id" id="department_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    @foreach ($departments as $department)
+                                    <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('department_id')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Students (Multiple) -->

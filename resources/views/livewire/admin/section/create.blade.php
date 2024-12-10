@@ -128,21 +128,6 @@
                                     @enderror
                                 </div>
                             </div>
-                            <!-- Evaluation -->
-                            <div>
-                                <x-label class="text-sm/6 text-gray-900" for="evaluation_id">Evaluation</x-label>
-                                <div class="mt-2.5">
-                                    <select wire:model="evaluation_id" name="evaluation_id" id="evaluation_id" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                        <option value="">Select Evaluation</option>
-                                        @foreach ($evaluations as $evaluation)
-                                        <option value="{{ $evaluation->id }}">{{ $evaluation->title }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('evaluation_id')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
                         </div>
 
                         <!-- Students (Multiple) -->
@@ -150,7 +135,7 @@
                             <x-label class="text-sm/6 text-gray-900" for="student_ids">Students</x-label>
                             <div class="mt-2.5">
                                 <select wire:model="student_ids" name="student_ids" id="student_ids"
-                                    class="block w-full rounded-md shadow-gray-400 h-56 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
+                                    class="block w-full rounded-md shadow-gray-400 h-52 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
                                     multiple>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}">{{ $student->name }}</option>

@@ -28,7 +28,6 @@ class Create extends Component
     public $students;
     public $semester;
     public $year_level;
-    public $evaluation_id;
     public $department_id;
 
     public function mount()
@@ -43,7 +42,6 @@ class Create extends Component
         // Set default end_date to 7 days from start_date
         $this->end_date = now()->addDays(14)->format('Y-m-d\TH:i');
 
-        $this->evaluation_id = null;
         $this->department_id = null;
     }
 
@@ -80,7 +78,6 @@ class Create extends Component
             'end_date' => 'required|date|after:start_date',
             'semester' => 'required|in:1st,2nd',
             'year_level' => 'required|in:1st,2nd,3rd,4th',
-            'evaluation_id' => 'nullable|exists:evaluations,id',
             'department_id' => 'required|exists:departments,id',
         ]);
 
@@ -90,7 +87,7 @@ class Create extends Component
                 'name' => $this->name,
             ]);
 
-            // Create room_section record with evaluation_id set to null
+            // Create room_section record with evaluation_id explicitly set to null
             $roomSection = RoomSection::create([
                 'teacher_id' => $this->user_id,
                 'room_id' => $this->room_id,
@@ -98,10 +95,10 @@ class Create extends Component
                 'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'evaluation_id' => $this->evaluation_id,
                 'semester' => $this->semester,
                 'year_level' => $this->year_level,
                 'department_id' => $this->department_id,
+                'evaluation_id' => null,
             ]);
 
             // Create room_section_student records for each selected student
@@ -123,7 +120,6 @@ class Create extends Component
             'rooms' => Room::all(),
             'subjects' => Subject::all(),
             'existingSections' => $this->existingSections,
-            'evaluations' => Evaluation::all(),
             'departments' => Department::all(),
         ]);
     }

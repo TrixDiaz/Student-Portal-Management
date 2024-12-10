@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Section;
 
+use App\Models\Department;
 use App\Models\RoomSection;
 use App\Models\RoomSectionStudent;
 use Livewire\Component;
@@ -26,6 +27,8 @@ class Edit extends Component
     public $existingSections = [];
     public $semester;
     public $year_level;
+    public $departments;
+    public $department_id;
 
     public function mount($section_id)
     {
@@ -33,6 +36,7 @@ class Edit extends Component
         $this->loadSectionData();
         $this->loadRoomSectionData();
         $this->loadStudentData();
+        $this->departments = Department::all();
     }
 
     public function loadSectionData()
@@ -51,7 +55,7 @@ class Edit extends Component
         $this->end_date = $this->roomSection->end_date->format('Y-m-d\TH:i');
         $this->semester = $this->roomSection->semester;
         $this->year_level = $this->roomSection->section->year_level;
-
+        $this->department_id = $this->roomSection->section->department_id;
         $this->updatedRoomId();
     }
 
@@ -97,12 +101,14 @@ class Edit extends Component
             'subject_id' => 'required|exists:subjects,id',
             'semester' => 'required|in:1st,2nd',
             'year_level' => 'required|in:1st,2nd,3rd,4th',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         DB::transaction(function () {
             $this->section->update([
                 'name' => $this->name,
                 'year_level' => $this->year_level,
+                'department_id' => $this->department_id,
             ]);
 
             $this->roomSection->update([
