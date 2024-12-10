@@ -104,7 +104,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-4 py-3">Department Name</th>
-                                <th scope="col" class="px-4 py-3">Courses</th>
+                                <th scope="col" class="px-4 py-3">Course</th>
                                 <th scope="col" class="px-4 py-3">Dean and Teachers</th>
                                 <th scope="col" class="px-4 py-3">
                                     <span class="sr-only">Actions</span>
@@ -115,7 +115,7 @@
                             @forelse ($departments as $department)
                             <tr wire:key="{{ $department->id }}" class="border-b">
                                 <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">{{ $department->name }}</th>
-                                <td class="px-4 py-3">{{ $department->courses }}</td>
+                                <td class="px-4 py-3">{{ $department->course }}</td>
                                 <td class="px-4 py-3">
                                     @if($department->users->count() > 0)
                                     <ul class="list-disc pl-4">

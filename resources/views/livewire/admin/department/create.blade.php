@@ -41,6 +41,7 @@
                             <x-label class="text-sm/6 text-gray-900 " for="course">Course</x-label>
                             <select name="course" id="course" wire:model="course"
                                 class="block w-full rounded-md shadow-gray-400 shadow-md dark:shadow-sm dark:shadow-bg-gray-100 border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                <option value="">Select Course</option>
                                 @foreach($courses as $key => $course)
                                 <option value="{{ $key }}">{{ $course }}</option>
                                 @endforeach
