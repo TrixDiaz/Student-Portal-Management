@@ -14,7 +14,7 @@ class Create extends Component
     public $name;
     public $is_active = true;
     public $selectedTeachers = [];
-    public $courses = [
+    public $course = [
         'IT' => 'Bachelor of Science in Information Technology',
         'CS' => 'Bachelor of Science in Computer Science',
         'IS' => 'Bachelor of Science in Information Systems',

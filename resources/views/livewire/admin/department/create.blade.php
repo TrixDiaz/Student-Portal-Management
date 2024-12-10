@@ -27,7 +27,7 @@
                     <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2 isolate bg-white  rounded-md sm:p-4">
                         <!-- Name -->
                         <div>
-                            <x-label class="text-sm/6 text-gray-900 " for="name">Name</x-label>
+                            <x-label class="text-sm/6 text-gray-900 " for="name">Department Name</x-label>
                             <div class="mt-2.5">
                                 <x-input type="text" wire:model="name" name="name" id="name" autocomplete="name" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
                                 @error('name')
