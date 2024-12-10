@@ -33,16 +33,46 @@ class Create extends Component
     public function mount()
     {
         $this->rooms = Room::all();
-        $this->users = User::role('teacher')->get();
-        $this->students = User::role('student')->get();
-
-        // Set default start_date to 7 days from now
-        $this->start_date = now()->addDays(7)->format('Y-m-d\TH:i');
-
-        // Set default end_date to 7 days from start_date
-        $this->end_date = now()->addDays(14)->format('Y-m-d\TH:i');
-
+        $this->users = collect();
+        $this->students = collect();
         $this->department_id = null;
+    }
+
+    public function updatedDepartmentId($value)
+    {
+        if ($value) {
+            // Get teachers using the correct relationship and table names
+            $this->users = User::role('teacher')
+                ->whereExists(function ($query) use ($value) {
+                    $query->select(DB::raw(1))
+                        ->from('department_teachers')
+                        ->whereColumn('department_teachers.teacher_id', 'users.id')
+                        ->where('department_teachers.department_id', $value);
+                })
+                ->get();
+
+            // Get students using the correct relationship and table names
+            $this->students = User::role('student')
+                ->whereExists(function ($query) use ($value) {
+                    $query->select(DB::raw(1))
+                        ->from('department_students')
+                        ->whereColumn('department_students.student_id', 'users.id')
+                        ->where('department_students.department_id', $value);
+                })
+                ->get();
+
+            // Add debug logging
+            \Log::info('Department ID:', ['id' => $value]);
+            \Log::info('Teachers found:', ['count' => $this->users->count(), 'teachers' => $this->users->pluck('name')]);
+            \Log::info('Students found:', ['count' => $this->students->count(), 'students' => $this->students->pluck('name')]);
+        } else {
+            $this->users = collect();
+            $this->students = collect();
+        }
+
+        // Reset selections
+        $this->user_id = null;
+        $this->student_ids = [];
     }
 
     public function updatedRoomId()
@@ -115,12 +145,12 @@ class Create extends Component
     public function render()
     {
         return view('livewire.admin.section.create', [
-            'users' => User::role('teacher')->get(),
-            'students' => User::role('student')->get(),
-            'rooms' => Room::all(),
+            'departments' => Department::all(),
+            'rooms' => $this->rooms,
             'subjects' => Subject::all(),
             'existingSections' => $this->existingSections,
-            'departments' => Department::all(),
+            'users' => $this->users,
+            'students' => $this->students,
         ]);
     }
 }

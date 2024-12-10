@@ -72,9 +72,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function departments(): BelongsToMany
+    public function departments()
     {
-        return $this->belongsToMany(Department::class);
+        return $this->belongsToMany(Department::class, 'department_teachers', 'teacher_id', 'department_id');
     }
 
     public function roomSections()
@@ -99,6 +99,6 @@ class User extends Authenticatable
 
     public function departmentStudents()
     {
-        return $this->hasMany(DepartmentStudents::class);
+        return $this->belongsToMany(Department::class, 'department_students', 'student_id', 'department_id');
     }
 }
