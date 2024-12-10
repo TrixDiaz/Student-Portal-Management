@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StudentResponseController;
+use App\Http\Controllers\StudentEvaluationController;
 
 Route::get('/', function () {
     return view('welcome');

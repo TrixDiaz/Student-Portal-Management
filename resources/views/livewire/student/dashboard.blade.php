@@ -88,23 +88,19 @@
 
                     <!-- Grade and Status -->
                     @php
-                    $grade = App\Models\StudentGrade::where('room_section_id', $roomSection->id)
-                    ->where('student_id', auth()->id())
-                    ->first();
-
-                    $evaluationResponse = App\Models\EvaluationResponse::where('room_section_id', $roomSection->id)
-                    ->where('user_id', auth()->id())
-                    ->first();
+                    $evaluationStatus = $this->checkEvaluationStatus($roomSection->id);
+                    $grade = $evaluationStatus['grade'];
+                    $evaluationResponse = $evaluationStatus['evaluationResponse'];
                     @endphp
 
                     <div class="mt-4 pt-4 border-t border-gray-200">
-                        @if(!is_null($grade) && $grade->grade !== null && (!$evaluationResponse || !$evaluationResponse->is_completed))
-                        <button wire:click="redirectToEvaluation({{ $roomSection->id }})"
+                        @if($roomSection->evaluation_id && (!$evaluationResponse || !$evaluationResponse->is_completed))
+                        <button wire:click="redirectToEvaluation({{ $roomSection->evaluation_id }})"
                             class="w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors duration-300">
                             Answer Evaluation
                         </button>
-                        @elseif($evaluationResponse && $evaluationResponse->is_completed && $grade)
-                        @if($grade->grade === null)
+                        @elseif($evaluationResponse && $evaluationResponse->is_completed)
+                        @if(!$grade || $grade->grade === null)
                         <div class="text-center text-gray-500 italic">
                             Grade not released yet
                         </div>
@@ -112,7 +108,7 @@
                         <div class="flex justify-between items-center">
                             <span class="font-medium text-gray-700">Grade: {{ $grade->grade }}</span>
                             <span class="px-3 py-1 rounded-full text-sm font-medium
-                                                {{ $grade->status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                        {{ $grade->status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                 {{ $grade->status }}
                             </span>
                         </div>

@@ -36,9 +36,9 @@ class Evaluation extends Component
             ->orderBy('order')
             ->get();
 
-        // Check if evaluation was already completed
+        // Updated to use student_id instead of user_id
         $existingResponse = EvaluationResponse::where('room_section_id', $roomSection->id)
-            ->where('user_id', auth()->id())
+            ->where('student_id', auth()->id())  // Changed from user_id to student_id
             ->where('is_completed', true)
             ->first();
 
@@ -61,7 +61,7 @@ class Evaluation extends Component
         EvaluationResponse::create([
             'evaluation_id' => $this->evaluation->id,
             'room_section_id' => $this->roomSection->id,
-            'user_id' => auth()->id(),
+            'student_id' => auth()->id(),  // Changed from user_id to student_id
             'is_completed' => true,
             'completed_at' => now(),
         ]);

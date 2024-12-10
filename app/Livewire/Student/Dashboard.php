@@ -20,7 +20,7 @@ class Dashboard extends Component
     public $hasCompletedEvaluation = false;
     public $grade = null;
     public $status = null;
-
+    public $rooms;
     public function mount()
     {
         $this->selectedYear = date('Y');
@@ -60,7 +60,15 @@ class Dashboard extends Component
                     ->when($this->selectedYearLevel, function ($q) {
                         $q->where('room_sections.year_level', $this->selectedYearLevel);
                     })
-                    ->with(['subject', 'teacher', 'section', 'room']);
+                    ->with([
+                        'subject',
+                        'teacher',
+                        'section',
+                        'room',
+                        'studentGrades' => function ($q) use ($studentId) {
+                            $q->where('student_id', $studentId);
+                        }
+                    ]);
             }])
             ->get();
 
@@ -96,5 +104,32 @@ class Dashboard extends Component
     public function render()
     {
         return view('livewire.student.dashboard');
+    }
+
+    public function checkEvaluationStatus($roomSectionId)
+    {
+        $studentId = auth()->id();
+
+        $grade = StudentGrade::where('room_section_id', $roomSectionId)
+            ->where('student_id', $studentId)
+            ->first();
+
+        $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
+            ->where('student_id', $studentId)
+            ->first();
+
+        logger('Evaluation Status Check:', [
+            'roomSectionId' => $roomSectionId,
+            'studentId' => $studentId,
+            'hasGrade' => (bool)$grade,
+            'gradeValue' => $grade?->grade,
+            'hasEvalResponse' => (bool)$evaluationResponse,
+            'evalCompleted' => $evaluationResponse?->is_completed,
+        ]);
+
+        return [
+            'grade' => $grade,
+            'evaluationResponse' => $evaluationResponse
+        ];
     }
 }

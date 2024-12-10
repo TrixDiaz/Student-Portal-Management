@@ -10,8 +10,8 @@ class EvaluationResponse extends Model
     use HasFactory;
 
     protected $fillable = [
+        'student_id',
         'room_section_id',
-        'user_id',
         'evaluation_id',
         'is_completed',
         'completed_at',

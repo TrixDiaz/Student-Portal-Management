@@ -8,6 +8,9 @@ use App\Models\Phase;
 use App\Models\Question;
 use App\Models\Section;
 use App\Models\RoomSection;
+use App\Models\EvaluationResponse;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\CreateEvaluationNotification;
 
 class Edit extends Component
 {
@@ -84,13 +87,48 @@ class Edit extends Component
 
         $evaluation = Evaluation::findOrFail($this->evaluationId);
 
+        // Get existing section IDs before update
+        $existingSectionIds = $evaluation->roomSections->pluck('section_id')->toArray();
+
         $evaluation->update([
             'title' => $this->title,
             'description' => $this->description,
         ]);
 
+        // Update all room sections with the evaluation ID
         RoomSection::whereIn('section_id', $this->selectedSections)
             ->update(['evaluation_id' => $this->evaluationId]);
+
+        // Get all room sections with their students
+        $roomSections = RoomSection::whereIn('section_id', $this->selectedSections)
+            ->with(['students' => function ($query) {
+                $query->whereHas('roles', function ($q) {
+                    $q->where('name', 'student');
+                });
+            }])
+            ->get();
+
+        // Create evaluation responses for all students in selected sections
+        foreach ($roomSections as $roomSection) {
+            foreach ($roomSection->students as $student) {
+                EvaluationResponse::updateOrCreate(
+                    [
+                        'room_section_id' => $roomSection->id,
+                        'student_id' => $student->id,
+                        'evaluation_id' => $this->evaluationId,
+                    ],
+                    [
+                        'is_completed' => false,
+                        'completed_at' => null,
+                    ]
+                );
+
+                // Only send notification for newly added sections
+                if (in_array($roomSection->section_id, array_diff($this->selectedSections, $existingSectionIds))) {
+                    Notification::send($student, new CreateEvaluationNotification($evaluation, $roomSection));
+                }
+            }
+        }
 
         foreach ($this->phases as $phaseIndex => $phaseData) {
             $phase = Phase::updateOrCreate(
