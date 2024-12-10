@@ -12,9 +12,10 @@ use Livewire\Component;
 class Create extends Component
 {
     public $name;
+    public $course;
     public $is_active = true;
     public $selectedTeachers = [];
-    public $course = [
+    public $courses = [
         'IT' => 'Bachelor of Science in Information Technology',
         'CS' => 'Bachelor of Science in Computer Science',
         'IS' => 'Bachelor of Science in Information Systems',
