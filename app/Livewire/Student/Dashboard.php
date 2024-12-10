@@ -77,23 +77,32 @@ class Dashboard extends Component
 
     public function checkEvaluation($roomSectionId)
     {
+        $studentId = auth()->id();
+
+        // First check evaluation response
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
-            ->where('student_id', auth()->id())
+            ->where('student_id', $studentId)
             ->first();
 
         $this->hasCompletedEvaluation = $evaluationResponse?->is_completed ?? false;
 
-        if ($this->hasCompletedEvaluation) {
-            $grade = StudentGrade::where('room_section_id', $roomSectionId)
-                ->where('student_id', auth()->id())
-                ->first();
+        // Always check for grade regardless of evaluation status
+        $grade = StudentGrade::where('room_section_id', $roomSectionId)
+            ->where('student_id', $studentId)
+            ->first();
 
-            $this->grade = $grade?->grade;
-            $this->status = $grade?->status;
-        } else {
-            $this->grade = null;
-            $this->status = null;
-        }
+        // Set grade and status even if evaluation is not completed
+        $this->grade = $grade?->grade;
+        $this->status = $grade?->status;
+
+        // Add logging to debug
+        logger('Check Evaluation:', [
+            'roomSectionId' => $roomSectionId,
+            'studentId' => $studentId,
+            'hasCompletedEvaluation' => $this->hasCompletedEvaluation,
+            'grade' => $this->grade,
+            'status' => $this->status
+        ]);
     }
 
     public function redirectToEvaluation($roomSectionId)
@@ -116,6 +125,8 @@ class Dashboard extends Component
 
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
             ->where('student_id', $studentId)
+            ->where('is_completed', 1)
+            ->whereNotNull('completed_at')
             ->first();
 
         logger('Evaluation Status Check:', [
@@ -125,6 +136,7 @@ class Dashboard extends Component
             'gradeValue' => $grade?->grade,
             'hasEvalResponse' => (bool)$evaluationResponse,
             'evalCompleted' => $evaluationResponse?->is_completed,
+            'completedAt' => $evaluationResponse?->completed_at,
         ]);
 
         return [

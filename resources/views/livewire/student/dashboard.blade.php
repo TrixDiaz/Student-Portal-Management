@@ -87,30 +87,30 @@
                     </div>
 
                     <!-- Grade and Status -->
-                    @php
-                    $evaluationStatus = $this->checkEvaluationStatus($roomSection->id);
-                    $grade = $evaluationStatus['grade'];
-                    $evaluationResponse = $evaluationStatus['evaluationResponse'];
-                    @endphp
-
                     <div class="mt-4 pt-4 border-t border-gray-200">
-                        @if($roomSection->evaluation_id && $evaluationResponse && !$evaluationResponse->is_completed && !$grade)
-                        <button wire:click="redirectToEvaluation({{ $roomSection->evaluation_id }})"
+                        @php
+                        $evaluationStatus = $this->checkEvaluationStatus($roomSection->id);
+                        $grade = $evaluationStatus['grade'];
+                        $evaluationResponse = $evaluationStatus['evaluationResponse'];
+                        @endphp
+
+                        @if(!$evaluationResponse)
+                        <button wire:click="redirectToEvaluation({{ $roomSection->id }})"
                             class="w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors duration-300">
                             Answer Evaluation
                         </button>
-                        @elseif($evaluationResponse && $evaluationResponse->is_completed)
-                        @if(!$grade || $grade->grade === null)
-                        <div class="text-center text-gray-500 italic">
-                            Grade not released yet
-                        </div>
                         @else
+                        @if($grade && $grade->grade !== null)
                         <div class="flex justify-between items-center">
                             <span class="font-medium text-gray-700">Grade: {{ $grade->grade }}</span>
                             <span class="px-3 py-1 rounded-full text-sm font-medium
                                         {{ $grade->status === 'Passed' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
                                 {{ $grade->status }}
                             </span>
+                        </div>
+                        @else
+                        <div class="text-center text-gray-500 italic">
+                            Grade not released yet
                         </div>
                         @endif
                         @endif
