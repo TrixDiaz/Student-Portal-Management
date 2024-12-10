@@ -7,6 +7,7 @@ use App\Models\RoomSection;
 use App\Models\EvaluationResponse;
 use App\Models\Question;
 use App\Models\Phase;
+use App\Models\QuestionResponse;
 
 class Evaluation extends Component
 {
@@ -58,13 +59,24 @@ class Evaluation extends Component
             'responses.*' => 'required|integer|between:1,5',
         ]);
 
-        EvaluationResponse::create([
+        // Create the main evaluation response
+        $evaluationResponse = EvaluationResponse::create([
             'evaluation_id' => $this->evaluation->id,
             'room_section_id' => $this->roomSection->id,
-            'student_id' => auth()->id(),  // Changed from user_id to student_id
+            'student_id' => auth()->id(),
             'is_completed' => true,
             'completed_at' => now(),
         ]);
+
+        // Store individual question responses
+        foreach ($this->responses as $questionId => $rating) {
+            QuestionResponse::create([
+                'evaluation_response_id' => $evaluationResponse->id,
+                'question_id' => $questionId,
+                'rating' => $rating,
+                'student_id' => auth()->id(),
+            ]);
+        }
 
         return redirect()->route('dashboard')->with('success', 'Evaluation submitted successfully!');
     }

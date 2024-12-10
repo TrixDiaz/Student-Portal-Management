@@ -37,6 +37,11 @@ class EvaluationResponse extends Model
         return $this->hasMany(Response::class);
     }
 
+    public function questionResponses()
+    {
+        return $this->hasMany(QuestionResponse::class);
+    }
+
     public function getResponsesByPhase()
     {
         return $this->evaluation->phases()
