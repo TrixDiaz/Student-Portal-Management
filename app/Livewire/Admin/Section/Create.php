@@ -10,6 +10,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\RoomSectionStudent;
 use App\Models\Subject;
+use App\Models\Evaluation;
+use App\Models\Department;
 
 class Create extends Component
 {
@@ -26,6 +28,8 @@ class Create extends Component
     public $students;
     public $semester;
     public $year_level;
+    public $evaluation_id;
+    public $department_id;
 
     public function mount()
     {
@@ -38,6 +42,9 @@ class Create extends Component
 
         // Set default end_date to 7 days from start_date
         $this->end_date = now()->addDays(14)->format('Y-m-d\TH:i');
+
+        $this->evaluation_id = null;
+        $this->department_id = null;
     }
 
     public function updatedRoomId()
@@ -73,6 +80,8 @@ class Create extends Component
             'end_date' => 'required|date|after:start_date',
             'semester' => 'required|in:1st,2nd',
             'year_level' => 'required|in:1st,2nd,3rd,4th',
+            'evaluation_id' => 'nullable|exists:evaluations,id',
+            'department_id' => 'required|exists:departments,id',
         ]);
 
         DB::transaction(function () {
@@ -89,9 +98,10 @@ class Create extends Component
                 'subject_id' => $this->subject_id,
                 'start_date' => $this->start_date,
                 'end_date' => $this->end_date,
-                'evaluation_id' => null,
+                'evaluation_id' => $this->evaluation_id,
                 'semester' => $this->semester,
                 'year_level' => $this->year_level,
+                'department_id' => $this->department_id,
             ]);
 
             // Create room_section_student records for each selected student
@@ -113,6 +123,8 @@ class Create extends Component
             'rooms' => Room::all(),
             'subjects' => Subject::all(),
             'existingSections' => $this->existingSections,
+            'evaluations' => Evaluation::all(),
+            'departments' => Department::all(),
         ]);
     }
 }
