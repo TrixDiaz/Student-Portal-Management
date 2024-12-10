@@ -94,7 +94,7 @@
                     @endphp
 
                     <div class="mt-4 pt-4 border-t border-gray-200">
-                        @if($roomSection->evaluation_id && (!$evaluationResponse || !$evaluationResponse->is_completed))
+                        @if($roomSection->evaluation_id && $evaluationResponse && !$evaluationResponse->is_completed && !$grade)
                         <button wire:click="redirectToEvaluation({{ $roomSection->evaluation_id }})"
                             class="w-full bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition-colors duration-300">
                             Answer Evaluation
