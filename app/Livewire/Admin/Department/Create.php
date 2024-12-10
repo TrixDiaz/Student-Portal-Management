@@ -64,7 +64,10 @@ class Create extends Component
             'students' => User::role('student')->get(),
             'courses' => [
                 'BSIT' => 'Bachelor of Science in Information Technology',
-                // Add other courses as needed
+                'BSHM' => 'Bachelor of Science in Hospitality Management',
+                'BIT' => 'Bachelor of Information Technology',
+                'BSA' => 'Bachelor of Science in Accountancy',
+                'BSTM' => 'Bachelor of Science in Tourism Management',
             ],
         ]);
     }
