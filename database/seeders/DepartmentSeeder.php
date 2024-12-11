@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -44,5 +45,7 @@ class DepartmentSeeder extends Seeder
                 ['department_id' => 2, 'student_id' => 2],
             ]);
         }
+
+        Department::factory()->count(10)->create();
     }
 }

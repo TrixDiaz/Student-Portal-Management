@@ -63,11 +63,16 @@ class Create extends Component
             'teachers' => User::role('teacher')->get(),
             'students' => User::role('student')->get(),
             'courses' => [
+                'BSChE' => 'Bachelor of Science in Chemical Engineering',
                 'BSIT' => 'Bachelor of Science in Information Technology',
-                'BSHM' => 'Bachelor of Science in Hospitality Management',
-                'BIT' => 'Bachelor of Information Technology',
+                'BSN' => 'Bachelor of Science in Nursing',
+                'CGNCII' => 'Caregiving NC II',
+                'BEEd' => 'Bachelor of Elementary Education',
+                'BSEd' => 'Bachelor of Secondary Education',
+                'BSBA' => 'Bachelor of Science in Business Administration',
                 'BSA' => 'Bachelor of Science in Accountancy',
-                'BSTM' => 'Bachelor of Science in Tourism Management',
+                'BSEnt' => 'Bachelor of Science in Entrepreneurship',
+                'BSAM' => 'Bachelor of Science in Accounting Management'
             ],
         ]);
     }

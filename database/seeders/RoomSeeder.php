@@ -20,7 +20,8 @@ class RoomSeeder extends Seeder
                 'building_id' => 1,
                 'is_active' => true,
             ],
-            // Add more rooms as needed
         ]);
+
+        Room::factory()->count(100)->create();
     }
 }

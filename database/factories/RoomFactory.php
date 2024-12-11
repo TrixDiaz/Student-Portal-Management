@@ -17,8 +17,9 @@ class RoomFactory extends Factory
      */
     public function definition(): array
     {
+
         return [
-            'name' => fake()->name(),
+            'name' => 'Room ' . fake()->numberBetween(1, 50),
             'building_id' => Building::factory(),
             'is_active' => fake()->boolean(),
         ];
