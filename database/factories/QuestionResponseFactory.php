@@ -20,7 +20,7 @@ class QuestionResponseFactory extends Factory
     public function definition(): array
     {
         return [
-            'evaluation_response_id' => EvaluationResponse::factory(),
+            'evaluation_response_id' => 1,
             'question_id' => Question::factory(),
             'student_id' => User::factory(),
             'rating' => $this->faker->numberBetween(1, 5),
