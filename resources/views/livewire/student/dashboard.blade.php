@@ -111,6 +111,13 @@
                                 </span>
                             </div>
 
+                            <!-- View details -->
+                            <div>
+                                <button @click="$dispatch('open-modal-' + {{ $roomSection->room_section_id }})" class="flex-1 flex p-1 shadow-sm bg-green-500 text-white rounded-md px-2 justify-between items-center cursor-pointer w-auto">
+                                    <span class="font-medium text-white text-sm">View Details</span>
+                                </button>
+                            </div>
+
                             @if($grade && $grade->student_id === auth()->id())
                             <div x-data="{ 
                             show: false,
@@ -155,7 +162,7 @@
                                     }],
                                     chart: {
                                         type: 'bar',
-                                        height: 250,
+                                        height: 200,
                                         stacked: false,
                                     },
                                     title: {
@@ -233,7 +240,7 @@
                                     }],
                                     chart: {
                                         type: 'bar',
-                                        height: 150
+                                        height: 200
                                     },
                                     title: {
                                         text: 'Quiz Summary',
@@ -282,7 +289,7 @@
                                     }],
                                     chart: {
                                         type: 'bar',
-                                        height: 250
+                                        height: 200
                                     },
                                     title: {
                                         text: 'Term Grades',
