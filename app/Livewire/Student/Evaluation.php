@@ -70,7 +70,7 @@ class Evaluation extends Component
         ]);
 
         // Store individual question responses
-        foreach ($this->evaluationResponses as $questionId => $rating) {
+        foreach ($this->responses as $questionId => $rating) {
             QuestionResponse::create([
                 'evaluation_response_id' => $evaluationResponse->id,
                 'question_id' => $questionId,

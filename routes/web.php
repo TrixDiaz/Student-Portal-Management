@@ -65,4 +65,5 @@ Route::middleware([
 
     Route::get('/student-responses', [StudentResponseController::class, 'index'])->name('student-responses.index');
     Route::get('/student-responses/{evaluation}', [StudentResponseController::class, 'show'])->name('student-responses.show');
+    Route::post('/student-responses/{evaluation}', [StudentResponseController::class, 'store'])->name('student-responses.store');
 });

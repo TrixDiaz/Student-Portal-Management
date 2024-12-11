@@ -85,4 +85,35 @@ class StudentResponseController extends Controller
 
         return view('student-responses.show', compact('evaluation', 'teacher', 'phases', 'responses'));
     }
+
+    public function store(Request $request, Evaluation $evaluation)
+    {
+        // First create or update the evaluation response
+        $evaluationResponse = EvaluationResponse::updateOrCreate(
+            [
+                'evaluation_id' => $evaluation->id,
+                'room_section_id' => $request->room_section_id,
+                'student_id' => auth()->id()
+            ],
+            [
+                'is_completed' => true
+            ]
+        );
+
+        // Store each question response
+        foreach ($request->responses as $questionId => $rating) {
+            QuestionResponse::updateOrCreate(
+                [
+                    'evaluation_response_id' => $evaluationResponse->id,
+                    'question_id' => $questionId,
+                ],
+                [
+                    'rating' => $rating
+                ]
+            );
+        }
+
+        return redirect()->route('evaluations.index')
+            ->with('success', 'Evaluation submitted successfully');
+    }
 }
