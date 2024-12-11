@@ -34,7 +34,7 @@ class EvaluationResponse extends Model
 
     public function responses()
     {
-        return $this->hasMany(Response::class);
+        return $this->hasMany(EvaluationResponse::class);
     }
 
     public function questionResponses()

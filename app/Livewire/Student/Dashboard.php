@@ -107,6 +107,11 @@ class Dashboard extends Component
 
     public function redirectToEvaluation($roomSectionId)
     {
+        // Check if user has student role
+        if (!auth()->user()->hasRole('student')) {
+            return;
+        }
+
         return redirect()->route('student.evaluation', ['roomSection' => $roomSectionId]);
     }
 
@@ -117,14 +122,15 @@ class Dashboard extends Component
 
     public function checkEvaluationStatus($roomSectionId)
     {
-        $grade = StudentGrade::forCurrentStudent()
-            ->forRoomSection($roomSectionId)
+        // Get the grade for the current student and room section
+        $grade = StudentGrade::where('student_id', auth()->id())
+            ->where('room_section_id', $roomSectionId)
             ->first();
 
+        // Check if evaluation is completed
         $evaluationResponse = EvaluationResponse::where('room_section_id', $roomSectionId)
             ->where('student_id', auth()->id())
-            ->where('is_completed', 1)
-            ->whereNotNull('completed_at')
+            ->where('is_completed', true)
             ->first();
 
         return [

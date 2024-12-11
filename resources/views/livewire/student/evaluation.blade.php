@@ -38,7 +38,7 @@
                             @foreach(range(1, 5) as $rating)
                             <label class="flex items-center">
                                 <input type="radio"
-                                    wire:model="evaluationResponses.{{ $question->id }}"
+                                    wire:model="responses.{{ $question->id }}"
                                     value="{{ $rating }}"
                                     class="form-radio">
                                 <span class="ml-2">{{ $rating }}</span>

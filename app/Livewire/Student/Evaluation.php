@@ -15,6 +15,7 @@ class Evaluation extends Component
     public $questions;
     public $evaluationResponses = [];
     public $phases;
+    public $responses = [];
     public $evaluation;
     public $evaluation_id;
 
