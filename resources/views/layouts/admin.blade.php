@@ -26,23 +26,29 @@
 
     <div class="min-h-screen bg-gray-100">
         @livewire('navigation-menu')
+
         <!-- Page Heading -->
         @if (isset($header))
         <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-6xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 {{ $header }}
             </div>
         </header>
         @endif
 
-        <!-- Page Content -->
-        <div class="min-h-screen bg-gray-100">
-            <main class="flex flex-row ">
+        <!-- Modified Layout Structure -->
+        <div class="flex min-h-screen">
+            <!-- Sidebar -->
+            <div class="w-64 flex-shrink-0">
                 <livewire:layout.sidebar />
-                <div class="mx-auto w-full">
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex-1">
+                <main class="py-6">
                     {{ $slot }}
-                </div>
-            </main>
+                </main>
+            </div>
         </div>
     </div>
 

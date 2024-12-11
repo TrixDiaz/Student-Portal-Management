@@ -135,7 +135,7 @@
     </div>
 </x-admin-layout>
 @else
-<x-admin-layout>
+<x-app-layout>
     <div>
         <div class="py-12">
             <div class="max-w-7xl mx-auto space-y-4 sm:px-6 lg:px-8">
@@ -143,5 +143,5 @@
             </div>
         </div>
     </div>
-</x-admin-layout>
+</x-app-layout>
 @endif
