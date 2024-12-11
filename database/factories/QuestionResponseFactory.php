@@ -19,11 +19,15 @@ class QuestionResponseFactory extends Factory
      */
     public function definition(): array
     {
+        // Create and attach a student
+        $student = User::factory()->create();
+        $student->assignRole('student');
+
         return [
             'evaluation_response_id' => 1,
             'question_id' => Question::factory(),
-            'student_id' => User::factory(),
-            'rating' => $this->faker->numberBetween(1, 5),
+            'student_id' => $student->id,
+            'rating' => fake()->numberBetween(1, 5),
         ];
     }
 }
