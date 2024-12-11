@@ -46,14 +46,53 @@
                                 @enderror
                             </div>
                         </div>
-                        <!-- Password -->
+
+                        <!-- Date of Birth -->
                         <div>
-                            <x-label class="text-sm/6 text-gray-900 " for="password">Password</x-label>
+                            <x-label class="text-sm/6 text-gray-900 " for="date_of_birth">Date of Birth</x-label>
                             <div class="mt-2.5">
-                                <x-input type="password" wire:model="password" name="password" id="password" autocomplete="password" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
-                                @error('password')
-                                <span class="text-red-500 text-sm">{{ $message }}</span>
-                                @enderror
+                                <x-input type="date" wire:model="date_of_birth" name="date_of_birth" id="date_of_birth" autocomplete="date_of_birth" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="phone_number">Phone Number</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="text" wire:model="phone_number" name="phone_number" id="phone_number" autocomplete="phone_number" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+                        <!-- Address -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="address">Address</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="text" wire:model="address" name="address" id="address" autocomplete="address" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+
+                        <!-- City -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="city">City</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="text" wire:model="city" name="city" id="city" autocomplete="city" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+                        <!-- State  -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="state">State</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="text" wire:model="state" name="state" id="state" autocomplete="state" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
+                            </div>
+                        </div>
+
+                        <!-- Zip Code -->
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900 " for="zip_code">Zip Code</x-label>
+                            <div class="mt-2.5">
+                                <x-input type="text" wire:model="zip_code" name="zip_code" id="zip_code" autocomplete="zip_code" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6" />
                             </div>
                         </div>
 

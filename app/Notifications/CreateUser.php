@@ -12,12 +12,15 @@ class CreateUser extends Notification
     use Queueable;
 
     public $user;
+    public $plainPassword;
+
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct($user, $plainPassword)
     {
         $this->user = $user;
+        $this->plainPassword = $plainPassword;
     }
 
     /**
@@ -36,8 +39,12 @@ class CreateUser extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
+            ->line('Welcome to our Golden Gate College!')
+            ->line('Your account has been created successfully.')
+            ->line('Your Name is ' . $this->user->name)
+            ->line('Your Email is ' . $this->user->email)
+            ->line('Your Password is ' . $this->plainPassword)
+            ->action('Login', url('/'))
             ->line('Thank you for using our application!');
     }
 
