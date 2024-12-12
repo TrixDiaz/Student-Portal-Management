@@ -99,7 +99,7 @@
                 @endphp
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     @foreach(auth()->user()->rooms as $room)
-                    @foreach($room->roomSections as $roomSection)
+                    @foreach($room->roomSections->where('teacher_id', auth()->id()) as $roomSection)
                     @php
                     $subject = $roomSection->subject;
                     $studentCount = $roomSection->students->count();
@@ -110,9 +110,10 @@
                             <div class="flex flex-col justify-center items-center border-2 border-gray-200 rounded-lg p-4">
                                 <x-application-logo class="w-20 h-20" />
                                 <h1 class="font-bold text-gray-700">Section: {{ $roomSection->section->name }}</h1>
-                                <p class="text-gray-700 text-sm">{{ $subject->name }}</p>
+                                <p class="text-gray-700 text-sm">Subject: {{ $subject->name }}</p>
                                 <p class="text-gray-700 text-sm my-2">Total Students: {{ $studentCount }}</p>
                                 <p class="text-gray-700 text-sm">Room: {{ $room->name }}</p>
+                                <p class="text-gray-700 text-sm">Teacher: {{ $roomSection->teacher->name }}</p>
                             </div>
                         </div>
                     </a>
