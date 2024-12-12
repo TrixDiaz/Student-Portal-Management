@@ -102,46 +102,42 @@
                             </div>
                         </div>
 
-
-
-                        <!-- Semester and Year Level -->
-                        <div class="flex flex-col gap-y-2">
-                            <div>
-                                <x-label class="text-sm/6 text-gray-900" for="semester">Semester</x-label>
-                                <div class="mt-2.5">
-                                    <select wire:model="semester" name="semester" id="semester" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                        <option value="">Select Semester</option>
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                    </select>
-                                    @error('semester')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div>
-                                <x-label class="text-sm/6 text-gray-900" for="year_level">Year Level</x-label>
-                                <div class="mt-2.5">
-                                    <select wire:model="year_level" name="year_level" id="year_level" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
-                                        <option value="">Select Year Level</option>
-                                        <option value="1st">1st</option>
-                                        <option value="2nd">2nd</option>
-                                        <option value="3rd">3rd</option>
-                                        <option value="4th">4th</option>
-                                    </select>
-                                    @error('year_level')
-                                    <span class="text-red-500 text-sm">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900" for="semester">Semester</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="semester" name="semester" id="semester" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Semester</option>
+                                    <option value="1st">1st</option>
+                                    <option value="2nd">2nd</option>
+                                </select>
+                                @error('semester')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
                             </div>
                         </div>
+                        <div>
+                            <x-label class="text-sm/6 text-gray-900" for="year_level">Year Level</x-label>
+                            <div class="mt-2.5">
+                                <select wire:model="year_level" name="year_level" id="year_level" class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6">
+                                    <option value="">Select Year Level</option>
+                                    <option value="1st">1st</option>
+                                    <option value="2nd">2nd</option>
+                                    <option value="3rd">3rd</option>
+                                    <option value="4th">4th</option>
+                                </select>
+                                @error('year_level')
+                                <span class="text-red-500 text-sm">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <!-- Students -->
                         <div>
                             <x-label class="text-sm/6 text-gray-900" for="student_ids">Students</x-label>
                             <div class="mt-2.5">
                                 <select wire:model="student_ids" name="student_ids[]" id="student_ids"
-                                    class="block w-full rounded-md shadow-gray-400 h-52 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
+                                    class="block w-full rounded-md shadow-gray-400 shadow-md border-0 px-3.5 py-2 text-gray-900 sm:text-sm/6"
                                     multiple
                                     {{ !$department_id ? 'disabled' : '' }}>
                                     @forelse ($students as $student)
@@ -156,6 +152,7 @@
                             </div>
                             <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
+
 
                         <!-- Existing Section Times -->
                         @if(count($existingSections) > 0)

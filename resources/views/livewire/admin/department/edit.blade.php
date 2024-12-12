@@ -69,6 +69,10 @@
                             <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
 
+                        <script>
+
+                        </script>
+
                         <!-- Students -->
                         <div>
                             <x-label for="students" class="text-sm/6 text-gray-900">Students</x-label>
@@ -87,6 +91,30 @@
                             <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
                         </div>
 
+                        <!-- Initialize Tom Select -->
+                        <script>
+                            document.addEventListener('livewire:initialized', function() {
+                                new TomSelect('#students', {
+                                    plugins: ['remove_button'],
+                                    maxItems: null,
+                                    valueField: 'value',
+                                    labelField: 'text',
+                                    searchField: ['text'],
+                                    create: false
+                                });
+                            });
+
+                            document.addEventListener('livewire:initialized', function() {
+                                new TomSelect('#teachers', {
+                                    plugins: ['remove_button'],
+                                    maxItems: null,
+                                    valueField: 'value',
+                                    labelField: 'text',
+                                    searchField: ['text'],
+                                    create: false
+                                });
+                            });
+                        </script>
                     </div>
                     <div class="flex flex-row space-x-4 mt-4">
                         <x-button type="submit">Submit</x-button>
