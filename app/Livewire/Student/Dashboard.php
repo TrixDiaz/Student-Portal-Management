@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\EvaluationResponse;
 use App\Models\StudentGrade;
 use App\Models\RoomSection;
+use App\Http\Controllers\DashboardController;
 
 class Dashboard extends Component
 {

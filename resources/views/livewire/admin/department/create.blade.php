@@ -84,8 +84,33 @@
                                 <span class="text-red-500 text-sm">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <p class="mt-1 text-sm text-gray-500">Hold Ctrl/Cmd to select multiple students</p>
+                            <p class="mt-1 text-sm text-gray-500">Search and select multiple students</p>
                         </div>
+
+                        <!-- Initialize Tom Select -->
+                        <script>
+                            document.addEventListener('livewire:initialized', function() {
+                                new TomSelect('#students', {
+                                    plugins: ['remove_button'],
+                                    maxItems: null,
+                                    valueField: 'value',
+                                    labelField: 'text',
+                                    searchField: ['text'],
+                                    create: false
+                                });
+                            });
+
+                            document.addEventListener('livewire:initialized', function() {
+                                new TomSelect('#teachers', {
+                                    plugins: ['remove_button'],
+                                    maxItems: null,
+                                    valueField: 'value',
+                                    labelField: 'text',
+                                    searchField: ['text'],
+                                    create: false
+                                });
+                            });
+                        </script>
 
                     </div>
                     <div class="flex flex-row space-x-4 mt-4">
